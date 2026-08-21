@@ -1,0 +1,539 @@
+// ============================================================
+// HOPE Smart Rehabilitation Glove — Firmware
+// ============================================================
+//
+// REQUIRED LIBRARIES (install via Arduino IDE → Library Manager):
+//   • "MPU6050" by Electronic Cats  (also installs I2Cdev dependency)
+//
+// WiFiClientSecure and HTTPClient are bundled with the ESP32
+// Arduino core — no separate install needed. We build the JSON
+// payload by hand with snprintf to avoid pulling in ArduinoJson
+// and to avoid ~18 KB String alloc/free cycles per batch.
+//
+// BOARD: ESP32 Dev Module (ESP32 Arduino core 2.x)
+//
+// BEFORE FLASHING: fill in WiFi credentials below.
+// Everything else is pre-configured.
+//
+// SERIAL OUTPUT TAGS (115200 baud):
+//   [GLOVE-BOOT]  startup sequence, build info
+//   [GLOVE-I2C]   MPU6050 init, WHO_AM_I, first-read sanity
+//   [GLOVE-ADC]   flex / FSR / EMG raw values + calibrated values
+//   [GLOVE-WIFI]  WiFi connect, reconnect, RSSI, IP, MAC, gateway
+//   [GLOVE-NET]   DNS resolution, TLS handshake, HTTP request/response
+//   [GLOVE-BATCH] sample collection summary stats
+//   [GLOVE-LOOP]  main loop state transitions
+//   [GLOVE-ERR]   anything wrong
+//   [GLOVE-OK]    expected success
+//
+// If you copy/paste the serial log to me, I can grep these tags to
+// know exactly where the device is in its lifecycle and whether
+// any sensor / network assumption is off.
+// ============================================================
+
+#include <Wire.h>
+#include <MPU6050.h>
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <WiFiClientSecure.h>
+#include <esp_system.h>   // esp_reset_reason()
+
+// ============================================================
+// CONFIG — only edit this section
+// ============================================================
+const char* WIFI_SSID     = "YOUR_WIFI";
+const char* WIFI_PASSWORD = "YOUR_PASSWORD";
+
+// Device ID must match what the Flutter app links via PUT /sessions/{id}/device
+const char* DEVICE_ID  = "hope-glove-01";
+
+// Full URL to the /ingest endpoint. Only changes if you run teardown.sh and redeploy.
+const char* INGEST_URL = "https://jk7o08xdb6.execute-api.eu-west-3.amazonaws.com/prod/ingest";
+// Host portion only — used for DNS sanity check on boot.
+const char* INGEST_HOST = "jk7o08xdb6.execute-api.eu-west-3.amazonaws.com";
+// ============================================================
+
+// ===== I2C pins for MPU6050 =====
+#define I2C_SDA 8
+#define I2C_SCL 9
+
+// ===== Flex sensor pins & calibration =====
+// flex[0] = finger 1, flex[1] = finger 2
+const int FLEX_PINS[2]  = {1, 2};
+const int FLEX_ZERO[2]  = {610, 1740};   // ADC value when fully straight
+const int FLEX_MAX[2]   = {1850, 900};   // ADC value when fully bent to 90°
+
+// ===== FSR (pressure) sensor pins & calibration =====
+const int FSR_PINS[2] = {3, 4};
+const int FSR_MIN[2]  = {800, 800};      // ADC value = no force
+const int FSR_MAX[2]  = {3800, 3800};    // ADC value = full force
+
+// ===== EMG pin =====
+#define EMG_PIN 0
+const int EMG_BASELINE = 2000;           // midpoint of the centered EMG signal
+
+// ===== Sampling =====
+#define NUM_SAMPLES 100                  // 100 samples × 50ms = 5 seconds per batch
+
+// ============================================================
+// Globals — declared here so they live on the heap, not the
+// stack, avoiding TLS session churn and heap fragmentation.
+// ============================================================
+MPU6050 mpu;
+WiFiClientSecure tlsClient;
+HTTPClient http;
+
+// Static JSON buffer — avoids repeated heap alloc/free of a ~18KB String each loop.
+// Each sample is roughly 180 bytes once accel/gyro are floats with 4 decimal
+// places. 100 samples × 180 + 50-byte header ≈ 18,050 bytes; we round up
+// for safety. Sized once and reused.
+static char jsonBuf[20000];
+
+// Conversion factors for the MPU6050 at default full-scale ranges:
+//   accel range ±2g  → 16384 LSB/g
+//   gyro  range ±250°/s → 131 LSB/(°/s)
+// We send normalized values (g and °/s) over the wire so the backend's
+// assess_logic.py thresholds (e.g. 1<speed<3, rom>60) operate on the same
+// units the simulator and human intuition assume. See assess_logic.py.
+static const float ACCEL_LSB_PER_G   = 16384.0f;
+static const float GYRO_LSB_PER_DPS  = 131.0f;
+
+struct Sample {
+  unsigned long t;
+  int flex1, flex2;
+  int fsr1, fsr2;
+  int emg;
+  // Stored in normalized units: ax/ay/az in g, gx/gy/gz in °/s.
+  float ax, ay, az, gx, gy, gz;
+};
+Sample buf[NUM_SAMPLES];
+
+// Loop counters — included in batch logs so the client's pasted output
+// is easy to correlate with what the backend received.
+static unsigned long batchCount = 0;
+static unsigned long postOkCount = 0;
+static unsigned long postFailCount = 0;
+static unsigned long wifiReconnects = 0;
+
+
+// ============================================================
+// Read one sample from all sensors
+// ============================================================
+Sample readSensors() {
+  Sample s;
+  s.t = millis();
+
+  // getMotion6 returns int16 LSB; we convert to g and °/s before storing
+  // so the JSON payload matches what the backend's assess_logic expects.
+  int16_t rawAx, rawAy, rawAz, rawGx, rawGy, rawGz;
+  mpu.getMotion6(&rawAx, &rawAy, &rawAz, &rawGx, &rawGy, &rawGz);
+  s.ax = rawAx / ACCEL_LSB_PER_G;
+  s.ay = rawAy / ACCEL_LSB_PER_G;
+  s.az = rawAz / ACCEL_LSB_PER_G;
+  s.gx = rawGx / GYRO_LSB_PER_DPS;
+  s.gy = rawGy / GYRO_LSB_PER_DPS;
+  s.gz = rawGz / GYRO_LSB_PER_DPS;
+
+  for (int i = 0; i < 2; i++) {
+    int raw        = analogRead(FLEX_PINS[i]);
+    int calibrated = raw - FLEX_ZERO[i];
+    if (calibrated < 0) calibrated = 0;
+    int range = FLEX_MAX[i] - FLEX_ZERO[i];
+    int angle = constrain(map(calibrated, 0, range, 0, 90), 0, 90);
+    if (i == 0) s.flex1 = angle; else s.flex2 = angle;
+  }
+
+  for (int i = 0; i < 2; i++) {
+    int raw   = analogRead(FSR_PINS[i]);
+    int force = constrain(map(raw, FSR_MIN[i], FSR_MAX[i], 0, 100), 0, 100);
+    if (i == 0) s.fsr1 = force; else s.fsr2 = force;
+  }
+
+  int rawEMG = analogRead(EMG_PIN);
+  s.emg = abs(rawEMG - EMG_BASELINE) * 2;
+
+  return s;
+}
+
+
+// ============================================================
+// Boot-time sensor sanity dump. Prints the RAW (pre-calibration)
+// ADC values for every sensor pin and the RAW (pre-conversion)
+// MPU6050 LSB values, so I can tell from a paste whether the
+// hardware is wired correctly.
+//
+// Expected, glove flat on table (palm down), fingers extended,
+// no force on FSRs, EMG electrode dry-resting on skin or
+// disconnected:
+//   I2C        : MPU6050 OK (or "false negative" — see notes)
+//   raw ax,ay  : near 0
+//   raw az     : near 16384 (1g of gravity)
+//   raw gx-gz  : near 0 (within ±200)
+//   raw flex   : within FLEX_ZERO ± a few hundred
+//   raw fsr    : within FSR_MIN ± a few hundred (no force)
+//   raw emg    : near EMG_BASELINE (2000); ±200 with electrode
+// ============================================================
+void dumpSensorSanity() {
+  Serial.println("[GLOVE-I2C ] -------- raw sensor sanity dump --------");
+
+  int16_t rax, ray, raz, rgx, rgy, rgz;
+  mpu.getMotion6(&rax, &ray, &raz, &rgx, &rgy, &rgz);
+  Serial.printf("[GLOVE-I2C ] MPU6050 raw LSB     : ax=%6d ay=%6d az=%6d  gx=%5d gy=%5d gz=%5d\n",
+                rax, ray, raz, rgx, rgy, rgz);
+  Serial.printf("[GLOVE-I2C ] MPU6050 normalized  : ax=%.3fg ay=%.3fg az=%.3fg  gx=%.2f gy=%.2f gz=%.2f °/s\n",
+                rax / ACCEL_LSB_PER_G, ray / ACCEL_LSB_PER_G, raz / ACCEL_LSB_PER_G,
+                rgx / GYRO_LSB_PER_DPS, rgy / GYRO_LSB_PER_DPS, rgz / GYRO_LSB_PER_DPS);
+  if (rax == 0 && ray == 0 && raz == 0 && rgx == 0 && rgy == 0 && rgz == 0) {
+    Serial.println("[GLOVE-ERR ] MPU6050 returned all zeros — I2C wiring broken? "
+                   "Check SDA=8/SCL=9 and pull-up resistors.");
+  }
+
+  for (int i = 0; i < 2; i++) {
+    int raw = analogRead(FLEX_PINS[i]);
+    Serial.printf("[GLOVE-ADC ] flex%d (pin %d)       : raw=%4d  (zero=%d, max=%d)\n",
+                  i + 1, FLEX_PINS[i], raw, FLEX_ZERO[i], FLEX_MAX[i]);
+  }
+  for (int i = 0; i < 2; i++) {
+    int raw = analogRead(FSR_PINS[i]);
+    Serial.printf("[GLOVE-ADC ] fsr%d  (pin %d)       : raw=%4d  (min=%d, max=%d)\n",
+                  i + 1, FSR_PINS[i], raw, FSR_MIN[i], FSR_MAX[i]);
+  }
+  int rawEMG = analogRead(EMG_PIN);
+  Serial.printf("[GLOVE-ADC ] emg   (pin %d)       : raw=%4d  (baseline=%d, rectified=%d)\n",
+                EMG_PIN, rawEMG, EMG_BASELINE, abs(rawEMG - EMG_BASELINE) * 2);
+
+  Serial.println("[GLOVE-I2C ] ----------------------------------------");
+}
+
+
+// ============================================================
+// Collect NUM_SAMPLES into buf[] at 50ms intervals, then print
+// a summary so a paste tells us whether sensors look reasonable.
+// ============================================================
+void collectSamples() {
+  unsigned long t0 = millis();
+  Serial.printf("[GLOVE-BATCH] #%lu collecting %d samples...\n", batchCount + 1, NUM_SAMPLES);
+  for (int i = 0; i < NUM_SAMPLES; i++) {
+    buf[i] = readSensors();
+    delay(50);
+  }
+  unsigned long elapsed = millis() - t0;
+
+  // Compute per-axis range so the client can see at a glance whether
+  // the sensors actually moved during the batch.
+  float axMin = buf[0].ax, axMax = buf[0].ax;
+  float ayMin = buf[0].ay, ayMax = buf[0].ay;
+  float azMin = buf[0].az, azMax = buf[0].az;
+  float gxMin = buf[0].gx, gxMax = buf[0].gx;
+  int flex1Min = buf[0].flex1, flex1Max = buf[0].flex1;
+  int fsr1Min = buf[0].fsr1, fsr1Max = buf[0].fsr1;
+  int emgMin = buf[0].emg, emgMax = buf[0].emg;
+  for (int i = 1; i < NUM_SAMPLES; i++) {
+    if (buf[i].ax < axMin) axMin = buf[i].ax; if (buf[i].ax > axMax) axMax = buf[i].ax;
+    if (buf[i].ay < ayMin) ayMin = buf[i].ay; if (buf[i].ay > ayMax) ayMax = buf[i].ay;
+    if (buf[i].az < azMin) azMin = buf[i].az; if (buf[i].az > azMax) azMax = buf[i].az;
+    if (buf[i].gx < gxMin) gxMin = buf[i].gx; if (buf[i].gx > gxMax) gxMax = buf[i].gx;
+    if (buf[i].flex1 < flex1Min) flex1Min = buf[i].flex1;
+    if (buf[i].flex1 > flex1Max) flex1Max = buf[i].flex1;
+    if (buf[i].fsr1 < fsr1Min) fsr1Min = buf[i].fsr1;
+    if (buf[i].fsr1 > fsr1Max) fsr1Max = buf[i].fsr1;
+    if (buf[i].emg < emgMin) emgMin = buf[i].emg;
+    if (buf[i].emg > emgMax) emgMax = buf[i].emg;
+  }
+  Serial.printf("[GLOVE-BATCH] #%lu collected in %lu ms (target ~5000 ms)\n",
+                batchCount + 1, elapsed);
+  Serial.printf("[GLOVE-BATCH] sample[0]   : flex1=%d flex2=%d fsr1=%d fsr2=%d emg=%d  "
+                "ax=%.3fg ay=%.3fg az=%.3fg  gx=%.2f gy=%.2f gz=%.2f °/s\n",
+                buf[0].flex1, buf[0].flex2, buf[0].fsr1, buf[0].fsr2, buf[0].emg,
+                buf[0].ax, buf[0].ay, buf[0].az, buf[0].gx, buf[0].gy, buf[0].gz);
+  Serial.printf("[GLOVE-BATCH] sample[%d] : flex1=%d flex2=%d fsr1=%d fsr2=%d emg=%d  "
+                "ax=%.3fg ay=%.3fg az=%.3fg  gx=%.2f gy=%.2f gz=%.2f °/s\n",
+                NUM_SAMPLES - 1,
+                buf[NUM_SAMPLES - 1].flex1, buf[NUM_SAMPLES - 1].flex2,
+                buf[NUM_SAMPLES - 1].fsr1, buf[NUM_SAMPLES - 1].fsr2, buf[NUM_SAMPLES - 1].emg,
+                buf[NUM_SAMPLES - 1].ax, buf[NUM_SAMPLES - 1].ay, buf[NUM_SAMPLES - 1].az,
+                buf[NUM_SAMPLES - 1].gx, buf[NUM_SAMPLES - 1].gy, buf[NUM_SAMPLES - 1].gz);
+  Serial.printf("[GLOVE-BATCH] range accel : ax[%.3f..%.3f]g  ay[%.3f..%.3f]g  az[%.3f..%.3f]g\n",
+                axMin, axMax, ayMin, ayMax, azMin, azMax);
+  Serial.printf("[GLOVE-BATCH] range gyro  : gx[%.1f..%.1f] °/s\n", gxMin, gxMax);
+  Serial.printf("[GLOVE-BATCH] range adc   : flex1[%d..%d]  fsr1[%d..%d]  emg[%d..%d]\n",
+                flex1Min, flex1Max, fsr1Min, fsr1Max, emgMin, emgMax);
+  // Common red flags
+  if (azMin > 0.7f && azMax < 1.3f && fabsf(axMax - axMin) < 0.1f && fabsf(ayMax - ayMin) < 0.1f) {
+    Serial.println("[GLOVE-OK  ] glove appears stationary (az≈1g, ax/ay flat). "
+                   "If patient is moving and you still see this, IMU may be stuck.");
+  }
+  if (azMin == 0.0f && azMax == 0.0f) {
+    Serial.println("[GLOVE-ERR ] az is exactly 0 across the whole batch — "
+                   "IMU not reading. Check I2C, SDA=8, SCL=9.");
+  }
+}
+
+
+// ============================================================
+// Build JSON into jsonBuf[] and POST to /ingest.
+// Returns the HTTP response code (200 = success, 404 = no
+// session linked yet, negative = network error).
+// responseBody is filled with the server's response string.
+// ============================================================
+int postIngest(String &responseBody) {
+  // Build JSON: {"device_id":"...","data":[{...},...]}
+  // Using a static char buffer avoids heap fragmentation from
+  // repeated ~18 KB String alloc/free cycles.
+  unsigned long tBuild = millis();
+  int pos = 0;
+  pos += snprintf(jsonBuf + pos, sizeof(jsonBuf) - pos,
+                  "{\"device_id\":\"%s\",\"data\":[", DEVICE_ID);
+
+  bool truncated = false;
+  for (int i = 0; i < NUM_SAMPLES; i++) {
+    if (pos >= (int)sizeof(jsonBuf) - 250) { truncated = true; break; }
+    if (i > 0) {
+      jsonBuf[pos++] = ',';
+    }
+    pos += snprintf(jsonBuf + pos, sizeof(jsonBuf) - pos,
+      "{\"time\":%lu,\"flex1\":%d,\"flex2\":%d,"
+      "\"fsr1\":%d,\"fsr2\":%d,\"emg\":%d,"
+      "\"ax\":%.4f,\"ay\":%.4f,\"az\":%.4f,"
+      "\"gx\":%.4f,\"gy\":%.4f,\"gz\":%.4f}",
+      buf[i].t,
+      buf[i].flex1, buf[i].flex2,
+      buf[i].fsr1, buf[i].fsr2, buf[i].emg,
+      buf[i].ax, buf[i].ay, buf[i].az,
+      buf[i].gx, buf[i].gy, buf[i].gz
+    );
+  }
+
+  // Close the JSON
+  pos += snprintf(jsonBuf + pos, sizeof(jsonBuf) - pos, "]}");
+
+  if (truncated) {
+    Serial.println("[GLOVE-ERR ] payload truncated! jsonBuf too small. "
+                   "Increase its size and reflash.");
+  }
+  Serial.printf("[GLOVE-NET ] payload built: %d bytes in %lu ms (buf=%u, free heap=%u)\n",
+                pos, millis() - tBuild, (unsigned)sizeof(jsonBuf),
+                (unsigned)ESP.getFreeHeap());
+
+  // POST using the global HTTPClient + WiFiClientSecure.
+  // setReuse(true) keeps the TLS connection alive between requests,
+  // avoiding a full TLS re-handshake on every batch (saves ~500ms).
+  Serial.printf("[GLOVE-NET ] POST %s\n", INGEST_URL);
+  unsigned long tHttp = millis();
+  http.begin(tlsClient, INGEST_URL);
+  http.addHeader("Content-Type", "application/json");
+  http.setTimeout(30000);  // 30s: covers Lambda cold-start (~3-15s) + processing
+
+  int code = http.POST((uint8_t*)jsonBuf, pos);
+  unsigned long tElapsed = millis() - tHttp;
+
+  if (code > 0) {
+    responseBody = http.getString();
+    Serial.printf("[GLOVE-NET ] HTTP %d in %lu ms — body: %s\n",
+                  code, tElapsed, responseBody.c_str());
+  } else {
+    responseBody = "";
+    Serial.printf("[GLOVE-ERR ] POST error %d (%s) after %lu ms\n",
+                  code, http.errorToString(code).c_str(), tElapsed);
+  }
+
+  http.end();
+  return code;
+}
+
+
+// ============================================================
+// WiFi reconnect — reliable pattern for ESP32 core 2.x
+// ============================================================
+void reconnectWiFi() {
+  wifiReconnects++;
+  Serial.printf("[GLOVE-WIFI] lost connection (reconnect attempt #%lu)...\n", wifiReconnects);
+  WiFi.disconnect();
+  WiFi.reconnect();
+  // Wait up to 15s for reconnection
+  unsigned long start = millis();
+  while (WiFi.status() != WL_CONNECTED && millis() - start < 15000) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println();
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.printf("[GLOVE-WIFI] reconnected. IP=%s RSSI=%d dBm\n",
+                  WiFi.localIP().toString().c_str(), WiFi.RSSI());
+  } else {
+    Serial.println("[GLOVE-ERR ] reconnect failed; will retry next loop.");
+  }
+}
+
+
+// ============================================================
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+  Serial.println();
+  Serial.println("[GLOVE-BOOT] ============================================");
+  Serial.println("[GLOVE-BOOT] HOPE Glove firmware starting");
+  Serial.printf ("[GLOVE-BOOT] build: %s %s\n", __DATE__, __TIME__);
+  Serial.printf ("[GLOVE-BOOT] device_id  : %s\n", DEVICE_ID);
+  Serial.printf ("[GLOVE-BOOT] ingest_url : %s\n", INGEST_URL);
+  Serial.printf ("[GLOVE-BOOT] num_samples: %d (%.1fs per batch at 50ms)\n",
+                 NUM_SAMPLES, NUM_SAMPLES * 0.05);
+  Serial.printf ("[GLOVE-BOOT] free heap  : %u bytes\n", (unsigned)ESP.getFreeHeap());
+  Serial.printf ("[GLOVE-BOOT] flash      : %u bytes\n", (unsigned)ESP.getFlashChipSize());
+  Serial.printf ("[GLOVE-BOOT] cpu freq   : %u MHz\n", (unsigned)ESP.getCpuFreqMHz());
+  Serial.printf ("[GLOVE-BOOT] reset rsn  : %d\n", (int)esp_reset_reason());
+  Serial.println("[GLOVE-BOOT] ============================================");
+
+  // Sanity check the hardcoded credentials before doing anything else —
+  // a fresh checkout of the firmware always trips this check.
+  if (strcmp(WIFI_SSID, "YOUR_WIFI") == 0 || strcmp(WIFI_PASSWORD, "YOUR_PASSWORD") == 0) {
+    Serial.println("[GLOVE-ERR ] WIFI_SSID / WIFI_PASSWORD still placeholder values. "
+                   "Edit the CONFIG block at the top of hope_glove.ino and reflash.");
+    while (1) { delay(1000); }  // halt so the client doesn't miss the message
+  }
+
+  // I2C for MPU6050
+  Serial.printf("[GLOVE-I2C ] starting I2C on SDA=%d SCL=%d\n", I2C_SDA, I2C_SCL);
+  Wire.begin(I2C_SDA, I2C_SCL);
+  mpu.initialize();
+  if (!mpu.testConnection()) {
+    // testConnection() is an I2C WHO_AM_I probe. On some MPU6050 boards
+    // (and certain breakouts) the probe fails even though getMotion6() still
+    // returns valid data — see the dumpSensorSanity() output below for the
+    // real check. If all six raw IMU values are 0, I2C wiring is broken.
+    Serial.println("[GLOVE-I2C ] WARN: testConnection() failed — often a false negative; "
+                   "see sanity dump below for the truth.");
+  } else {
+    Serial.println("[GLOVE-I2C ] testConnection OK (WHO_AM_I matched).");
+  }
+
+  // ADC config
+  analogReadResolution(12);
+  analogSetAttenuation(ADC_11db);
+  Serial.println("[GLOVE-ADC ] resolution=12 bit, attenuation=11 dB (≈3.3V full-scale)");
+
+  // Boot-time sensor sanity dump — gives us a snapshot to verify
+  // wiring before WiFi/networking even starts.
+  dumpSensorSanity();
+
+  // TLS client — global, reused across all requests.
+  // setInsecure() skips certificate validation. The endpoint is a pinned
+  // API Gateway URL; the ESP32 doesn't have enough flash for the AWS CA
+  // bundle and cert rotation would otherwise brick fielded devices. Safe
+  // enough for this closed-system use case.
+  tlsClient.setInsecure();
+  Serial.println("[GLOVE-NET ] TLS: setInsecure() — cert validation skipped (intentional).");
+
+  // HTTPClient — persistent connection reuse to avoid TLS re-handshake every batch
+  http.setReuse(true);
+  Serial.println("[GLOVE-NET ] HTTP: setReuse(true) — TLS session is reused across batches.");
+
+  // Prevent WiFi credentials being written to flash on every begin()
+  WiFi.persistent(false);
+
+  Serial.printf("[GLOVE-WIFI] mac=%s  connecting to SSID '%s'...\n",
+                WiFi.macAddress().c_str(), WIFI_SSID);
+  unsigned long wifiStart = millis();
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+    if (millis() - wifiStart > 30000) {
+      Serial.println();
+      Serial.printf("[GLOVE-ERR ] WiFi did not connect after 30s. status=%d. "
+                    "Check SSID/password and 2.4 GHz availability.\n",
+                    WiFi.status());
+      Serial.println("[GLOVE-WIFI] continuing to retry...");
+      wifiStart = millis();
+    }
+  }
+  Serial.println();
+  // Disable modem sleep — the radio otherwise parks between packets and adds
+  // ~150ms wake-up latency on each batch POST. Uses a touch more power but
+  // we're tethered for the demo and the snappier first packet matters.
+  WiFi.setSleep(false);
+
+  Serial.printf("[GLOVE-WIFI] connected in %lu ms\n", millis() - wifiStart);
+  Serial.printf("[GLOVE-WIFI] ip=%s  gateway=%s  mask=%s  dns=%s\n",
+                WiFi.localIP().toString().c_str(),
+                WiFi.gatewayIP().toString().c_str(),
+                WiFi.subnetMask().toString().c_str(),
+                WiFi.dnsIP().toString().c_str());
+  Serial.printf("[GLOVE-WIFI] rssi=%d dBm  channel=%d  bssid=%s\n",
+                WiFi.RSSI(), WiFi.channel(), WiFi.BSSIDstr().c_str());
+
+  // DNS sanity — resolve the API Gateway host so we know the network can reach it
+  // before we try POSTing anything. If this fails, the WiFi may be captive-portal
+  // gated or the LAN has no DNS for public hosts.
+  IPAddress apiIp;
+  Serial.printf("[GLOVE-NET ] DNS: resolving %s...\n", INGEST_HOST);
+  unsigned long tDns = millis();
+  if (WiFi.hostByName(INGEST_HOST, apiIp)) {
+    Serial.printf("[GLOVE-NET ] DNS: %s -> %s in %lu ms\n",
+                  INGEST_HOST, apiIp.toString().c_str(), millis() - tDns);
+  } else {
+    Serial.printf("[GLOVE-ERR ] DNS resolution failed for %s after %lu ms. "
+                  "Check that the network allows public DNS (no captive portal).\n",
+                  INGEST_HOST, millis() - tDns);
+  }
+
+  Serial.println("[GLOVE-BOOT] setup complete — entering main loop.");
+  Serial.println("[GLOVE-BOOT] Backend will return 404 on every batch until the app links this device.");
+}
+
+
+// ============================================================
+// Main loop:
+//
+// The glove is dumb. It has no buttons, no screen, no phase
+// awareness. It collects 100 samples and POSTs them to /ingest
+// with only its device_id. The backend routes the batch by
+// looking at the session row: if assessment_results is absent
+// the batch is treated as assessment data; if present it is
+// treated as exercise data (using the first item from
+// needed_training as the exercise name).
+//
+// Responses:
+//   200  → batch accepted, wait 5s then collect next batch
+//   404  → no session linked yet, wait 3s and retry
+//   400  → bad request (should never happen with correct firmware)
+//   -ve  → network/TLS error, wait 3s and retry
+// ============================================================
+void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    reconnectWiFi();
+    return;
+  }
+
+  collectSamples();
+
+  String resp;
+  int code = postIngest(resp);
+  batchCount++;
+
+  if (code == 200) {
+    postOkCount++;
+    Serial.printf("[GLOVE-OK  ] batch #%lu accepted (ok=%lu fail=%lu reconnects=%lu). "
+                  "Sleeping 5s.\n",
+                  batchCount, postOkCount, postFailCount, wifiReconnects);
+    delay(5000);
+
+  } else if (code == 404) {
+    Serial.printf("[GLOVE-LOOP] batch #%lu — no active session linked yet. "
+                  "Open the app, tap Patient → Start Session. Sleeping 3s.\n",
+                  batchCount);
+    delay(3000);
+
+  } else if (code > 0) {
+    postFailCount++;
+    Serial.printf("[GLOVE-ERR ] batch #%lu — server returned %d. Sleeping 3s.\n",
+                  batchCount, code);
+    delay(3000);
+
+  } else {
+    postFailCount++;
+    Serial.printf("[GLOVE-ERR ] batch #%lu — network/TLS error %d. Sleeping 3s.\n",
+                  batchCount, code);
+    delay(3000);
+  }
+}

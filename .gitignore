@@ -1,0 +1,314 @@
+# ===========================================
+# HOPE PROJECT - Root .gitignore
+# ===========================================
+
+# ===================
+# OS Generated Files
+# ===================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ===================
+# Editor/IDE
+# ===================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ===================
+# Environment & Secrets
+# ===================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.yaml
+secrets.json
+credentials.json
+.aws/
+
+# ===================
+# Logs & Temporary
+# ===================
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.temp
+
+
+# ===========================================
+# PYTHON (Backend, Storm, Demo)
+# ===========================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+# Scoped to repo root so it doesn't nuke Flutter's `flutter_app/lib/` tree.
+# (Originally an unscoped `lib/` from a Python-template .gitignore.)
+/lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# ===================
+# AWS Lambda
+# ===================
+# Lambda deployment packages
+*.zip
+# SAM/CloudFormation
+.sam/
+.aws-sam/
+packaged.yaml
+packaged-template.yaml
+
+
+# ===========================================
+# FLUTTER / DART
+# ===========================================
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.keystore
+*.jks
+
+# Android build artifacts
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+**/android/.externalNativeBuild/
+**/android/.cxx/
+
+# iOS/XCode related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/project.xcworkspace/
+**/ios/**/xcuserdata/
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# iOS build artifacts
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+
+# macOS related
+**/macos/.generated/
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+**/macos/.symlinks/
+**/macos/Flutter/ephemeral/
+
+# Windows related
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# Linux related
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugin_registrant.h
+**/linux/flutter/generated_plugins.cmake
+
+# Coverage
+coverage/
+
+# Exceptions to above rules.
+!**/ios/**/default.mode1v3
+!**/ios/**/default.mode2v3
+!**/ios/**/default.pbxuser
+!**/ios/**/default.perspectivev3
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+!**/ios/**/project.xcworkspace/contents.xcworkspacedata
+!**/ios/**/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+!**/ios/**/xcshareddata/xcschemes/*.xcscheme
+
+
+# ===========================================
+# ARDUINO (.ino)
+# ===========================================
+# Arduino build directory
+.pio/
+# Arduino IDE settings
+arduino-cli.yaml
+# PlatformIO
+platformio.ini
+.pioenvs/
+.piolibdeps/
+
+
+# ===========================================
+# INFRASTRUCTURE / DEVOPS
+# ===========================================
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+!*.tfvars.example
+.terraform.lock.hcl
+
+# CloudFormation / SAM
+.aws-sam/
+samconfig.toml
+
+# Kubernetes
+*.kubeconfig
+kubeconfig
+
+
+# ===========================================
+# DOCUMENTATION BUILDS
+# ===========================================
+site/
+_site/
+docs/_build/
+
+# ===========================================
+# RAW / WORKING SOURCE ASSETS
+# ===========================================
+# Questionnaire source files (docx, zips, extracted dirs) — processed images
+# live in flutter_app/assets/questionnaire/ and are committed.
+flutter_app/questionair/
+flutter_app/project_prompt.md
