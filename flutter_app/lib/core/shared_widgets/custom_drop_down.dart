@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hope_app/core/constants/assets_constants.dart';
 import 'package:hope_app/core/theme/theme_extension.dart';
 
 import '../constants/locale_keys.dart';
@@ -129,11 +130,11 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
                   controller: _searchController,
                   onChanged: _filterItems,
                   decoration: InputDecoration(
-                    hintText: LocaleKeys.search.tr(),
+                    hintText: "LocaleKeys.search.tr()",
                     prefixIcon: Padding(
                       padding: const EdgeInsetsDirectional.all(18.0),
                       child: SvgPicture.asset(
-                        Assets.assetsIconsInactiveSearchIcon,
+                        "Assets.assetsIconsInactiveSearchIcon",// =============change the ""=================
                       ),
                     ),
                     // Clear search field button

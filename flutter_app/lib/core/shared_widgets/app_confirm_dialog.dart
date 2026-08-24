@@ -55,9 +55,9 @@ class AppConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resolvedTitle = title ?? LocaleKeys.delete.tr();
-    final resolvedConfirm = confirmLabel ?? LocaleKeys.delete.tr();
-    final resolvedCancel = cancelLabel ?? LocaleKeys.cancel.tr();
+    final resolvedTitle = title ?? "LocaleKeys.delete.tr()";// =============change the ""=================
+    final resolvedConfirm = confirmLabel ?? "LocaleKeys.delete.tr()";// =============change the ""=================
+    final resolvedCancel = cancelLabel ?? "LocaleKeys.cancel.tr()"; // =============change the ""=================
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

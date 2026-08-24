@@ -116,8 +116,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   padding: const EdgeInsets.all(12.0),
                   child: SvgPicture.asset(
                     viewPassword
-                        ? Assets.assetsIconsEyeVisable
-                        : Assets.assetsIconsEyeNotVisable,
+                        ? "Assets.assetsIconsEyeVisable"                     // =============change the ""=================
+                        : "Assets.assetsIconsEyeNotVisable",                  // =============change the ""=================
 
                     // color: context.textHintLight,
                   ),

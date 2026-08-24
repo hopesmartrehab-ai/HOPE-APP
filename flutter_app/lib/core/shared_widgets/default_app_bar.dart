@@ -41,7 +41,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: AppSvg(
                       darkColor: context.darkDarkColor,
                       //
-                      assetName: Assets.assetsIconsArrowBackIcon,
+                      assetName: "Assets.assetsIconsArrowBackIcon,"  // =============change the ""=================
                     ),
                   ),
                 )
@@ -51,7 +51,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
                     width: 32,
                     height: 32,
                     darkColor: context.darkDarkColor,
-                    assetName: Assets.assetsIconsCloseIconLight,
+                    assetName: "Assets.assetsIconsCloseIconLight", // =============change the ""=================
                   ),
                 ),
         ),
