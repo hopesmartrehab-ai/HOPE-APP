@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             themeMode: state.themeMode,
             theme: AppThemes.lightTheme,
             darkTheme: AppThemes.darkTheme,
-            home: const MainScaffold(),
+            home: const Scaffold(body: Center(child: Text('Home Page'))),
           );
         },
       ),
