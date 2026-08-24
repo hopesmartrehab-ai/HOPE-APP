@@ -1,19 +1,25 @@
 import 'package:hope_app/core/constants/assets_constants.dart';
 
 abstract class AppImages {
-  static const String homeLogo = "Assets.assetsLogosLightLogoHomePageAsPn;";
-  static const String car = "Assets.assetsImagesCarLight;";
-  static const String policeCar = "Assets.assetsImagesPoliceCarLight;";
-  static const String rocket = "Assets.assetsImagesRocketLight;";
-  static const String emptyNotification =
-      "Assets.assetsImagesEmptyNotificationLight;";
+  // Medical Conditions Images
+  static const String armPain = Assets.assetsImagesArmPain;
+  static const String bloodPressure = Assets.assetsImagesBloodPressure;
+  static const String bloodSugar = Assets.assetsImagesBloodSugar;
+  static const String dizzy = Assets.assetsImagesDizzy;
+  static const String falls = Assets.assetsImagesFalls;
+  static const String fatigue = Assets.assetsImagesFatigue;
+  static const String handMovement = Assets.assetsImagesHandMovement;
+  static const String headache = Assets.assetsImagesHeadache;
+  static const String sleep = Assets.assetsImagesSleep;
+  static const String temperature = Assets.assetsImagesTemperature;
+
+  // Help Images
+  static const String helpDd1 = Assets.assetsHelpDd1;
+  static const String helpDd2 = Assets.assetsHelpDd2;
 }
 
-abstract class AppDarkImages {
-  static final String homeLogo = "Assets.assetsLogosDarkLogoHomePageAsPn;";
-  static final String car = "Assets.assetsImagesCarDark;";
-  static final String policeCar = "Assets.assetsImagesPoliceCarDark;";
-  static final String rocket = "Assets.assetsImagesRocketDark;";
-  static final String emptyNotification =
-      "Assets.assetsImagesEmptyNotificationDark;";
+abstract class AppIcons {
+  // Icons & Logos
+  static const String appIcon = Assets.assetsIconsAppIcon;
+  static const String flagsLogo = Assets.assetsFlagsLogo;
 }
