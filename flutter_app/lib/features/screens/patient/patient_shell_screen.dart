@@ -129,7 +129,7 @@ class _HelpScreen extends StatelessWidget {
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(Assets.assetsHelpDd2, fit: BoxFit.cover),
+            // child: Image.asset(Assets.assetsHelpDd2, fit: BoxFit.cover),
           ),
           const SizedBox(height: 20),
 

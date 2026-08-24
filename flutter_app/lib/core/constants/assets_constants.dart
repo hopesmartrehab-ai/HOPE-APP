@@ -6,14 +6,6 @@ class Assets {
   /// assets/flags/logo.png
   static const String assetsFlagsLogo = "assets/flags/logo.png";
 
-  /// Assets for assetsHelpDd1
-  /// assets/help/dd1.jpeg
-  static const String assetsHelpDd1 = "assets/help/dd1.jpeg";
-
-  /// Assets for assetsHelpDd2
-  /// assets/help/dd2.jpeg
-  static const String assetsHelpDd2 = "assets/help/dd2.jpeg";
-
   /// Assets for assetsIconsAppIcon
   /// assets/icons/app_icon.png
   static const String assetsIconsAppIcon = "assets/icons/app_icon.png";
@@ -29,6 +21,14 @@ class Assets {
   /// Assets for assetsImagesBloodSugar
   /// assets/images/blood_sugar.jpeg
   static const String assetsImagesBloodSugar = "assets/images/blood_sugar.jpeg";
+
+  /// Assets for assetsImagesDd1
+  /// assets/images/dd1.jpeg
+  static const String assetsImagesDd1 = "assets/images/dd1.jpeg";
+
+  /// Assets for assetsImagesDd2
+  /// assets/images/dd2.jpeg
+  static const String assetsImagesDd2 = "assets/images/dd2.jpeg";
 
   /// Assets for assetsImagesDizzy
   /// assets/images/dizzy.jpeg
@@ -62,8 +62,8 @@ class Assets {
   /// assets/translations/ar.json
   static const String assetsTranslationsAr = "assets/translations/ar.json";
 
-  /// Assets for assetsTranslationsEn
-  /// assets/translations/en.json
-  static const String assetsTranslationsEn = "assets/translations/en.json";
+  /// Assets for assetsTranslationsEnUS
+  /// assets/translations/en-US.json
+  static const String assetsTranslationsEnUS = "assets/translations/en-US.json";
 }
 
