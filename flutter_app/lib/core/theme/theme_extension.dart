@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tara_car/core/theme/logic/theme_cubit.dart';
-import 'package:tara_car/core/theme/styles/app_colors.dart';
+import 'package:hope_app/core/theme/logic/theme_cubit.dart';
+import 'package:hope_app/core/theme/styles/app_colors.dart';
 
 extension MultiThemeColors on BuildContext {
   // We read Cubit instead of Provider

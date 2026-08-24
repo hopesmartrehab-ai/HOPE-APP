@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:tara_car/core/constants/assets_constants.dart';
-import 'package:tara_car/core/theme/theme_extension.dart';
+import 'package:hope_app/core/constants/assets_constants.dart';
+import 'package:hope_app/core/theme/theme_extension.dart';
 
 import '../theme/styles/app_text_styles.dart';
 import 'clicked_widget.dart';

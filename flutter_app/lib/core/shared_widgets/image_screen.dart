@@ -1,9 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/theme/theme_extension.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:tara_car/core/theme/theme_extension.dart';
 
-import '../constants/locale_keys.dart';
 import '../theme/styles/app_text_styles.dart';
 import 'custom_network_image.dart';
 

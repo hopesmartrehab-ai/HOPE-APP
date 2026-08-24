@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/theme/theme_extension.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:tara_car/core/theme/theme_extension.dart';
 
 class CustomNetworkImage extends StatelessWidget {
   final Widget? errorWidget;
@@ -39,15 +39,17 @@ class CustomNetworkImage extends StatelessWidget {
             size: 30,
           ),
         ),
-        errorWidget: (context, url, error) => errorWidget ?? Container(
-          width: width ?? 75,
-          height: height ?? 85,
-          decoration: BoxDecoration(
-            color: context.lightGray.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(borderRadius ?? 12),
-          ),
-          child: Icon(Icons.error, size: 30, color: context.lightGray),
-        ),
+        errorWidget: (context, url, error) =>
+            errorWidget ??
+            Container(
+              width: width ?? 75,
+              height: height ?? 85,
+              decoration: BoxDecoration(
+                color: context.lightGray.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(borderRadius ?? 12),
+              ),
+              child: Icon(Icons.error, size: 30, color: context.lightGray),
+            ),
       ),
     );
   }

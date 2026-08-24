@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:tara_car/core/resources/debug_print.dart';
+import 'package:hope_app/core/resources/debug_print.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override

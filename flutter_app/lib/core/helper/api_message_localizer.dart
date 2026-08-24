@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:tara_car/core/constants/locale_keys.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
 abstract class ApiMessageLocalizer {
   ApiMessageLocalizer._();
