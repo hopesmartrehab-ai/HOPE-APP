@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../l10n/gen/app_localizations.dart';
-import '../../theme/app_theme.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
+import '../../../core/old_core/theme/app_theme.dart';
 import '../dashboard/dashboard_screen.dart';
 import 'session_start_screen.dart';
 
@@ -92,7 +93,11 @@ class _HelpScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  const Icon(Icons.health_and_safety, size: 48, color: HopeColors.teal),
+                  const Icon(
+                    Icons.health_and_safety,
+                    size: 48,
+                    color: HopeColors.teal,
+                  ),
                   const SizedBox(height: 12),
                   Text(
                     t.helpWelcome,
@@ -107,7 +112,10 @@ class _HelpScreen extends StatelessWidget {
                   Text(
                     t.helpWelcomeDesc,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: HopeColors.muted, height: 1.4),
+                    style: const TextStyle(
+                      color: HopeColors.muted,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -160,10 +168,30 @@ class _HelpScreen extends StatelessWidget {
           // --- Understanding Your Results ---
           _SectionHeader(t.helpResultsTitle),
           const SizedBox(height: 8),
-          _ResultTile(Icons.check_circle, Colors.green, t.helpResultSuccess, t.helpResultSuccessDesc),
-          _ResultTile(Icons.refresh, Colors.orange, t.helpResultTryAgain, t.helpResultTryAgainDesc),
-          _ResultTile(Icons.fitness_center, Colors.red, t.helpResultLowForce, t.helpResultLowForceDesc),
-          _ResultTile(Icons.speed, Colors.blue, t.helpResultSpeed, t.helpResultSpeedDesc),
+          _ResultTile(
+            Icons.check_circle,
+            Colors.green,
+            t.helpResultSuccess,
+            t.helpResultSuccessDesc,
+          ),
+          _ResultTile(
+            Icons.refresh,
+            Colors.orange,
+            t.helpResultTryAgain,
+            t.helpResultTryAgainDesc,
+          ),
+          _ResultTile(
+            Icons.fitness_center,
+            Colors.red,
+            t.helpResultLowForce,
+            t.helpResultLowForceDesc,
+          ),
+          _ResultTile(
+            Icons.speed,
+            Colors.blue,
+            t.helpResultSpeed,
+            t.helpResultSpeedDesc,
+          ),
           const SizedBox(height: 20),
 
           // --- Electrode Placement (dd1.jpeg) ---
@@ -178,7 +206,10 @@ class _HelpScreen extends StatelessWidget {
           // --- Troubleshooting ---
           _SectionHeader(t.helpTroubleshooting),
           const SizedBox(height: 8),
-          _TroubleshootTile(t.helpTroubleNoResponse, t.helpTroubleNoResponseFix),
+          _TroubleshootTile(
+            t.helpTroubleNoResponse,
+            t.helpTroubleNoResponseFix,
+          ),
           _TroubleshootTile(t.helpTroubleNoData, t.helpTroubleNoDataFix),
           _TroubleshootTile(t.helpTroubleStrange, t.helpTroubleStrangeFix),
           const SizedBox(height: 20),
@@ -213,12 +244,19 @@ class _HelpScreen extends StatelessWidget {
                 children: [
                   Text(
                     t.helpAboutDesc,
-                    style: const TextStyle(color: HopeColors.muted, height: 1.5),
+                    style: const TextStyle(
+                      color: HopeColors.muted,
+                      height: 1.5,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      const Icon(Icons.lightbulb_outline, color: HopeColors.teal, size: 20),
+                      const Icon(
+                        Icons.lightbulb_outline,
+                        color: HopeColors.teal,
+                        size: 20,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -232,21 +270,33 @@ class _HelpScreen extends StatelessWidget {
                     ],
                   ),
                   const Divider(height: 24),
-                  Row(
+                  const Row(
                     children: [
-                      const Icon(Icons.email_outlined, size: 18, color: HopeColors.muted),
-                      const SizedBox(width: 8),
-                      const Text('walidkenzy449@gmail.com',
-                          style: TextStyle(color: HopeColors.muted)),
+                      Icon(
+                        Icons.email_outlined,
+                        size: 18,
+                        color: HopeColors.muted,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'walidkenzy449@gmail.com',
+                        style: TextStyle(color: HopeColors.muted),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 4),
-                  Row(
+                  const Row(
                     children: [
-                      const Icon(Icons.phone_outlined, size: 18, color: HopeColors.muted),
-                      const SizedBox(width: 8),
-                      const Text('01090080277',
-                          style: TextStyle(color: HopeColors.muted)),
+                      Icon(
+                        Icons.phone_outlined,
+                        size: 18,
+                        color: HopeColors.muted,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        '01090080277',
+                        style: TextStyle(color: HopeColors.muted),
+                      ),
                     ],
                   ),
                 ],
@@ -323,16 +373,30 @@ class _ExerciseTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(desc, style: const TextStyle(color: HopeColors.muted, height: 1.3)),
+                  Text(
+                    desc,
+                    style: const TextStyle(
+                      color: HopeColors.muted,
+                      height: 1.3,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(tip,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 13,
-                        fontStyle: FontStyle.italic,
-                      )),
+                  Text(
+                    tip,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 13,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -374,7 +438,10 @@ class _TroubleshootTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 6),
       child: ListTile(
         leading: const Icon(Icons.warning_amber, color: Colors.orange),
-        title: Text(problem, style: const TextStyle(fontWeight: FontWeight.w600)),
+        title: Text(
+          problem,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
         subtitle: Text(fix, style: const TextStyle(color: HopeColors.muted)),
       ),
     );
@@ -394,7 +461,12 @@ class _SafetyRow extends StatelessWidget {
         children: [
           const Icon(Icons.shield, color: HopeColors.teal, size: 18),
           const SizedBox(width: 10),
-          Expanded(child: Text(text, style: const TextStyle(color: HopeColors.ink, height: 1.3))),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(color: HopeColors.ink, height: 1.3),
+            ),
+          ),
         ],
       ),
     );

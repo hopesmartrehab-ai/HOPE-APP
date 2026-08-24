@@ -1,8 +1,10 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
-import '../../services/exercise_videos.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
+import '../../../core/old_core/services/exercise_videos.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/error_snackbar.dart';
 import '../../widgets/exercise_video_player.dart';
@@ -21,7 +23,12 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
   bool _navigated = false;
   int _assessIndex = 0;
 
-  static const _assessCategories = ['Reach', 'Grasp', 'Manipulation', 'Release'];
+  static const _assessCategories = [
+    'Reach',
+    'Grasp',
+    'Manipulation',
+    'Release',
+  ];
 
   @override
   void initState() {
@@ -111,14 +118,15 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
             simulating
                 ? const SizedBox(
                     height: 36,
-                    child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                    child: Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
                   )
                 : OutlinedButton.icon(
                     icon: const Icon(Icons.science_outlined),
                     label: Text(t.simulateGloveAssessment),
-                    onPressed: () => context
-                        .read<SessionProvider>()
-                        .simulateGlove(),
+                    onPressed: () =>
+                        context.read<SessionProvider>().simulateGlove(),
                   ),
           ],
         ),
@@ -126,7 +134,10 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
     );
   }
 
-  List<Widget> _buildAccumulationUI(SessionProvider provider, AppLocalizations t) {
+  List<Widget> _buildAccumulationUI(
+    SessionProvider provider,
+    AppLocalizations t,
+  ) {
     final startedAt = provider.accumulationStartedAt;
     final secondsReq = provider.secondsRequired;
     final batches = provider.batchCount;

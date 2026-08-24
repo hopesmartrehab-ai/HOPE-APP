@@ -1,9 +1,11 @@
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../debug/app_logger.dart';
-import '../l10n/gen/app_localizations.dart';
+
+import '../../core/old_core/debug/app_logger.dart';
+import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../state/session_provider.dart';
 
 /// Button that opens a fullscreen modal for recording + uploading a session
@@ -45,8 +47,10 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
             children: [
               const Icon(Icons.check_circle, color: Colors.green, size: 18),
               const SizedBox(width: 6),
-              Text(t.videoUploaded,
-                  style: const TextStyle(color: Colors.green)),
+              Text(
+                t.videoUploaded,
+                style: const TextStyle(color: Colors.green),
+              ),
             ],
           ),
           const SizedBox(height: 6),
@@ -211,10 +215,7 @@ class _RecorderModalState extends State<_RecorderModal> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(24),
-          child: _controlBar(t),
-        ),
+        Padding(padding: const EdgeInsets.all(24), child: _controlBar(t)),
       ],
     );
   }
@@ -227,11 +228,16 @@ class _RecorderModalState extends State<_RecorderModal> {
           const SizedBox(
             width: 18,
             height: 18,
-            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(width: 12),
-          Text(t.uploadingVideo,
-              style: const TextStyle(color: Colors.white, fontSize: 16)),
+          Text(
+            t.uploadingVideo,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+          ),
         ],
       );
     }
@@ -257,8 +263,10 @@ class _RecorderModalState extends State<_RecorderModal> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(t.tapToStart,
-            style: const TextStyle(color: Colors.white70, fontSize: 13)),
+        Text(
+          t.tapToStart,
+          style: const TextStyle(color: Colors.white70, fontSize: 13),
+        ),
         const SizedBox(height: 12),
         SizedBox(
           width: 72,
@@ -270,8 +278,11 @@ class _RecorderModalState extends State<_RecorderModal> {
               padding: EdgeInsets.zero,
             ),
             onPressed: _start,
-            child: const Icon(Icons.fiber_manual_record,
-                color: Colors.white, size: 36),
+            child: const Icon(
+              Icons.fiber_manual_record,
+              color: Colors.white,
+              size: 36,
+            ),
           ),
         ),
       ],
@@ -308,12 +319,17 @@ class _RecordingDotState extends State<_RecordingDot>
       children: [
         FadeTransition(
           opacity: _ctl,
-          child: const Icon(Icons.fiber_manual_record,
-              color: Colors.red, size: 14),
+          child: const Icon(
+            Icons.fiber_manual_record,
+            color: Colors.red,
+            size: 14,
+          ),
         ),
         const SizedBox(width: 6),
-        Text(t.videoRecording,
-            style: const TextStyle(color: Colors.white, fontSize: 14)),
+        Text(
+          t.videoRecording,
+          style: const TextStyle(color: Colors.white, fontSize: 14),
+        ),
       ],
     );
   }

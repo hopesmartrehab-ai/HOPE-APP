@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import 'session_detail_screen.dart';
@@ -73,9 +74,7 @@ class _SessionListScreenState extends State<SessionListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(t.sessionHistory),
-        actions: const [
-          LanguageToggle(),
-        ],
+        actions: const [LanguageToggle()],
       ),
       body: RefreshIndicator(
         onRefresh: () => context.read<SessionProvider>().loadSessionHistory(),
@@ -88,26 +87,35 @@ class _SessionListScreenState extends State<SessionListScreen> {
                   String dateStr = s.createdAt;
                   try {
                     final dt = DateTime.parse(s.createdAt);
-                    dateStr =
-                        DateFormat('MMM d, yyyy — h:mm a', locale).format(dt);
+                    dateStr = DateFormat(
+                      'MMM d, yyyy — h:mm a',
+                      locale,
+                    ).format(dt);
                   } catch (_) {}
                   final assessText = s.assessmentPassed != null
-                      ? t.assessSummary(s.assessmentPassed!, s.assessmentTotal ?? 0)
+                      ? t.assessSummary(
+                          s.assessmentPassed!,
+                          s.assessmentTotal ?? 0,
+                        )
                       : t.noAssessment;
                   final exerciseText = s.exerciseOverallPercent != null
                       ? t.exerciseSummary(
-                          s.exerciseOverallPercent!.toStringAsFixed(1))
+                          s.exerciseOverallPercent!.toStringAsFixed(1),
+                        )
                       : '';
                   return ListTile(
                     title: Text(dateStr),
                     subtitle: Text(
-                      [assessText, if (exerciseText.isNotEmpty) exerciseText]
-                          .join(' | '),
+                      [
+                        assessText,
+                        if (exerciseText.isNotEmpty) exerciseText,
+                      ].join(' | '),
                     ),
                     trailing: Chip(
                       label: Text(_statusLabel(t, s.status)),
-                      backgroundColor:
-                          _statusColor(s.status).withValues(alpha: 0.15),
+                      backgroundColor: _statusColor(
+                        s.status,
+                      ).withValues(alpha: 0.15),
                       labelStyle: TextStyle(color: _statusColor(s.status)),
                     ),
                     onTap: () => Navigator.push(

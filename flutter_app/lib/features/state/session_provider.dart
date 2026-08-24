@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
-import '../config.dart';
+
+import '../../config.dart';
+import '../../core/old_core/debug/app_logger.dart';
+import '../../core/old_core/debug/debug_log_entry.dart';
+import '../../core/old_core/debug/debug_log_store.dart';
+import '../../core/old_core/debug/logging_http_client.dart';
+import '../../core/old_core/services/api_service.dart';
+import '../../core/old_core/services/video_service.dart';
 import '../models/session.dart';
-import '../services/api_service.dart';
-import '../services/video_service.dart';
-import '../debug/app_logger.dart';
-import '../debug/debug_log_entry.dart';
-import '../debug/debug_log_store.dart';
-import '../debug/logging_http_client.dart';
 
 enum SessionState {
   idle,
@@ -41,7 +43,7 @@ class SessionProvider extends ChangeNotifier {
   static const Duration _pollInterval = Duration(seconds: 1);
 
   SessionProvider({DebugLogStore? logStore})
-      : logStore = logStore ?? DebugLogStore() {
+    : logStore = logStore ?? DebugLogStore() {
     final client = LoggingHttpClient(store: this.logStore);
     _api = ApiService(client);
     _video = VideoService(client);
@@ -90,11 +92,13 @@ class SessionProvider extends ChangeNotifier {
     final prev = _state.name;
     _state = newState;
     AppLogger.instance.logStateChange(prev, newState.name);
-    logStore.addStateChange(StateChangeEvent(
-      from: prev,
-      to: newState.name,
-      timestamp: DateTime.now(),
-    ));
+    logStore.addStateChange(
+      StateChangeEvent(
+        from: prev,
+        to: newState.name,
+        timestamp: DateTime.now(),
+      ),
+    );
     notifyListeners();
   }
 
@@ -164,8 +168,9 @@ class SessionProvider extends ChangeNotifier {
   Future<bool> deleteSession(String sessionId) async {
     try {
       await _api.deleteSession(sessionId);
-      _sessionHistory =
-          _sessionHistory.where((s) => s.sessionId != sessionId).toList();
+      _sessionHistory = _sessionHistory
+          .where((s) => s.sessionId != sessionId)
+          .toList();
       notifyListeners();
       return true;
     } on NoNetworkException {
@@ -248,7 +253,9 @@ class SessionProvider extends ChangeNotifier {
   Future<bool> uploadSessionVideo(File videoFile) async {
     if (_currentSession == null) return false;
     try {
-      final uploadUrl = await _api.getVideoUploadUrl(_currentSession!.sessionId);
+      final uploadUrl = await _api.getVideoUploadUrl(
+        _currentSession!.sessionId,
+      );
       await _video.uploadVideoWithUrl(uploadUrl, videoFile);
       AppLogger.instance.logInfo('Video uploaded successfully');
       return true;

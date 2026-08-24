@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+
 import 'package:http/http.dart' as http;
-import '../config.dart';
-import '../models/session.dart';
+
+import '../../../config.dart';
+import '../../../features/models/session.dart';
 
 class ApiException implements Exception {
   final String message;
@@ -40,33 +42,32 @@ class ApiService {
   ApiService(this._client);
 
   Future<String> createSession() => _network(() async {
-        final response = await _client.post(
-          Uri.parse('$apiBaseUrl/sessions'),
-          headers: {'Content-Type': 'application/json'},
-        );
-        if (response.statusCode != 201 && response.statusCode != 200) {
-          throw ApiException(
-              'Failed to create session: ${response.statusCode}');
-        }
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-        return data['session_id'] as String;
-      });
+    final response = await _client.post(
+      Uri.parse('$apiBaseUrl/sessions'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode != 201 && response.statusCode != 200) {
+      throw ApiException('Failed to create session: ${response.statusCode}');
+    }
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return data['session_id'] as String;
+  });
 
   Future<void> submitQuestionnaire(
     String sessionId,
     Map<String, dynamic> answers,
-  ) =>
-      _network(() async {
-        final response = await _client.put(
-          Uri.parse('$apiBaseUrl/sessions/$sessionId/questionnaire'),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(answers),
-        );
-        if (response.statusCode != 200) {
-          throw ApiException(
-              'Failed to submit questionnaire: ${response.statusCode}');
-        }
-      });
+  ) => _network(() async {
+    final response = await _client.put(
+      Uri.parse('$apiBaseUrl/sessions/$sessionId/questionnaire'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(answers),
+    );
+    if (response.statusCode != 200) {
+      throw ApiException(
+        'Failed to submit questionnaire: ${response.statusCode}',
+      );
+    }
+  });
 
   Future<void> linkDevice(String sessionId, String deviceId) =>
       _network(() async {
@@ -81,37 +82,35 @@ class ApiService {
       });
 
   Future<Session> getSession(String sessionId) => _network(() async {
-        final response = await _client.get(
-          Uri.parse('$apiBaseUrl/sessions/$sessionId'),
-        );
-        if (response.statusCode != 200) {
-          throw ApiException('Failed to get session: ${response.statusCode}');
-        }
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-        return Session.fromJson(data);
-      });
+    final response = await _client.get(
+      Uri.parse('$apiBaseUrl/sessions/$sessionId'),
+    );
+    if (response.statusCode != 200) {
+      throw ApiException('Failed to get session: ${response.statusCode}');
+    }
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return Session.fromJson(data);
+  });
 
   Future<List<SessionSummary>> listSessions() => _network(() async {
-        final response = await _client.get(
-          Uri.parse('$apiBaseUrl/sessions'),
-        );
-        if (response.statusCode != 200) {
-          throw ApiException(
-              'Failed to list sessions: ${response.statusCode}');
-        }
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final items = data['sessions'] as List<dynamic>;
-        return items
-            .map((e) => SessionSummary.fromJson(e as Map<String, dynamic>))
-            .toList();
-      });
+    final response = await _client.get(Uri.parse('$apiBaseUrl/sessions'));
+    if (response.statusCode != 200) {
+      throw ApiException('Failed to list sessions: ${response.statusCode}');
+    }
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    final items = data['sessions'] as List<dynamic>;
+    return items
+        .map((e) => SessionSummary.fromJson(e as Map<String, dynamic>))
+        .toList();
+  });
 
   /// Simulate the glove by sending a batch of sensor data to /ingest.
   /// Matches the exact format the ESP32 firmware sends: 100 samples at 50ms
   /// intervals with realistic sensor ranges. The backend auto-detects whether
   /// to run assessment or exercise logic from the session's status — the glove
   /// (and this simulation) never need to specify a phase.
-  Future<void> simulateGlove(String deviceId) => _network(() => _simulateGlove(deviceId));
+  Future<void> simulateGlove(String deviceId) =>
+      _network(() => _simulateGlove(deviceId));
 
   Future<void> _simulateGlove(String deviceId) async {
     final rng = Random();
@@ -156,7 +155,7 @@ class ApiService {
     // Profile 1 sits low (Grasp fails, Release passes); profile 3 sits high
     // (Grasp passes, Release fails).
     final flexBase = [10.0, 10.0, 45.0, 55.0][profile];
-    final fsrBase  = [10.0, 10.0, 55.0, 60.0][profile];
+    final fsrBase = [10.0, 10.0, 55.0, 60.0][profile];
 
     // Build a continuous accel trajectory. We keep a slowly-rotating direction
     // vector and step the accel along it, so consecutive deltas point the same
@@ -171,7 +170,8 @@ class ApiService {
       // Slowly drift the direction so consecutive accel deltas point the same
       // way (high trajectory) for strong profiles. Weak profiles get added
       // jitter on top so the deltas randomize.
-      dirAngle += 0.04 + (rng.nextDouble() * 2 - 1) * (1 - trajSmoothness) * 0.6;
+      dirAngle +=
+          0.04 + (rng.nextDouble() * 2 - 1) * (1 - trajSmoothness) * 0.6;
       final stepMag = speedTarget * (0.95 + rng.nextDouble() * 0.1);
       prevAx = stepMag * cos(dirAngle);
       prevAy = stepMag * sin(dirAngle);
@@ -182,9 +182,8 @@ class ApiService {
       prevAy += (rng.nextDouble() * 2 - 1) * (1 - trajSmoothness) * speedTarget;
 
       // Reach-and-return arc on gx so rom integrates to a clear range.
-      final gx = gxAmplitude *
-          (i < 50 ? 1 : -1) *
-          (0.85 + rng.nextDouble() * 0.3);
+      final gx =
+          gxAmplitude * (i < 50 ? 1 : -1) * (0.85 + rng.nextDouble() * 0.3);
 
       samples.add({
         // sample spacing — 50ms in normal profiles, 70ms in the
@@ -240,36 +239,35 @@ class ApiService {
   }
 
   Future<String> getVideoUploadUrl(String sessionId) => _network(() async {
-        final response = await _client.post(
-          Uri.parse('$apiBaseUrl/sessions/$sessionId/video-upload-url'),
-          headers: {'Content-Type': 'application/json'},
-        );
-        if (response.statusCode != 200) {
-          throw ApiException(
-              'Failed to get upload URL: ${response.statusCode}');
-        }
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-        return data['upload_url'] as String;
-      });
+    final response = await _client.post(
+      Uri.parse('$apiBaseUrl/sessions/$sessionId/video-upload-url'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode != 200) {
+      throw ApiException('Failed to get upload URL: ${response.statusCode}');
+    }
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    return data['upload_url'] as String;
+  });
 
   Future<void> redoAssessment(String sessionId) => _network(() async {
-        final response = await _client.post(
-          Uri.parse('$apiBaseUrl/sessions/$sessionId/redo-assessment'),
-          headers: {'Content-Type': 'application/json'},
-        );
-        if (response.statusCode != 200) {
-          throw ApiException(
-              'Failed to restart assessment: ${response.statusCode}');
-        }
-      });
+    final response = await _client.post(
+      Uri.parse('$apiBaseUrl/sessions/$sessionId/redo-assessment'),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode != 200) {
+      throw ApiException(
+        'Failed to restart assessment: ${response.statusCode}',
+      );
+    }
+  });
 
   Future<void> deleteSession(String sessionId) => _network(() async {
-        final response = await _client.delete(
-          Uri.parse('$apiBaseUrl/sessions/$sessionId'),
-        );
-        if (response.statusCode != 200) {
-          throw ApiException(
-              'Failed to delete session: ${response.statusCode}');
-        }
-      });
+    final response = await _client.delete(
+      Uri.parse('$apiBaseUrl/sessions/$sessionId'),
+    );
+    if (response.statusCode != 200) {
+      throw ApiException('Failed to delete session: ${response.statusCode}');
+    }
+  });
 }

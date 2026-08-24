@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import '../config.dart';
+
+import '../../../config.dart';
 import 'app_logger.dart';
 import 'debug_log_entry.dart';
 import 'debug_log_store.dart';
@@ -96,11 +98,7 @@ class _DebugScreenState extends State<DebugScreen>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          _buildLogsTab(),
-          _buildRequestsTab(),
-          _buildInfoTab(),
-        ],
+        children: [_buildLogsTab(), _buildRequestsTab(), _buildInfoTab()],
       ),
     );
   }
@@ -195,12 +193,13 @@ class _DebugScreenState extends State<DebugScreen>
       color: Colors.grey[850],
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Theme(
-        data: Theme.of(context).copyWith(
-          dividerColor: Colors.transparent,
-        ),
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          childrenPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          childrenPadding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
           title: Row(
             children: [
               Container(
@@ -236,11 +235,10 @@ class _DebugScreenState extends State<DebugScreen>
               ),
               const SizedBox(width: 8),
               Text(
-                entry.duration != null ? '${entry.duration!.inMilliseconds}ms' : '',
-                style: TextStyle(
-                  color: Colors.grey[400],
-                  fontSize: 12,
-                ),
+                entry.duration != null
+                    ? '${entry.duration!.inMilliseconds}ms'
+                    : '',
+                style: TextStyle(color: Colors.grey[400], fontSize: 12),
               ),
             ],
           ),
@@ -248,10 +246,7 @@ class _DebugScreenState extends State<DebugScreen>
             padding: const EdgeInsets.only(top: 4),
             child: Text(
               _truncateUrl(entry.url),
-              style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: 11,
-              ),
+              style: TextStyle(color: Colors.grey[500], fontSize: 11),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -269,7 +264,8 @@ class _DebugScreenState extends State<DebugScreen>
                 entry.prettyRequestBody ?? entry.requestBody!,
               ),
             // Response details
-            if (entry.responseHeaders != null && entry.responseHeaders!.isNotEmpty)
+            if (entry.responseHeaders != null &&
+                entry.responseHeaders!.isNotEmpty)
               _buildExpandableSection(
                 'Response Headers',
                 entry.responseHeaders!.entries
@@ -282,10 +278,7 @@ class _DebugScreenState extends State<DebugScreen>
                 entry.prettyResponseBody ?? entry.responseBody!,
               ),
             if (entry.error != null)
-              _buildExpandableSection(
-                'Error',
-                entry.error.toString(),
-              ),
+              _buildExpandableSection('Error', entry.error.toString()),
             // Copy button
             Align(
               alignment: Alignment.centerRight,
@@ -468,19 +461,13 @@ class _DebugScreenState extends State<DebugScreen>
             width: 120,
             child: Text(
               label,
-              style: TextStyle(
-                color: Colors.grey[400],
-                fontSize: 13,
-              ),
+              style: TextStyle(color: Colors.grey[400], fontSize: 13),
             ),
           ),
           Expanded(
             child: SelectableText(
               value,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 13,
-              ),
+              style: const TextStyle(color: Colors.white, fontSize: 13),
             ),
           ),
         ],
@@ -529,4 +516,3 @@ class _DebugScreenState extends State<DebugScreen>
     );
   }
 }
-

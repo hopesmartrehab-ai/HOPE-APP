@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import '../../widgets/result_card.dart';
@@ -77,11 +78,17 @@ class ExerciseResultsScreen extends StatelessWidget {
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            ...provider.currentSession!.assessmentResults!.functionResults.entries
-                .map((e) => ResultCard(
-                      functionName: e.key,
-                      passed: e.value == 'PASS',
-                    )),
+            ...provider
+                .currentSession!
+                .assessmentResults!
+                .functionResults
+                .entries
+                .map(
+                  (e) => ResultCard(
+                    functionName: e.key,
+                    passed: e.value == 'PASS',
+                  ),
+                ),
           ],
           const SizedBox(height: 24),
           ElevatedButton(

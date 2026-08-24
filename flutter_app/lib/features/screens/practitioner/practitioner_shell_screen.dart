@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../l10n/gen/app_localizations.dart';
-import '../../theme/app_theme.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
+import '../../../core/old_core/theme/app_theme.dart';
 import '../dashboard/dashboard_screen.dart';
 import 'session_list_screen.dart';
 
@@ -8,7 +9,8 @@ class PractitionerShellScreen extends StatefulWidget {
   const PractitionerShellScreen({super.key});
 
   @override
-  State<PractitionerShellScreen> createState() => _PractitionerShellScreenState();
+  State<PractitionerShellScreen> createState() =>
+      _PractitionerShellScreenState();
 }
 
 class _PractitionerShellScreenState extends State<PractitionerShellScreen> {

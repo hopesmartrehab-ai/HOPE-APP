@@ -1,10 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
+import '../../../core/old_core/theme/app_theme.dart';
 import '../../models/session.dart';
 import '../../state/session_provider.dart';
-import '../../theme/app_theme.dart';
 import '../../widgets/error_snackbar.dart';
 import '../../widgets/language_toggle.dart';
 
@@ -17,7 +18,7 @@ const _categories = ['Reach', 'Grasp', 'Manipulation', 'Release'];
 
 class DashboardScreen extends StatefulWidget {
   final DashboardMode mode;
-  const DashboardScreen({super.key, required this.mode});
+  const DashboardScreen({required this.mode, super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -43,8 +44,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   String _greeting(AppLocalizations t) =>
       widget.mode == DashboardMode.practitioner
-          ? t.dashboardWelcomeDoctor
-          : t.dashboardWelcomePatient;
+      ? t.dashboardWelcomeDoctor
+      : t.dashboardWelcomePatient;
 
   /// Walk the session history (oldest → newest) and pull out the
   /// (sessionIndex, score) pairs for one exercise category.
@@ -170,10 +171,7 @@ class _GreetingHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: const TextStyle(color: HopeColors.muted),
-              ),
+              Text(subtitle, style: const TextStyle(color: HopeColors.muted)),
             ],
           ),
         ),
@@ -261,8 +259,9 @@ class _CategoryChartCard extends StatelessWidget {
       borderData: FlBorderData(show: false),
       titlesData: FlTitlesData(
         topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        rightTitles:
-            const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles: const AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,

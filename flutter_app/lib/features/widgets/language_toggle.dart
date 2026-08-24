@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../l10n/gen/app_localizations.dart';
+
+import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../state/locale_provider.dart';
 
 /// Subtle pill-shaped language toggle. Designed to sit in an `AppBar.actions`

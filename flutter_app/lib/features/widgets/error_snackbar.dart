@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../l10n/gen/app_localizations.dart';
+
+import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../state/session_provider.dart';
 
 /// Show the SessionProvider's last error as a SnackBar, mapping the

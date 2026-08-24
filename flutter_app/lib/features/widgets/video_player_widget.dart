@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import '../debug/app_logger.dart';
-import '../l10n/gen/app_localizations.dart';
+
+import '../../core/old_core/debug/app_logger.dart';
+import '../../core/old_core/l10n/gen/app_localizations.dart';
 
 /// Plays a session video from a presigned S3 URL. Backend regenerates the URL
 /// on every GET /sessions/{id}, so reopening the session detail effectively
@@ -11,7 +12,7 @@ import '../l10n/gen/app_localizations.dart';
 class VideoPlayerWidget extends StatefulWidget {
   final String videoUrl;
 
-  const VideoPlayerWidget({super.key, required this.videoUrl});
+  const VideoPlayerWidget({required this.videoUrl, super.key});
 
   @override
   State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
@@ -31,8 +32,9 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
 
   Future<void> _load() async {
     setState(() => _status = _PlayerStatus.loading);
-    final controller =
-        VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
+    final controller = VideoPlayerController.networkUrl(
+      Uri.parse(widget.videoUrl),
+    );
     try {
       await controller.initialize();
       if (!mounted) {
@@ -79,8 +81,10 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
             children: [
               const Icon(Icons.videocam_off, color: Colors.grey, size: 36),
               const SizedBox(height: 8),
-              Text(t.videoUnavailable,
-                  style: const TextStyle(color: Colors.grey)),
+              Text(
+                t.videoUnavailable,
+                style: const TextStyle(color: Colors.grey),
+              ),
               const SizedBox(height: 8),
               TextButton.icon(
                 icon: const Icon(Icons.refresh),

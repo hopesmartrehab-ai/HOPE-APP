@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'debug/debug_log_store.dart';
-import 'debug/debug_overlay.dart';
-import 'l10n/gen/app_localizations.dart';
-import 'state/locale_provider.dart';
-import 'state/session_provider.dart';
-import 'screens/welcome_screen.dart';
-import 'theme/app_theme.dart';
+
+import 'core/old_core/debug/debug_log_store.dart';
+import 'core/old_core/debug/debug_overlay.dart';
+import 'core/old_core/l10n/gen/app_localizations.dart';
+import 'core/old_core/theme/app_theme.dart';
+import 'features/screens/welcome_screen.dart';
+import 'features/state/locale_provider.dart';
+import 'features/state/session_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

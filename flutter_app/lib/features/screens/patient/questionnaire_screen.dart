@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import 'exercise_waiting_screen.dart';
@@ -16,26 +17,66 @@ class _Question {
 }
 
 final List<_Question> _questions = [
-  _Question('sleep_hours', 'assets/questionnaire/sleep.jpeg',
-      (t) => t.qSleep, _AnswerKind.hours),
-  _Question('body_temperature', 'assets/questionnaire/temperature.jpeg',
-      (t) => t.qTemperature, _AnswerKind.tempC),
-  _Question('blood_sugar', 'assets/questionnaire/blood_sugar.jpeg',
-      (t) => t.qBloodSugar, _AnswerKind.bloodSugar),
-  _Question('blood_pressure', 'assets/questionnaire/blood_pressure.jpeg',
-      (t) => t.qBloodPressure, _AnswerKind.bloodPressure),
-  _Question('headache', 'assets/questionnaire/headache.jpeg',
-      (t) => t.qHeadache, _AnswerKind.yesNo),
-  _Question('dizzy', 'assets/questionnaire/dizzy.jpeg',
-      (t) => t.qDizzy, _AnswerKind.yesNo),
-  _Question('fatigue', 'assets/questionnaire/fatigue.jpeg',
-      (t) => t.qFatigue, _AnswerKind.yesNo),
-  _Question('arm_pain', 'assets/questionnaire/arm_pain.jpeg',
-      (t) => t.qArmPain, _AnswerKind.painScale),
-  _Question('hand_movement', 'assets/questionnaire/hand_movement.jpeg',
-      (t) => t.qHandMovement, _AnswerKind.yesNo),
-  _Question('falls_injuries', 'assets/questionnaire/falls.jpeg',
-      (t) => t.qFalls, _AnswerKind.yesNo),
+  _Question(
+    'sleep_hours',
+    'assets/questionnaire/sleep.jpeg',
+    (t) => t.qSleep,
+    _AnswerKind.hours,
+  ),
+  _Question(
+    'body_temperature',
+    'assets/questionnaire/temperature.jpeg',
+    (t) => t.qTemperature,
+    _AnswerKind.tempC,
+  ),
+  _Question(
+    'blood_sugar',
+    'assets/questionnaire/blood_sugar.jpeg',
+    (t) => t.qBloodSugar,
+    _AnswerKind.bloodSugar,
+  ),
+  _Question(
+    'blood_pressure',
+    'assets/questionnaire/blood_pressure.jpeg',
+    (t) => t.qBloodPressure,
+    _AnswerKind.bloodPressure,
+  ),
+  _Question(
+    'headache',
+    'assets/questionnaire/headache.jpeg',
+    (t) => t.qHeadache,
+    _AnswerKind.yesNo,
+  ),
+  _Question(
+    'dizzy',
+    'assets/questionnaire/dizzy.jpeg',
+    (t) => t.qDizzy,
+    _AnswerKind.yesNo,
+  ),
+  _Question(
+    'fatigue',
+    'assets/questionnaire/fatigue.jpeg',
+    (t) => t.qFatigue,
+    _AnswerKind.yesNo,
+  ),
+  _Question(
+    'arm_pain',
+    'assets/questionnaire/arm_pain.jpeg',
+    (t) => t.qArmPain,
+    _AnswerKind.painScale,
+  ),
+  _Question(
+    'hand_movement',
+    'assets/questionnaire/hand_movement.jpeg',
+    (t) => t.qHandMovement,
+    _AnswerKind.yesNo,
+  ),
+  _Question(
+    'falls_injuries',
+    'assets/questionnaire/falls.jpeg',
+    (t) => t.qFalls,
+    _AnswerKind.yesNo,
+  ),
 ];
 
 class QuestionnaireScreen extends StatefulWidget {
@@ -87,7 +128,9 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   }
 
   Future<void> _submit() async {
-    await context.read<SessionProvider>().submitQuestionnaire(Map.from(_answers));
+    await context.read<SessionProvider>().submitQuestionnaire(
+      Map.from(_answers),
+    );
     if (mounted) _navigateToExercise();
   }
 
@@ -113,10 +156,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
         actions: [
           TextButton(
             onPressed: _skip,
-            child: Text(
-              t.skip,
-              style: const TextStyle(color: Colors.white),
-            ),
+            child: Text(t.skip, style: const TextStyle(color: Colors.white)),
           ),
           const LanguageToggle(),
         ],
@@ -154,7 +194,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
               itemBuilder: (ctx, i) => _QuestionPage(
                 question: _questions[i],
                 value: _answers[_questions[i].key],
-                onChanged: (v) => setState(() => _answers[_questions[i].key] = v),
+                onChanged: (v) =>
+                    setState(() => _answers[_questions[i].key] = v),
               ),
             ),
           ),
@@ -182,9 +223,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      child: Text(
-                        _index == total - 1 ? t.submit : t.next,
-                      ),
+                      child: Text(_index == total - 1 ? t.submit : t.next),
                     ),
                   ),
                 ],
@@ -306,10 +345,7 @@ class _InputForKind extends StatelessWidget {
           initIfNull: true,
         );
       case _AnswerKind.bloodPressure:
-        return _BloodPressureInput(
-          value: value as Map?,
-          onChanged: onChanged,
-        );
+        return _BloodPressureInput(value: value as Map?, onChanged: onChanged);
     }
   }
 }
@@ -445,7 +481,10 @@ class _NumberSliderState extends State<_NumberSlider> {
         Text(
           widget.unit.isEmpty ? display : '$display ${widget.unit}',
           style: const TextStyle(
-              fontSize: 32, fontWeight: FontWeight.bold, color: Colors.teal),
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Colors.teal,
+          ),
         ),
         Slider(
           value: widget.value.clamp(widget.min, widget.max),
@@ -457,10 +496,14 @@ class _NumberSliderState extends State<_NumberSlider> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.min.toStringAsFixed(widget.fractionDigits),
-                style: const TextStyle(color: Colors.grey)),
-            Text(widget.max.toStringAsFixed(widget.fractionDigits),
-                style: const TextStyle(color: Colors.grey)),
+            Text(
+              widget.min.toStringAsFixed(widget.fractionDigits),
+              style: const TextStyle(color: Colors.grey),
+            ),
+            Text(
+              widget.max.toStringAsFixed(widget.fractionDigits),
+              style: const TextStyle(color: Colors.grey),
+            ),
           ],
         ),
       ],
@@ -484,8 +527,12 @@ class _BloodPressureInputState extends State<_BloodPressureInput> {
   @override
   void initState() {
     super.initState();
-    _sys = TextEditingController(text: widget.value?['systolic']?.toString() ?? '');
-    _dia = TextEditingController(text: widget.value?['diastolic']?.toString() ?? '');
+    _sys = TextEditingController(
+      text: widget.value?['systolic']?.toString() ?? '',
+    );
+    _dia = TextEditingController(
+      text: widget.value?['diastolic']?.toString() ?? '',
+    );
   }
 
   @override

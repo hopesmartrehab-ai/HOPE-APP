@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../l10n/gen/app_localizations.dart';
-import '../theme/app_theme.dart';
+
+import '../../core/old_core/l10n/gen/app_localizations.dart';
+import '../../core/old_core/theme/app_theme.dart';
 import '../widgets/language_toggle.dart';
 import 'patient/patient_shell_screen.dart';
 import 'practitioner/practitioner_shell_screen.dart';

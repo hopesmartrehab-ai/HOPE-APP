@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../models/session.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
@@ -11,7 +12,7 @@ import '../../widgets/video_player_widget.dart';
 class SessionDetailScreen extends StatelessWidget {
   final String sessionId;
 
-  const SessionDetailScreen({super.key, required this.sessionId});
+  const SessionDetailScreen({required this.sessionId, super.key});
 
   Future<void> _confirmDelete(BuildContext context) async {
     final t = AppLocalizations.of(context);
@@ -34,12 +35,12 @@ class SessionDetailScreen extends StatelessWidget {
       ),
     );
     if (confirmed != true || !context.mounted) return;
-    final ok =
-        await context.read<SessionProvider>().deleteSession(sessionId);
+    final ok = await context.read<SessionProvider>().deleteSession(sessionId);
     if (!context.mounted) return;
     if (ok) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(t.deletedConfirm)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.deletedConfirm)));
       Navigator.pop(context);
     }
   }
@@ -112,10 +113,9 @@ class _AssessmentTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: results.functionResults.entries
-          .map((e) => ResultCard(
-                functionName: e.key,
-                passed: e.value == 'PASS',
-              ))
+          .map(
+            (e) => ResultCard(functionName: e.key, passed: e.value == 'PASS'),
+          )
           .toList(),
     );
   }
@@ -208,8 +208,10 @@ class _InfoTab extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         if (q == null)
-          Text(t.questionnaireSkipped,
-              style: const TextStyle(color: Colors.grey))
+          Text(
+            t.questionnaireSkipped,
+            style: const TextStyle(color: Colors.grey),
+          )
         else
           ...q.entries.map(
             (e) => Padding(

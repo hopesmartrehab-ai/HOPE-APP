@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import '../../widgets/result_card.dart';
@@ -60,10 +61,12 @@ class AssessmentResultsScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: results.entries
-                    .map((e) => ResultCard(
-                          functionName: e.key,
-                          passed: e.value == 'PASS',
-                        ))
+                    .map(
+                      (e) => ResultCard(
+                        functionName: e.key,
+                        passed: e.value == 'PASS',
+                      ),
+                    )
                     .toList(),
               ),
             ),
@@ -72,17 +75,18 @@ class AssessmentResultsScreen extends StatelessWidget {
               icon: const Icon(Icons.refresh),
               label: Text(t.redoAssessment),
               style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16)),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
               onPressed: () => _redo(context),
             ),
             const SizedBox(height: 8),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16)),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
               onPressed: () => Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (_) => const QuestionnaireScreen()),
+                MaterialPageRoute(builder: (_) => const QuestionnaireScreen()),
               ),
               child: Text(t.continueToCheckin),
             ),

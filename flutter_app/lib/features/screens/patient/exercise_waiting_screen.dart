@@ -1,8 +1,10 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
-import '../../services/exercise_videos.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
+import '../../../core/old_core/services/exercise_videos.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/error_snackbar.dart';
 import '../../widgets/exercise_video_player.dart';
@@ -44,7 +46,9 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
         provider.currentSession?.assessmentResults?.neededTraining ?? [];
     final hasList = neededTraining.isNotEmpty;
     // Clamp in case the list shrinks underneath us (e.g. redo-assessment).
-    final safeIndex = hasList ? _currentIndex.clamp(0, neededTraining.length - 1) : 0;
+    final safeIndex = hasList
+        ? _currentIndex.clamp(0, neededTraining.length - 1)
+        : 0;
     final exerciseName = hasList ? neededTraining[safeIndex] : 'General';
     final isLast = !hasList || safeIndex >= neededTraining.length - 1;
 
@@ -77,7 +81,10 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
             Text(
               hasList
                   ? t.exerciseProgress(
-                      safeIndex + 1, neededTraining.length, exerciseName)
+                      safeIndex + 1,
+                      neededTraining.length,
+                      exerciseName,
+                    )
                   : t.exerciseLabel(exerciseName),
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -89,39 +96,45 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
               style: const TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 12),
-            Builder(builder: (_) {
-              final videos = allVideoUrlsFor(exerciseName);
-              final safeVideoIdx = _videoIndex.clamp(0, videos.length - 1);
-              return Column(
-                children: [
-                  ExerciseVideoPlayer(videoUrl: videos[safeVideoIdx]),
-                  if (videos.length > 1) ...[
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.skip_previous),
-                          onPressed: safeVideoIdx > 0
-                              ? () => setState(() => _videoIndex = safeVideoIdx - 1)
-                              : null,
-                        ),
-                        Text(
-                          '${safeVideoIdx + 1} / ${videos.length}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.skip_next),
-                          onPressed: safeVideoIdx < videos.length - 1
-                              ? () => setState(() => _videoIndex = safeVideoIdx + 1)
-                              : null,
-                        ),
-                      ],
-                    ),
+            Builder(
+              builder: (_) {
+                final videos = allVideoUrlsFor(exerciseName);
+                final safeVideoIdx = _videoIndex.clamp(0, videos.length - 1);
+                return Column(
+                  children: [
+                    ExerciseVideoPlayer(videoUrl: videos[safeVideoIdx]),
+                    if (videos.length > 1) ...[
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.skip_previous),
+                            onPressed: safeVideoIdx > 0
+                                ? () => setState(
+                                    () => _videoIndex = safeVideoIdx - 1,
+                                  )
+                                : null,
+                          ),
+                          Text(
+                            '${safeVideoIdx + 1} / ${videos.length}',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.skip_next),
+                            onPressed: safeVideoIdx < videos.length - 1
+                                ? () => setState(
+                                    () => _videoIndex = safeVideoIdx + 1,
+                                  )
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ],
                   ],
-                ],
-              );
-            }),
+                );
+              },
+            ),
             if (hasList && !isLast) ...[
               const SizedBox(height: 8),
               Align(
@@ -129,11 +142,10 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
                 child: TextButton.icon(
                   icon: const Icon(Icons.skip_next),
                   label: Text(t.nextExercise),
-                  onPressed: () =>
-                      setState(() {
-                        _currentIndex = safeIndex + 1;
-                        _videoIndex = 0;
-                      }),
+                  onPressed: () => setState(() {
+                    _currentIndex = safeIndex + 1;
+                    _videoIndex = 0;
+                  }),
                 ),
               ),
             ],
@@ -154,7 +166,8 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
                 ? const SizedBox(
                     height: 36,
                     child: Center(
-                        child: CircularProgressIndicator(strokeWidth: 2)),
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
                   )
                 : OutlinedButton.icon(
                     icon: const Icon(Icons.science_outlined),
@@ -169,7 +182,10 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
     );
   }
 
-  List<Widget> _buildAccumulationUI(SessionProvider provider, AppLocalizations t) {
+  List<Widget> _buildAccumulationUI(
+    SessionProvider provider,
+    AppLocalizations t,
+  ) {
     final startedAt = provider.accumulationStartedAt;
     final secondsReq = provider.secondsRequired;
     final batches = provider.batchCount;

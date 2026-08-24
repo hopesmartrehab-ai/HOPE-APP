@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import '../l10n/gen/app_localizations.dart';
+
+import '../../core/old_core/l10n/gen/app_localizations.dart';
 
 class ResultCard extends StatelessWidget {
   final String functionName;
   final bool passed;
 
   const ResultCard({
-    super.key,
     required this.functionName,
     required this.passed,
+    super.key,
   });
 
   @override

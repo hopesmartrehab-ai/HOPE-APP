@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/gen/app_localizations.dart';
+
+import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/error_snackbar.dart';
 import '../../widgets/language_toggle.dart';
@@ -41,12 +42,14 @@ class SessionStartScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.health_and_safety,
-                  size: 80, color: Colors.teal),
+              const Icon(Icons.health_and_safety, size: 80, color: Colors.teal),
               const SizedBox(height: 24),
               Text(
                 t.readyToBegin,
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 12),
               Text(
