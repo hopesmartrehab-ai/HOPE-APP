@@ -46,6 +46,18 @@ dependencies:
   path_provider: ^2.1.4
   youtube_player_flutter: ^9.1.1
   fl_chart: ^0.69.0
+  dio: ^5.11.0
+  dartz: ^0.10.1
+  bloc: ^9.2.1
+  flutter_bloc: ^9.1.1
+  hydrated_bloc: ^11.0.0
+  equatable: ^2.0.5
+  auto_size_text: ^3.0.0
+  intl_phone_field: ^3.1.0
+  pin_code_fields: ^9.3.0
+  badges: ^3.1.2
+  dotted_border: ^3.1.0
+  connectivity_plus: ^7.3.1
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +69,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+flutter_assets:
+  assets_path: assets/
+  output_path: lib/core/constants/
+  filename: assets_constants.dart
   flutter_native_splash: ^2.4.1
   flutter_launcher_icons: ^0.14.1
 
@@ -89,11 +105,11 @@ flutter:
   generate: true
 
   assets:
-    - assets/logo.png
-    - assets/icon/app_icon.png
-    - assets/splash/splash_logo.png
-    - assets/questionnaire/
-    - assets/help/
+    - assets/images/
+    - assets/icons/
+    - assets/flags/
+    - assets/translations/
+    - assets/logos/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
