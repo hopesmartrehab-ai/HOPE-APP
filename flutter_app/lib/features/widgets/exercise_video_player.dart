@@ -5,7 +5,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 /// player when [videoUrl] changes (e.g., when the user taps "Next exercise").
 class ExerciseVideoPlayer extends StatefulWidget {
   final String videoUrl;
-  const ExerciseVideoPlayer({super.key, required this.videoUrl});
+  const ExerciseVideoPlayer({required this.videoUrl, super.key});
 
   @override
   State<ExerciseVideoPlayer> createState() => _ExerciseVideoPlayerState();

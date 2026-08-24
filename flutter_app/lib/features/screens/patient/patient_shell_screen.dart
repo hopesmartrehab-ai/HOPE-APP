@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/assets_constants.dart';
 
 import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../../core/old_core/theme/app_theme.dart';
@@ -128,7 +129,7 @@ class _HelpScreen extends StatelessWidget {
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset('assets/help/dd2.jpeg', fit: BoxFit.cover),
+            child: Image.asset(Assets.assetsHelpDd2, fit: BoxFit.cover),
           ),
           const SizedBox(height: 20),
 

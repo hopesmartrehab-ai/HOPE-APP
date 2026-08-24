@@ -4,11 +4,7 @@ class ScoreBar extends StatelessWidget {
   final String label;
   final double percent;
 
-  const ScoreBar({
-    super.key,
-    required this.label,
-    required this.percent,
-  });
+  const ScoreBar({required this.label, required this.percent, super.key});
 
   Color _barColor() {
     if (percent >= 70) return Colors.green;
