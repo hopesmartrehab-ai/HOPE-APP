@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import 'debug_screen.dart';
 
 /// A transparent overlay that detects a secret tap sequence to open the debug panel.
@@ -9,10 +11,7 @@ import 'debug_screen.dart';
 class DebugOverlay extends StatefulWidget {
   final Widget child;
 
-  const DebugOverlay({
-    super.key,
-    required this.child,
-  });
+  const DebugOverlay({required this.child, super.key});
 
   @override
   State<DebugOverlay> createState() => _DebugOverlayState();
@@ -86,13 +85,13 @@ class _DebugOverlayState extends State<DebugOverlay> {
             const DebugScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0, 1),
-              end: Offset.zero,
-            ).animate(CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOutCubic,
-            )),
+            position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
+                .animate(
+                  CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeOutCubic,
+                  ),
+                ),
             child: child,
           );
         },

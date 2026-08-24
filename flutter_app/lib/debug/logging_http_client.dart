@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+
 import 'app_logger.dart';
 import 'debug_log_entry.dart';
 import 'debug_log_store.dart';
@@ -11,11 +13,9 @@ class LoggingHttpClient extends http.BaseClient {
   final http.Client _inner;
   final DebugLogStore _store;
 
-  LoggingHttpClient({
-    http.Client? inner,
-    required DebugLogStore store,
-  })  : _inner = inner ?? http.Client(),
-        _store = store;
+  LoggingHttpClient({required DebugLogStore store, http.Client? inner})
+    : _inner = inner ?? http.Client(),
+      _store = store;
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
