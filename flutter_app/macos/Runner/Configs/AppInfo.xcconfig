@@ -8,7 +8,7 @@
 PRODUCT_NAME = hope_app
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.mhosny.hopeApp
+PRODUCT_BUNDLE_IDENTIFIER = ma.hope.com
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 com.mhosny. All rights reserved.

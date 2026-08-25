@@ -1,4 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+// ignore: library_prefixes
+import 'package:flutter/material.dart' as TextStyle;
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
 
@@ -33,33 +35,32 @@ class WelcomeScreen extends StatelessWidget {
                   Text(
                     LocaleKeys.welcomeTo.tr(),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: HopeColors.muted,
-                    ),
+                    style: TextStyle.Theme.of(context).textTheme.headlineSmall
+                        ?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: HopeColors.navy,
+                        ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     LocaleKeys.appName.tr(),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 56,
-                      fontWeight: FontWeight.bold,
-                      color: HopeColors.navy,
-                      letterSpacing: 2,
-                    ),
+                    style: TextStyle.Theme.of(context).textTheme.displayLarge
+                        ?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: HopeColors.navy,
+                          letterSpacing: 2,
+                        ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     LocaleKeys.appTagline.tr(),
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: HopeColors.teal,
-                    ),
+                    style: TextStyle.Theme.of(context).textTheme.bodyLarge
+                        ?.copyWith(fontSize: 18, color: HopeColors.teal),
                   ),
                   const Spacer(flex: 3),
-                  FilledButton(
+                  ElevatedButton(
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
