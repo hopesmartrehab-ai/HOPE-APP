@@ -6,7 +6,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hope_app/core/local_storage/local_storage.dart';
+import 'package:hope_app/core/old_core/debug/debug_overlay.dart';
 import 'package:hope_app/core/theme/logic/theme_cubit.dart';
+import 'package:hope_app/features/screens/welcome_screen.dart';
 
 import 'core/theme/styles/app_theme.dart';
 
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
             themeMode: state.themeMode,
             theme: AppThemes.lightTheme,
             darkTheme: AppThemes.darkTheme,
-            home: const Scaffold(body: Center(child: Text('Home Page'))),
+            home: const DebugOverlay(child: WelcomeScreen()),
           );
         },
       ),

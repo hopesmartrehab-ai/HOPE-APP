@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hope_app/core/shared_widgets/app_svg.dart';
 import 'package:hope_app/core/shared_widgets/clicked_widget.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
 import 'package:hope_app/core/theme/theme_extension.dart';
@@ -37,20 +36,17 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
                   padding: const EdgeInsetsDirectional.all(16.0),
                   child: Transform.flip(
                     flipX: Directionality.of(context) == TextDirection.rtl,
-                    child: AppSvg(
-                      darkColor: context.darkDarkColor,
-                      //
-                      assetName: "Assets.assetsIconsArrowBackIcon,"  // =============change the ""=================
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: context.darkDarkColor,
                     ),
                   ),
                 )
               : Padding(
                   padding: const EdgeInsetsDirectional.only(top: 8),
-                  child: AppSvg(
-                    width: 32,
-                    height: 32,
-                    darkColor: context.darkDarkColor,
-                    assetName: "Assets.assetsIconsCloseIconLight", // =============change the ""=================
+                  child: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: context.darkDarkColor,
                   ),
                 ),
         ),

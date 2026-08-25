@@ -28,7 +28,7 @@ class WelcomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Spacer(flex: 2),
-                  Image.asset('assets/logo.png', height: 280),
+                  Image.asset('assets/flags/logo.png', height: 280),
                   const SizedBox(height: 32),
                   Text(
                     LocaleKeys.welcomeTo.tr(),
@@ -66,7 +66,7 @@ class WelcomeScreen extends StatelessWidget {
                         builder: (_) => const RoleSelectionScreen(),
                       ),
                     ),
-                    child: Text(LocaleKeys.getStarted.tr(),)
+                    child: Text(LocaleKeys.getStarted.tr()),
                   ),
                   const SizedBox(height: 16),
                 ],

@@ -1,106 +1,99 @@
 class LocaleKeys {
-  static const String appName = 'app_name';
-  static const String thisFieldIsRequired = 'this_field_is_required';
-  static const String thisFieldIsNotMinusOrZero =
-      'this_field_is_not_minus_or_zero';
-  static const String thisNotEmail = 'this_not_email';
-  static const String passwordMinEight = 'password_min_eight';
-  static const String passwordNoCorrect = 'password_no_correct';
-  static const String thisFieldIsNotValid = 'this_field_is_not_Fvalid';
+  static const String appName = 'appName';
+  static const String thisFieldIsRequired = 'thisFieldIsRequired';
+  static const String thisFieldIsNotMinusOrZero = 'thisFieldIsNotMinusOrZero';
+  static const String thisNotEmail = 'thisNotEmail';
+  static const String passwordMinEight = 'passwordMinEight';
+  static const String passwordNoCorrect = 'passwordNoCorrect';
+  static const String thisFieldIsNotValid = 'thisFieldIsNotValid';
   static const String connectionTimeOutWithApiServer =
-      'connection_time_out_with_api_server';
-  static const String sendTimeOutWithApiServer =
-      'send_time_out_with_api_server';
+      'connectionTimeOutWithApiServer';
+  static const String sendTimeOutWithApiServer = 'sendTimeOutWithApiServer';
   static const String receiveTimeOutWithApiServer =
-      'receive_time_out_with_api_server';
+      'receiveTimeOutWithApiServer';
   static const String badCertificateWithApiServer =
-      'bad_certificate_with_api_server';
+      'badCertificateWithApiServer';
   static const String requestToApiServerWasCanceled =
-      'request_to_api_server_was_canceled';
+      'requestToApiServerWasCanceled';
   static const String connectionErrorWithApiServer =
-      'connection_error_with_api_server';
-  static const String noInternetConnection = 'no_internet_connection';
-  static const String unknownErrorWithApiServer =
-      'unknown_error_with_api_server';
-  static const String anErrorOccurred = 'an_error_occurred';
-  static const String yourRequestNotFound = 'your_request_not_found';
-  static const String internalServerError = 'internal_server_error';
-  static const String oopsThereWasAnError = 'oops_there_was_an_error';
+      'connectionErrorWithApiServer';
+  static const String noInternetConnection = 'noInternetConnection';
+  static const String unknownErrorWithApiServer = 'unknownErrorWithApiServer';
+  static const String anErrorOccurred = 'anErrorOccurred';
+  static const String yourRequestNotFound = 'yourRequestNotFound';
+  static const String internalServerError = 'internalServerError';
+  static const String oopsThereWasAnError = 'oopsThereWasAnError';
   static const String hello = 'hello';
   static const String cancel = 'cancel';
   static const String unauthorized = 'unauthorized';
 
   // Add missing locale keys
-  static const String copiedToClipboard = 'copied_to_clipboard';
+  static const String copiedToClipboard = 'copiedToClipboard';
   static const String error = 'error';
-  static const String noDataToShare = 'no_data_to_share';
-  static const String sharingUnavailable = 'sharing_unavailable';
-  static const String completeDataBeforeSharing =
-      'complete_data_before_sharing';
+  static const String noDataToShare = 'noDataToShare';
+  static const String sharingUnavailable = 'sharingUnavailable';
+  static const String completeDataBeforeSharing = 'completeDataBeforeSharing';
 
-  static const String userNameAndPassword = 'user_name_and_password';
-  static const String invalidPhoneNumber = 'invalid_phone_number';
-  static const String otpSent = 'otp_sent';
-  static const String invalidCredentials = 'invalid_credentials';
-  static const String phoneAlreadyRegistered = 'phone_already_registered';
-  static const String invalidOrExpiredOtp = 'invalid_or_expired_otp';
-  static const String invalidOtp = 'invalid_otp';
-  static const String noAccountWithThatPhone = 'no_account_with_that_phone';
-  static const String otpVerified = 'otp_verified';
-  static const String passwordReset = 'password_reset';
-  static const String invalidOrExpiredResetToken =
-      'invalid_or_expired_reset_token';
-  static const String areYouSureYouWantToDelete =
-      'are_you_sure_you_want_to_delete';
-  static const String noResultsFound = 'no_results_found';
-  static const String selectItem = 'select_item';
-  static const String tryAgain = 'try_again';
-  static const String goBack = 'go_back';
+  static const String userNameAndPassword = 'userNameAndPassword';
+  static const String invalidPhoneNumber = 'invalidPhoneNumber';
+  static const String otpSent = 'otpSent';
+  static const String invalidCredentials = 'invalidCredentials';
+  static const String phoneAlreadyRegistered = 'phoneAlreadyRegistered';
+  static const String invalidOrExpiredOtp = 'invalidOrExpiredOtp';
+  static const String invalidOtp = 'invalidOtp';
+  static const String noAccountWithThatPhone = 'noAccountWithThatPhone';
+  static const String otpVerified = 'otpVerified';
+  static const String passwordReset = 'passwordReset';
+  static const String invalidOrExpiredResetToken = 'invalidOrExpiredResetToken';
+  static const String areYouSureYouWantToDelete = 'areYouSureYouWantToDelete';
+  static const String noResultsFound = 'noResultsFound';
+  static const String selectItem = 'selectItem';
+  static const String tryAgain = 'tryAgain';
+  static const String goBack = 'goBack';
   static const String images = 'images';
   static const String info = 'info';
   static const String success = 'success';
 
   static const String skip = 'skip';
   static const String next = 'next';
-  static const String getStarted = 'get_started';
-  static const String onboardingTitle1 = 'onboarding_title_1';
-  static const String onboardingSubTitle1 = 'onboarding_subtitle_1';
-  static const String onboardingTitle2 = 'onboarding_title_2';
-  static const String onboardingSubTitle2 = 'onboarding_subtitle_2';
-  static const String onboardingTitle3 = 'onboarding_title_3';
-  static const String onboardingSubTitle3 = 'onboarding_subtitle_3';
-  static const String onboardingEmptyState = 'onboarding_empty_state';
-  static const String userName = 'user_name';
+  static const String getStarted = 'getStarted';
+  static const String onboardingTitle1 = 'onboardingTitle1';
+  static const String onboardingSubTitle1 = 'onboardingSubTitle1';
+  static const String onboardingTitle2 = 'onboardingTitle2';
+  static const String onboardingSubTitle2 = 'onboardingSubTitle2';
+  static const String onboardingTitle3 = 'onboardingTitle3';
+  static const String onboardingSubTitle3 = 'onboardingSubTitle3';
+  static const String onboardingEmptyState = 'onboardingEmptyState';
+  static const String userName = 'userName';
   static const String password = 'password';
-  static const String welcomeBack = 'welcome_back';
-  static const String loginSubtitle = 'login_subtitle';
+  static const String welcomeBack = 'welcomeBack';
+  static const String loginSubtitle = 'loginSubtitle';
   static const String login = 'login';
-  static const String forgetPassword = 'forget_password';
-  static const String alreadyHaveAccount = 'already_have_account';
-  static const String dontHaveAccount = 'dont_have_account';
+  static const String forgetPassword = 'forgetPassword';
+  static const String alreadyHaveAccount = 'alreadyHaveAccount';
+  static const String dontHaveAccount = 'dontHaveAccount';
   static const String register = 'register';
-  static const String orContinueWith = 'or_continue_with';
-  static const String registerTitle = 'register_title';
-  static const String registerSubtitle = 'register_subtitle';
-  static const String fullName = 'full_name';
-  static const String confirmPassword = 'confirm_password';
-  static const String createAccount = 'create_account';
-  static const String verifyPhoneNumber = 'verify_phone_number';
-  static const String verifySubtitle = 'verify_subtitle';
+  static const String orContinueWith = 'orContinueWith';
+  static const String registerTitle = 'registerTitle';
+  static const String registerSubtitle = 'registerSubtitle';
+  static const String fullName = 'fullName';
+  static const String confirmPassword = 'confirmPassword';
+  static const String createAccount = 'createAccount';
+  static const String verifyPhoneNumber = 'verifyPhoneNumber';
+  static const String verifySubtitle = 'verifySubtitle';
   static const String verify = 'verify';
-  static const String didntReceiveCode = 'didnt_receive_code';
+  static const String didntReceiveCode = 'didntReceiveCode';
   static const String resend = 'resend';
-  static const String forgotPasswordTitle = 'forgot_password_title';
-  static const String forgotPasswordSubTitle = 'forgot_password_sub_title';
-  static const String sendCode = 'send_code';
-  static const String rememberPassword = 'remember_password';
-  static const String verifyContinueSubtitle = 'verify_continue_subtitle';
-  static const String createNewPasswordTitle = 'create_new_password_title';
-  static const String createNewPasswordSubtitle =
-      'create_new_password_subtitle';
-  static const String savePassword = 'save_password';
-  static const String passwordUpdatedTitle = 'password_updated_title';
-  static const String passwordUpdatedSubtitle = 'password_updated_subtitle';
+  static const String forgotPasswordTitle = 'forgotPasswordTitle';
+  static const String forgotPasswordSubTitle = 'forgotPasswordSubTitle';
+  static const String sendCode = 'sendCode';
+  static const String rememberPassword = 'rememberPassword';
+  static const String verifyContinueSubtitle = 'verifyContinueSubtitle';
+  static const String createNewPasswordTitle = 'createNewPasswordTitle';
+  static const String createNewPasswordSubtitle = 'createNewPasswordSubtitle';
+  static const String savePassword = 'savePassword';
+  static const String passwordUpdatedTitle = 'passwordUpdatedTitle';
+  static const String passwordUpdatedSubtitle = 'passwordUpdatedSubtitle';
 
   // ===========================================================================
   // New Feature Keys (Session Flow, Assessment, Exercises, Help & Dashboard)

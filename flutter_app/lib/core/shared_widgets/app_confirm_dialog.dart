@@ -1,4 +1,7 @@
+import 'package:easy_localization/easy_localization.dart'
+    show StringTranslateExtension;
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/theme_extension.dart';
 
 import '../theme/styles/app_text_styles.dart';
@@ -53,9 +56,9 @@ class AppConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resolvedTitle = title ?? "LocaleKeys.delete.tr()";// =============change the ""=================
-    final resolvedConfirm = confirmLabel ?? "LocaleKeys.delete.tr()";// =============change the ""=================
-    final resolvedCancel = cancelLabel ?? "LocaleKeys.cancel.tr()"; // =============change the ""=================
+    final resolvedTitle = title ?? LocaleKeys.delete.tr();
+    final resolvedConfirm = confirmLabel ?? LocaleKeys.delete.tr();
+    final resolvedCancel = cancelLabel ?? LocaleKeys.cancel.tr();
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

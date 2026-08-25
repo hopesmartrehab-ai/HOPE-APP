@@ -1,9 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
-import 'package:provider/provider.dart';
-
-import '../state/locale_provider.dart';
+import 'package:hope_app/core/constants/app_localization.dart';
 
 /// Subtle pill-shaped language toggle. Designed to sit in an `AppBar.actions`
 /// list, but can also be dropped anywhere (e.g. overlaid on AppBar-less
@@ -13,10 +11,9 @@ class LanguageToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<LocaleProvider>();
-    final isEn = provider.locale.languageCode == 'en';
+    final isEn = context.locale.languageCode == 'en';
     final label = isEn ? 'ع' : 'EN';
-    final tooltip =LocaleKeys.languageToggleTooltip.tr();
+    final tooltip = LocaleKeys.languageToggleTooltip.tr();
 
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 8),
@@ -24,7 +21,10 @@ class LanguageToggle extends StatelessWidget {
         child: Tooltip(
           message: tooltip,
           child: InkWell(
-            onTap: () => context.read<LocaleProvider>().toggle(),
+            onTap: () {
+              final next = isEn ? AppLocalizations.arabicLocale : AppLocalizations.englishLocale;
+              context.setLocale(next);
+            },
             borderRadius: BorderRadius.circular(20),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -56,10 +56,9 @@ class FloatingLanguageToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<LocaleProvider>();
-    final isEn = provider.locale.languageCode == 'en';
+    final isEn = context.locale.languageCode == 'en';
     final label = isEn ? 'ع' : 'EN';
-    final tooltip =LocaleKeys.languageToggleTooltip.tr();
+    final tooltip = LocaleKeys.languageToggleTooltip.tr();
 
     return Material(
       color: Colors.white.withValues(alpha: 0.85),
@@ -67,7 +66,10 @@ class FloatingLanguageToggle extends StatelessWidget {
       shape: const StadiumBorder(),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => context.read<LocaleProvider>().toggle(),
+        onTap: () {
+          final next = isEn ? AppLocalizations.arabicLocale : AppLocalizations.englishLocale;
+          context.setLocale(next);
+        },
         child: Padding(
           padding: const EdgeInsetsDirectional.symmetric(
             horizontal: 12,
