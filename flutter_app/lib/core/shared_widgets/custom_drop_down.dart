@@ -129,11 +129,11 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
                   controller: _searchController,
                   onChanged: _filterItems,
                   decoration: InputDecoration(
-                    hintText: LocaleKeys.search.tr(),
+                    hintText: "LocaleKeys.search.tr()",
                     prefixIcon: Padding(
                       padding: const EdgeInsetsDirectional.all(18.0),
                       child: SvgPicture.asset(
-                        Assets.assetsIconsInactiveSearchIcon,
+                        "Assets.assetsIconsInactiveSearchIcon",// =============change the ""=================
                       ),
                     ),
                     // Clear search field button

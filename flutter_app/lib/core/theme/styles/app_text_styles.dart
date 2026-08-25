@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tara_car/core/theme/theme_extension.dart';
+import 'package:hope_app/core/theme/theme_extension.dart';
 
 class Styles {
  static TextStyle s9(BuildContext context) {

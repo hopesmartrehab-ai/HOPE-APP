@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:hope_app/core/constants/assets_constants.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
 
 import '../../../core/old_core/theme/app_theme.dart';
@@ -38,7 +37,6 @@ class _PatientShellScreenState extends State<PatientShellScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -80,7 +78,6 @@ class _HelpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(title: Text(LocaleKeys.helpTitle.tr())),
       body: ListView(
@@ -128,7 +125,7 @@ class _HelpScreen extends StatelessWidget {
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(Assets.assetsHelpDd2, fit: BoxFit.cover),
+            // child: Image.asset(Assets.assetsHelpDd2, fit: BoxFit.cover),
           ),
           const SizedBox(height: 20),
 
@@ -210,8 +207,14 @@ class _HelpScreen extends StatelessWidget {
             LocaleKeys.helpTroubleNoResponse.tr(),
             LocaleKeys.helpTroubleNoResponseFix.tr(),
           ),
-          _TroubleshootTile(LocaleKeys.helpTroubleNoData.tr(), LocaleKeys.helpTroubleNoDataFix.tr()),
-          _TroubleshootTile(LocaleKeys.helpTroubleStrange.tr(), LocaleKeys.helpTroubleStrangeFix.tr()),
+          _TroubleshootTile(
+            LocaleKeys.helpTroubleNoData.tr(),
+            LocaleKeys.helpTroubleNoDataFix.tr(),
+          ),
+          _TroubleshootTile(
+            LocaleKeys.helpTroubleStrange.tr(),
+            LocaleKeys.helpTroubleStrangeFix.tr(),
+          ),
           const SizedBox(height: 20),
 
           // --- Safety Tips ---

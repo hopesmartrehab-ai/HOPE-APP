@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hope_app/core/constants/assets_constants.dart';
 import 'package:hope_app/core/theme/theme_extension.dart';
 
 import '../theme/styles/app_text_styles.dart';
@@ -116,8 +115,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   padding: const EdgeInsets.all(12.0),
                   child: SvgPicture.asset(
                     viewPassword
-                        ? Assets.assetsIconsEyeVisable
-                        : Assets.assetsIconsEyeNotVisable,
+                        ? "Assets.assetsIconsEyeVisable"                     // =============change the ""=================
+                        : "Assets.assetsIconsEyeNotVisable",                  // =============change the ""=================
 
                     // color: context.textHintLight,
                   ),

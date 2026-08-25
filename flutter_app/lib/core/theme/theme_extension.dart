@@ -13,7 +13,7 @@ extension MultiThemeColors on BuildContext {
       : AppColors.primaryColor.withValues(alpha: .05);
 
   Color get secondaryColor =>
-      isDarkMode ? const Color(0xff39601f) : AppColors.secondaryColor;
+      isDarkMode ? const Color(0xff357185) : AppColors.secondaryColor;
 
   Color get textBlack =>
       isDarkMode ? const Color(0xffEAEAEA) : AppColors.textBlack;

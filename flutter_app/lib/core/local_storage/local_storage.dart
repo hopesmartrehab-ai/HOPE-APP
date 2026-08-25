@@ -145,7 +145,7 @@ abstract class LocalStorage {
   }
 
   static String getLocaleLanguage() {
-    if (local?.getString(StorageKeys.localeLanguage) == 'en_US') {
+    if (local?.getString(StorageKeys.localeLanguage) == 'en') {
       return 'en';
     } else if (local?.getString(StorageKeys.localeLanguage) == 'ar_EG') {
       return 'ar';

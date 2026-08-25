@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class AppColors {
   static const Color textBlack = Color.fromRGBO(28, 28, 28, 1);
-  static const Color secondaryColor = Color(0xff39601f);
+  static const Color secondaryColor = Color(0xff357185);
   static const Color whiteColor = Color(0xffffffff);
   static const Color blackColor = Color(0xff000000);
   static const Color textDefaultPrimaryColor = Color(0xff022D23);
@@ -28,7 +28,7 @@ abstract class AppColors {
 
   //new colors
   static const Color scaffoldBackgroundColor = Color(0xffFFFFFF);
-  static const Color primaryColor = Color(0xff007C70);
+  static const Color primaryColor = Color(0xff1A4663);
   static const Color lightLightnessColor = Color(0xffFFFFFF);
   static const Color darkDark = Color(0xff2F3036);
   static const Color lightDark = Color(0xffD4D6DD);
@@ -59,7 +59,7 @@ abstract class AppColors {
   static const Color carPurple = Color(0xff984AD3);
   static const Color carOrange = Color(0xffEF931C);
   static const Color greenLight = Color(0xffCAE8E5);
-  static Color dottedColor = const Color(0xff007C70).withValues(alpha: .1);
+  static Color dottedColor = const Color(0xff1A4663).withValues(alpha: .1);
   static const Color dustyTeal = Color(0xff91C6C2);
   static const Color oxfordBlue = Color(0xff101828);
 }
@@ -98,7 +98,7 @@ abstract class AppDarkColors {
 
   //new colors
   static const Color scaffoldBackgroundColor = Color(0xff141414);
-  static const Color primaryColor = Color(0xff007C70);
+  static const Color primaryColor = Color(0xff1A4663);
   static const Color lightLightnessColor = Color(0xffFFFFFF);
   static const Color darkDark = Color(0xffEAEAEA);
   static const Color lightDark = Color(0xffD4D6DD);
@@ -128,7 +128,7 @@ abstract class AppDarkColors {
   static const Color carPurple = Color(0xff984AD3);
   static const Color carOrange = Color(0xffEF931C);
   static const Color greenLight = Color(0xffCAE8E5);
-  static Color dottedColor = const Color(0xff007C70).withValues(alpha: .1);
+  static Color dottedColor = const Color(0xff1A4663).withValues(alpha: .1);
   static const Color dustyTeal = Color(0xff91C6C2);
   static const Color oxfordBlue = Color(0xffF9FAFB);
 

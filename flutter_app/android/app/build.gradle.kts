@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mhosny.hopeApp"
+    namespace = "ma.hope.com"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "28.2.13676358"
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.mhosny.hopeApp"
+        applicationId = "ma.hope.com"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 24

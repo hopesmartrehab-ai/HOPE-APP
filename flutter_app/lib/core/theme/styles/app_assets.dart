@@ -1,20 +1,25 @@
-import 'package:tara_car/core/constants/assets_constants.dart';
+// import 'package:hope_app/core/constants/assets_constants.dart';
 
-abstract class AppImages {
-  static const String homeLogo = Assets.assetsLogosLightLogoHomePageAsPn;
-  static const String car = Assets.assetsImagesCarLight;
-  static const String policeCar = Assets.assetsImagesPoliceCarLight;
-  static const String rocket = Assets.assetsImagesRocketLight;
-  static const String emptyNotification =
-      Assets.assetsImagesEmptyNotificationLight;
-}
+// abstract class AppImages {
+//   // Medical Conditions Images
+//   static const String armPain = Assets.assetsImagesArmPain;
+//   static const String bloodPressure = Assets.assetsImagesBloodPressure;
+//   static const String bloodSugar = Assets.assetsImagesBloodSugar;
+//   static const String dizzy = Assets.assetsImagesDizzy;
+//   static const String falls = Assets.assetsImagesFalls;
+//   static const String fatigue = Assets.assetsImagesFatigue;
+//   static const String handMovement = Assets.assetsImagesHandMovement;
+//   static const String headache = Assets.assetsImagesHeadache;
+//   static const String sleep = Assets.assetsImagesSleep;
+//   static const String temperature = Assets.assetsImagesTemperature;
 
-abstract class AppDarkImages {
-  static const String homeLogo = Assets.assetsLogosDarkLogoHomePageAsPn;
-  static const String car = Assets.assetsImagesCarDark;
-  static const String policeCar = Assets.assetsImagesPoliceCarDark;
-  static const String rocket = Assets.assetsImagesRocketDark;
+//   // Help Images
+//   static final String helpDd1 = Assets.assetsHelpDd1;
+//   static final String helpDd2 = Assets.assetsHelpDd2;
+// }
 
-  static const String emptyNotification =
-      Assets.assetsImagesEmptyNotificationDark;
-}
+// abstract class AppIcons {
+//   // Icons & Logos
+//   static const String appIcon = Assets.assetsIconsAppIcon;
+//   static const String flagsLogo = Assets.assetsFlagsLogo;
+// }

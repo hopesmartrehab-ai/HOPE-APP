@@ -1,4 +1,4 @@
-package com.mhosny.hope_app
+package ma.hope.com
 
 import io.flutter.embedding.android.FlutterActivity
 

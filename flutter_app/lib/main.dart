@@ -39,6 +39,7 @@ Future<void> main() async {
       path: AppLocalizations.translationsPath,
       fallbackLocale: AppLocalizations.englishLocale,
       startLocale: AppLocalizations.englishLocale,
+      useOnlyLangCode: true,
       saveLocale: true,
       child: MultiProvider(
         providers: [

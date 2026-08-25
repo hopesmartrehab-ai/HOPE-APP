@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
-            title: 'Hope App',
+            title: 'Hope',
             navigatorKey: navigatorKey,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             themeMode: state.themeMode,
             theme: AppThemes.lightTheme,
             darkTheme: AppThemes.darkTheme,
-            home: const MainScaffold(),
+            home: const Scaffold(body: Center(child: Text('Home Page'))),
           );
         },
       ),

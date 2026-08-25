@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hope_app/core/constants/assets_constants.dart';
 import 'package:hope_app/core/shared_widgets/app_svg.dart';
 import 'package:hope_app/core/shared_widgets/clicked_widget.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
@@ -41,7 +40,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: AppSvg(
                       darkColor: context.darkDarkColor,
                       //
-                      assetName: Assets.assetsIconsArrowBackIcon,
+                      assetName: "Assets.assetsIconsArrowBackIcon,"  // =============change the ""=================
                     ),
                   ),
                 )
@@ -51,7 +50,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
                     width: 32,
                     height: 32,
                     darkColor: context.darkDarkColor,
-                    assetName: Assets.assetsIconsCloseIconLight,
+                    assetName: "Assets.assetsIconsCloseIconLight", // =============change the ""=================
                   ),
                 ),
         ),
