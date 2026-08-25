@@ -1,0 +1,1 @@
+enum HomeSliderSectionType { first, second }

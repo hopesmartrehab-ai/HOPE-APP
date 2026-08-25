@@ -1,59 +1,50 @@
+// lib/main.dart
+
+import 'package:device_preview/device_preview.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'debug/debug_log_store.dart';
-import 'debug/debug_overlay.dart';
-import 'l10n/gen/app_localizations.dart';
-import 'state/locale_provider.dart';
-import 'state/session_provider.dart';
-import 'screens/welcome_screen.dart';
-import 'theme/app_theme.dart';
+import 'package:hope_app/my_app.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'core/constants/app_localization.dart';
+import 'core/di/service_locator.dart';
+import 'core/local_storage/local_storage.dart';
+import 'core/resources/app_bloc_observer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: HopeColors.offWhite,
-      systemNavigationBarIconBrightness: Brightness.dark,
+
+  Bloc.observer = AppBlocObserver();
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory(
+      (await getApplicationDocumentsDirectory()).path,
     ),
   );
-  final logStore = DebugLogStore();
-  final localeProvider = LocaleProvider();
-  await localeProvider.load();
+
+  setupServiceLocator();
+  await LocalStorage.init();
+  await EasyLocalization.ensureInitialized();
+  await initializeDateFormatting('ar', 'en');
+
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<DebugLogStore>.value(value: logStore),
-        ChangeNotifierProvider<SessionProvider>(
-          create: (_) => SessionProvider(logStore: logStore),
-        ),
-        ChangeNotifierProvider<LocaleProvider>.value(value: localeProvider),
+    EasyLocalization(
+      supportedLocales: const [
+        AppLocalizations.englishLocale,
+        AppLocalizations.arabicLocale,
       ],
-      child: const HopeApp(),
+      path: AppLocalizations.translationsPath,
+      fallbackLocale: AppLocalizations.englishLocale,
+      startLocale: AppLocalizations.englishLocale,
+      saveLocale: true,
+      child: DevicePreview(
+        enabled: kDebugMode,
+
+        builder: (context) => const MyApp(),
+      ),
     ),
   );
-}
-
-class HopeApp extends StatelessWidget {
-  const HopeApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final locale = context.watch<LocaleProvider>().locale;
-    return MaterialApp(
-      onGenerateTitle: (ctx) => AppLocalizations.of(ctx).appTitle,
-      theme: buildHopeTheme(),
-      themeMode: ThemeMode.light,
-      locale: locale,
-      supportedLocales: LocaleProvider.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      home: const DebugOverlay(child: WelcomeScreen()),
-    );
-  }
 }
