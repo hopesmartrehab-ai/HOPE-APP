@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import 'exercise_waiting_screen.dart';
@@ -11,70 +11,70 @@ enum _AnswerKind { hours, tempC, bloodSugar, bloodPressure, painScale, yesNo }
 class _Question {
   final String key;
   final String asset;
-  final String Function(AppLocalizations) prompt;
+  final String promptKey;
   final _AnswerKind kind;
-  const _Question(this.key, this.asset, this.prompt, this.kind);
+  const _Question(this.key, this.asset, this.promptKey, this.kind);
 }
 
 final List<_Question> _questions = [
   _Question(
     'sleep_hours',
     'assets/questionnaire/sleep.jpeg',
-    (t) => t.qSleep,
+    LocaleKeys.qSleep,
     _AnswerKind.hours,
   ),
   _Question(
     'body_temperature',
     'assets/questionnaire/temperature.jpeg',
-    (t) => t.qTemperature,
+    LocaleKeys.qTemperature,
     _AnswerKind.tempC,
   ),
   _Question(
     'blood_sugar',
     'assets/questionnaire/blood_sugar.jpeg',
-    (t) => t.qBloodSugar,
+    LocaleKeys.qBloodSugar,
     _AnswerKind.bloodSugar,
   ),
   _Question(
     'blood_pressure',
     'assets/questionnaire/blood_pressure.jpeg',
-    (t) => t.qBloodPressure,
+    LocaleKeys.qBloodPressure,
     _AnswerKind.bloodPressure,
   ),
   _Question(
     'headache',
     'assets/questionnaire/headache.jpeg',
-    (t) => t.qHeadache,
+    LocaleKeys.qHeadache,
     _AnswerKind.yesNo,
   ),
   _Question(
     'dizzy',
     'assets/questionnaire/dizzy.jpeg',
-    (t) => t.qDizzy,
+    LocaleKeys.qDizzy,
     _AnswerKind.yesNo,
   ),
   _Question(
     'fatigue',
     'assets/questionnaire/fatigue.jpeg',
-    (t) => t.qFatigue,
+    LocaleKeys.qFatigue,
     _AnswerKind.yesNo,
   ),
   _Question(
     'arm_pain',
     'assets/questionnaire/arm_pain.jpeg',
-    (t) => t.qArmPain,
+    LocaleKeys.qArmPain,
     _AnswerKind.painScale,
   ),
   _Question(
     'hand_movement',
     'assets/questionnaire/hand_movement.jpeg',
-    (t) => t.qHandMovement,
+    LocaleKeys.qHandMovement,
     _AnswerKind.yesNo,
   ),
   _Question(
     'falls_injuries',
     'assets/questionnaire/falls.jpeg',
-    (t) => t.qFalls,
+    LocaleKeys.qFalls,
     _AnswerKind.yesNo,
   ),
 ];
@@ -148,15 +148,17 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     final total = _questions.length;
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.dailyCheckin),
+        title: Text(LocaleKeys.dailyCheckin.tr()),
         actions: [
           TextButton(
             onPressed: _skip,
-            child: Text(t.skip, style: const TextStyle(color: Colors.white)),
+            child: Text(
+              LocaleKeys.skip.tr(),
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
           const LanguageToggle(),
         ],
@@ -169,7 +171,9 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  t.questionProgress(_index + 1, total),
+                  LocaleKeys.questionProgress.tr(
+                    args: [(_index + 1).toString(), total.toString()],
+                  ),
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.grey),
                 ),
@@ -212,7 +216,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
-                        child: Text(t.back),
+                        child: Text(LocaleKeys.back.tr()),
                       ),
                     ),
                   if (_index > 0) const SizedBox(width: 12),
@@ -223,7 +227,11 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      child: Text(_index == total - 1 ? t.submit : t.next),
+                      child: Text(
+                        _index == total - 1
+                            ? LocaleKeys.submit.tr()
+                            : LocaleKeys.next.tr(),
+                      ),
                     ),
                   ),
                 ],
@@ -248,7 +256,6 @@ class _QuestionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -268,7 +275,7 @@ class _QuestionPage extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Text(
-            question.prompt(t),
+            question.promptKey.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
           ),
@@ -296,7 +303,6 @@ class _InputForKind extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     switch (kind) {
       case _AnswerKind.yesNo:
         return _YesNoInput(value: value as bool?, onChanged: onChanged);
@@ -306,7 +312,7 @@ class _InputForKind extends StatelessWidget {
           min: 0,
           max: 14,
           divisions: 28,
-          unit: t.hoursUnit,
+          unit: LocaleKeys.hoursUnit.tr(),
           fractionDigits: 1,
           onChanged: onChanged,
           initIfNull: true,
@@ -317,7 +323,7 @@ class _InputForKind extends StatelessWidget {
           min: 34,
           max: 42,
           divisions: 80,
-          unit: t.celsiusUnit,
+          unit: LocaleKeys.celsiusUnit.tr(),
           fractionDigits: 1,
           onChanged: onChanged,
           initIfNull: true,
@@ -328,7 +334,7 @@ class _InputForKind extends StatelessWidget {
           min: 40,
           max: 400,
           divisions: 72,
-          unit: t.mgdlUnit,
+          unit: LocaleKeys.mgdlUnit.tr(),
           fractionDigits: 0,
           onChanged: onChanged,
           initIfNull: true,
@@ -345,7 +351,10 @@ class _InputForKind extends StatelessWidget {
           initIfNull: true,
         );
       case _AnswerKind.bloodPressure:
-        return _BloodPressureInput(value: value as Map?, onChanged: onChanged);
+        return _BloodPressureInput(
+          value: value as Map?,
+          onChanged: onChanged,
+        );
     }
   }
 }
@@ -357,12 +366,11 @@ class _YesNoInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Row(
       children: [
         Expanded(
           child: _ChoiceButton(
-            label: t.yes,
+            label: LocaleKeys.yes.tr(),
             icon: Icons.check_circle_outline,
             selected: value == true,
             color: Colors.teal,
@@ -372,7 +380,7 @@ class _YesNoInput extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
           child: _ChoiceButton(
-            label: t.no,
+            label: LocaleKeys.no.tr(),
             icon: Icons.cancel_outlined,
             selected: value == false,
             color: Colors.redAccent,
@@ -552,7 +560,6 @@ class _BloodPressureInputState extends State<_BloodPressureInput> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Row(
       children: [
         Expanded(
@@ -562,7 +569,7 @@ class _BloodPressureInputState extends State<_BloodPressureInput> {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             decoration: InputDecoration(
-              labelText: t.systolic,
+              labelText: LocaleKeys.systolic.tr(),
               border: const OutlineInputBorder(),
               hintText: '120',
             ),
@@ -580,7 +587,7 @@ class _BloodPressureInputState extends State<_BloodPressureInput> {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             decoration: InputDecoration(
-              labelText: t.diastolic,
+              labelText: LocaleKeys.diastolic.tr(),
               border: const OutlineInputBorder(),
               hintText: '80',
             ),

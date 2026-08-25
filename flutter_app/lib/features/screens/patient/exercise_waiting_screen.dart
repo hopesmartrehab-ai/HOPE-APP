@@ -1,9 +1,10 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../../core/old_core/services/exercise_videos.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/error_snackbar.dart';
@@ -41,7 +42,6 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<SessionProvider>();
-    final t = AppLocalizations.of(context);
     final neededTraining =
         provider.currentSession?.assessmentResults?.neededTraining ?? [];
     final hasList = neededTraining.isNotEmpty;
@@ -68,7 +68,7 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.exercise),
+        title: Text(LocaleKeys.exercise.tr()),
         actions: const [LanguageToggle()],
       ),
       body: SingleChildScrollView(
@@ -80,18 +80,18 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
             const SizedBox(height: 16),
             Text(
               hasList
-                  ? t.exerciseProgress(
-                      safeIndex + 1,
-                      neededTraining.length,
+                  ? LocaleKeys.exerciseProgress.tr(args: [
+                      (safeIndex + 1).toString(),
+                      neededTraining.length.toString(),
                       exerciseName,
-                    )
-                  : t.exerciseLabel(exerciseName),
+                    ])
+                  : LocaleKeys.exerciseLabel.tr(args: [exerciseName]),
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Text(
-              t.exerciseDesc,
+              LocaleKeys.exerciseDesc.tr(),
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.grey),
             ),
@@ -141,7 +141,7 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
                 alignment: AlignmentDirectional.centerEnd,
                 child: TextButton.icon(
                   icon: const Icon(Icons.skip_next),
-                  label: Text(t.nextExercise),
+                  label: Text(LocaleKeys.nextExercise.tr()),
                   onPressed: () => setState(() {
                     _currentIndex = safeIndex + 1;
                     _videoIndex = 0;
@@ -153,12 +153,12 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
             const VideoRecorderWidget(),
             const SizedBox(height: 16),
             // ---- Accumulation progress / waiting UI ----
-            ..._buildAccumulationUI(provider, t),
+            ..._buildAccumulationUI(provider),
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 8),
             Text(
-              t.noGloveSimulate,
+              LocaleKeys.noGloveSimulate.tr(),
               style: const TextStyle(color: Colors.grey, fontSize: 13),
             ),
             const SizedBox(height: 8),
@@ -171,7 +171,7 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
                   )
                 : OutlinedButton.icon(
                     icon: const Icon(Icons.science_outlined),
-                    label: Text(t.simulateGloveExercise),
+                    label: Text(LocaleKeys.simulateGloveExercise.tr()),
                     onPressed: () {
                       context.read<SessionProvider>().simulateGlove();
                     },
@@ -184,7 +184,6 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
 
   List<Widget> _buildAccumulationUI(
     SessionProvider provider,
-    AppLocalizations t,
   ) {
     final startedAt = provider.accumulationStartedAt;
     final secondsReq = provider.secondsRequired;
@@ -210,7 +209,7 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  t.deviceDisconnectedWarning,
+                  LocaleKeys.deviceDisconnectedWarning.tr(),
                   style: TextStyle(color: Colors.amber.shade900, fontSize: 13),
                 ),
               ),
@@ -233,7 +232,7 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
       if (remaining > 0) {
         widgets.addAll([
           Text(
-            t.accumulationProgress,
+            LocaleKeys.accumulationProgress.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
@@ -241,13 +240,13 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
           LinearProgressIndicator(value: progress),
           const SizedBox(height: 12),
           Text(
-            t.accumulationTimeRemaining(mins, secs),
+            LocaleKeys.accumulationTimeRemaining.tr(args: [mins, secs]),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
           Text(
-            t.batchesReceived(batches),
+            LocaleKeys.batchesReceived.tr(args: [batches.toString()]),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 14, color: Colors.grey),
           ),
@@ -258,7 +257,7 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
           const Center(child: CircularProgressIndicator()),
           const SizedBox(height: 16),
           Text(
-            t.dataCollectionComplete,
+            LocaleKeys.dataCollectionComplete.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
@@ -270,13 +269,13 @@ class _ExerciseWaitingScreenState extends State<ExerciseWaitingScreen> {
         const Center(child: CircularProgressIndicator()),
         const SizedBox(height: 16),
         Text(
-          t.waitingForDevice,
+          LocaleKeys.waitingForDevice.tr(),
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Text(
-          t.exerciseDesc,
+          LocaleKeys.exerciseDesc.tr(),
           textAlign: TextAlign.center,
           style: const TextStyle(color: Colors.grey),
         ),

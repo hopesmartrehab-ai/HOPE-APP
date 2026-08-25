@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import '../../widgets/result_card.dart';
@@ -14,7 +15,6 @@ class ExerciseResultsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<SessionProvider>();
     final exercise = provider.currentSession?.exerciseResults;
-    final t = AppLocalizations.of(context);
 
     if (exercise == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -22,7 +22,7 @@ class ExerciseResultsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.exerciseResults),
+        title: Text(LocaleKeys.exerciseResults.tr()),
         actions: const [LanguageToggle()],
       ),
       body: ListView(
@@ -61,7 +61,7 @@ class ExerciseResultsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            t.featureScores,
+            LocaleKeys.featureScores.tr(),
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
@@ -74,7 +74,7 @@ class ExerciseResultsScreen extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 16),
             Text(
-              t.assessmentResults,
+              LocaleKeys.assessmentResults.tr(),
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
@@ -99,7 +99,7 @@ class ExerciseResultsScreen extends StatelessWidget {
               context.read<SessionProvider>().resetSession();
               Navigator.popUntil(context, (route) => route.isFirst);
             },
-            child: Text(t.finishSession),
+            child: Text(LocaleKeys.finishSession.tr()),
           ),
           const SizedBox(height: 16),
         ],

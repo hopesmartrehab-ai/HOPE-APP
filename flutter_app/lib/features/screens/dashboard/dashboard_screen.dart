@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../../core/old_core/theme/app_theme.dart';
 import '../../models/session.dart';
 import '../../state/session_provider.dart';
@@ -42,10 +43,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ? HopeColors.navy
       : HopeColors.teal;
 
-  String _greeting(AppLocalizations t) =>
+  String _greeting() =>
       widget.mode == DashboardMode.practitioner
-      ? t.dashboardWelcomeDoctor
-      : t.dashboardWelcomePatient;
+      ? LocaleKeys.dashboardWelcomePractitioner.tr()
+      : LocaleKeys.dashboardWelcomePatient.tr();
 
   /// Walk the session history (oldest → newest) and pull out the
   /// (sessionIndex, score) pairs for one exercise category.
@@ -68,7 +69,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<SessionProvider>();
-    final t = AppLocalizations.of(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (provider.errorMessage != null) {
@@ -87,7 +87,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.dashboard),
+        title: Text(LocaleKeys.dashboard.tr()),
         actions: const [LanguageToggle()],
       ),
       body: !_loaded
@@ -99,8 +99,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 padding: const EdgeInsets.all(20),
                 children: [
                   _GreetingHeader(
-                    greeting: _greeting(t),
-                    subtitle: t.dashboardSubtitle,
+                    greeting: _greeting(),
+                    subtitle: LocaleKeys.dashboardSubtitle.tr(),
                     accent: _accent,
                     icon: widget.mode == DashboardMode.practitioner
                         ? Icons.medical_services
@@ -111,7 +111,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 32),
                       child: Text(
-                        t.dashboardEmpty,
+                        LocaleKeys.dashboardEmpty.tr(),
                         textAlign: TextAlign.center,
                         style: const TextStyle(color: HopeColors.muted),
                       ),
@@ -195,7 +195,7 @@ class _CategoryChartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
+   
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -230,7 +230,7 @@ class _CategoryChartCard extends StatelessWidget {
               child: spots.isEmpty
                   ? Center(
                       child: Text(
-                        t.dashboardEmptyForCategory,
+                        LocaleKeys.dashboardEmptyForCategory.tr(),
                         style: const TextStyle(color: HopeColors.muted),
                       ),
                     )

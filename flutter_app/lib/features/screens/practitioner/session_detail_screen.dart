@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../models/session.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
@@ -15,21 +16,20 @@ class SessionDetailScreen extends StatelessWidget {
   const SessionDetailScreen({required this.sessionId, super.key});
 
   Future<void> _confirmDelete(BuildContext context) async {
-    final t = AppLocalizations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(t.deleteSessionConfirmTitle),
-        content: Text(t.deleteSessionConfirmBody),
+        title: Text(LocaleKeys.deleteSessionConfirmTitle.tr()),
+        content: Text(LocaleKeys.deleteSessionConfirmBody.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: Text(t.cancel),
+            child: Text(LocaleKeys.cancel.tr()),
           ),
           TextButton(
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text(t.delete),
+            child: Text(LocaleKeys.delete.tr()),
           ),
         ],
       ),
@@ -40,20 +40,19 @@ class SessionDetailScreen extends StatelessWidget {
     if (ok) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(t.deletedConfirm)));
+      ).showSnackBar(SnackBar(content: Text(LocaleKeys.deletedConfirm.tr())));
       Navigator.pop(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.sessionDetail),
+        title: Text(LocaleKeys.sessionDetail.tr()),
         actions: [
           IconButton(
-            tooltip: t.deleteSession,
+            tooltip: LocaleKeys.deleteSession.tr(),
             icon: const Icon(Icons.delete_outline),
             onPressed: () => _confirmDelete(context),
           ),
@@ -68,7 +67,7 @@ class SessionDetailScreen extends StatelessWidget {
           }
           final session = snapshot.data;
           if (session == null) {
-            return Center(child: Text(t.failedToLoadSession));
+            return Center(child: Text(LocaleKeys.failedToLoadSession.tr()));
           }
           return DefaultTabController(
             length: 3,
@@ -76,9 +75,9 @@ class SessionDetailScreen extends StatelessWidget {
               children: [
                 TabBar(
                   tabs: [
-                    Tab(text: t.tabAssessment),
-                    Tab(text: t.tabExercise),
-                    Tab(text: t.tabInfo),
+                    Tab(text: LocaleKeys.tabAssessment.tr()),
+                    Tab(text: LocaleKeys.tabExercise.tr()),
+                    Tab(text: LocaleKeys.tabInfo.tr()),
                   ],
                 ),
                 Expanded(
@@ -105,10 +104,9 @@ class _AssessmentTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     final results = session.assessmentResults;
     if (results == null) {
-      return Center(child: Text(t.noAssessmentData));
+      return Center(child: Text(LocaleKeys.noAssessmentData.tr()));
     }
     return ListView(
       padding: const EdgeInsets.all(16),
@@ -127,10 +125,9 @@ class _ExerciseTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     final exercise = session.exerciseResults;
     if (exercise == null) {
-      return Center(child: Text(t.noExerciseData));
+      return Center(child: Text(LocaleKeys.noExerciseData.tr()));
     }
     return ListView(
       padding: const EdgeInsets.all(16),
@@ -141,7 +138,7 @@ class _ExerciseTab extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          t.overallPercent(exercise.overallPercent.toStringAsFixed(1)),
+          LocaleKeys.overallPercent.tr(args: [exercise.overallPercent.toStringAsFixed(1)]),
           style: const TextStyle(fontSize: 18, color: Colors.teal),
         ),
         const SizedBox(height: 4),
@@ -159,35 +156,35 @@ class _InfoTab extends StatelessWidget {
   final Session session;
   const _InfoTab({required this.session});
 
-  String _label(AppLocalizations t, String key) {
+  String _label(String key) {
     switch (key) {
       case 'sleep_hours':
-        return t.labelSleepHours;
+        return LocaleKeys.labelSleepHours.tr();
       case 'body_temperature':
-        return t.labelBodyTemperature;
+        return LocaleKeys.labelBodyTemperature.tr();
       case 'blood_sugar':
-        return t.labelBloodSugar;
+        return LocaleKeys.labelBloodSugar.tr();
       case 'blood_pressure':
-        return t.labelBloodPressure;
+        return LocaleKeys.labelBloodPressure.tr();
       case 'headache':
-        return t.labelHeadache;
+        return LocaleKeys.labelHeadache.tr();
       case 'dizzy':
-        return t.labelDizzy;
+        return LocaleKeys.labelDizzy.tr();
       case 'fatigue':
-        return t.labelFatigue;
+        return LocaleKeys.labelFatigue.tr();
       case 'arm_pain':
-        return t.labelArmPain;
+        return LocaleKeys.labelArmPain.tr();
       case 'hand_movement':
-        return t.labelHandMovement;
+        return LocaleKeys.labelHandMovement.tr();
       case 'falls_injuries':
-        return t.labelFallsInjuries;
+        return LocaleKeys.labelFallsInjuries.tr();
       default:
         return key;
     }
   }
 
-  String _formatValue(AppLocalizations t, String key, dynamic value) {
-    if (value is bool) return value ? t.yes : t.no;
+  String _formatValue(String key, dynamic value) {
+    if (value is bool) return value ? LocaleKeys.yes.tr() : LocaleKeys.no.tr();
     if (key == 'blood_pressure' && value is Map) {
       return '${value['systolic']}/${value['diastolic']}';
     }
@@ -197,19 +194,18 @@ class _InfoTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     final q = session.questionnaire;
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         Text(
-          t.questionnaire,
+          LocaleKeys.questionnaire.tr(),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         if (q == null)
           Text(
-            t.questionnaireSkipped,
+            LocaleKeys.questionnaireSkipped.tr(),
             style: const TextStyle(color: Colors.grey),
           )
         else
@@ -222,11 +218,11 @@ class _InfoTab extends StatelessWidget {
                   SizedBox(
                     width: 160,
                     child: Text(
-                      _label(t, e.key),
+                      _label(e.key),
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Expanded(child: Text(_formatValue(t, e.key, e.value))),
+                  Expanded(child: Text(_formatValue(e.key, e.value))),
                 ],
               ),
             ),
@@ -234,7 +230,7 @@ class _InfoTab extends StatelessWidget {
         const Divider(height: 32),
         if (session.videoUrl != null) ...[
           Text(
-            t.sessionVideo,
+            LocaleKeys.sessionVideo.tr(),
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),

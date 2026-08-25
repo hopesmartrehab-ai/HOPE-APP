@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import 'session_detail_screen.dart';
@@ -42,44 +42,43 @@ class _SessionListScreenState extends State<SessionListScreen> {
     }
   }
 
-  String _statusLabel(AppLocalizations t, String status) {
+  String _statusLabel(String status) {
     switch (status.toLowerCase()) {
       case 'created':
-        return t.statusCreated;
+        return LocaleKeys.statusCreated.tr();
       case 'questionnaire_done':
-        return t.statusQuestionnaireDone;
+        return LocaleKeys.statusQuestionnaireDone.tr();
       case 'assessed':
-        return t.statusAssessed;
+        return LocaleKeys.statusAssessed.tr();
       case 'exercised':
-        return t.statusExercised;
+        return LocaleKeys.statusExercised.tr();
       case 'completed':
-        return t.statusCompleted;
+        return LocaleKeys.statusCompleted.tr();
       case 'in_progress':
-        return t.statusInProgress;
+        return LocaleKeys.statusInProgress.tr();
       case 'accumulating_assessment':
-        return t.statusAccumulatingAssessment;
+        return LocaleKeys.statusAccumulatingAssessment.tr();
       case 'accumulating_exercise':
-        return t.statusAccumulatingExercise;
+        return LocaleKeys.statusAccumulatingExercise.tr();
       default:
-        return t.statusUnknown;
+        return LocaleKeys.statusUnknown.tr();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<SessionProvider>();
-    final t = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.sessionHistory),
-        actions: const [LanguageToggle()],
+        title: Text(LocaleKeys.sessionHistory.tr()),
+        actions:  const [LanguageToggle()],
       ),
       body: RefreshIndicator(
         onRefresh: () => context.read<SessionProvider>().loadSessionHistory(),
         child: provider.sessionHistory.isEmpty
-            ? Center(child: Text(t.noSessionsFound))
+            ? Center(child: Text(LocaleKeys.noSessionsFound.tr()))
             : ListView.builder(
                 itemCount: provider.sessionHistory.length,
                 itemBuilder: (context, index) {
@@ -93,14 +92,16 @@ class _SessionListScreenState extends State<SessionListScreen> {
                     ).format(dt);
                   } catch (_) {}
                   final assessText = s.assessmentPassed != null
-                      ? t.assessSummary(
-                          s.assessmentPassed!,
-                          s.assessmentTotal ?? 0,
+                      ? LocaleKeys.assessSummary.tr(
+                          args: [
+                            s.assessmentPassed!.toString(),
+                            (s.assessmentTotal ?? 0).toString(),
+                          ],
                         )
-                      : t.noAssessment;
+                      : LocaleKeys.noAssessment.tr();
                   final exerciseText = s.exerciseOverallPercent != null
-                      ? t.exerciseSummary(
-                          s.exerciseOverallPercent!.toStringAsFixed(1),
+                      ? LocaleKeys.exerciseSummary.tr(
+                          args: [s.exerciseOverallPercent!.toStringAsFixed(1)],
                         )
                       : '';
                   return ListTile(
@@ -112,7 +113,7 @@ class _SessionListScreenState extends State<SessionListScreen> {
                       ].join(' | '),
                     ),
                     trailing: Chip(
-                      label: Text(_statusLabel(t, s.status)),
+                      label: Text(LocaleKeys.statusUnknown.tr()), // Replace with actual status label translation
                       backgroundColor: _statusColor(
                         s.status,
                       ).withValues(alpha: 0.15),

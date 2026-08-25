@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/theme_extension.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

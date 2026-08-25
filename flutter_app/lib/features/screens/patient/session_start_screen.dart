@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/error_snackbar.dart';
 import '../../widgets/language_toggle.dart';
@@ -14,7 +15,6 @@ class SessionStartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<SessionProvider>();
-    final t = AppLocalizations.of(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (provider.errorMessage != null) {
@@ -33,7 +33,7 @@ class SessionStartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.startSession),
+        title: Text(LocaleKeys.startSession.tr()),
         actions: const [LanguageToggle()],
       ),
       body: Center(
@@ -45,7 +45,7 @@ class SessionStartScreen extends StatelessWidget {
               const Icon(Icons.health_and_safety, size: 80, color: Colors.teal),
               const SizedBox(height: 24),
               Text(
-                t.readyToBegin,
+                LocaleKeys.readyToBegin.tr(),
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class SessionStartScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                t.sessionIntro,
+                LocaleKeys.sessionIntro.tr(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
@@ -62,7 +62,7 @@ class SessionStartScreen extends StatelessWidget {
                   ? const CircularProgressIndicator()
                   : ElevatedButton.icon(
                       icon: const Icon(Icons.play_arrow),
-                      label: Text(t.startNewSession),
+                      label: Text(LocaleKeys.startNewSession.tr()),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 32,
@@ -75,12 +75,12 @@ class SessionStartScreen extends StatelessWidget {
               const SizedBox(height: 16),
               OutlinedButton.icon(
                 icon: const Icon(Icons.insights),
-                label: Text(t.dashboard),
+                label: Text(LocaleKeys.dashboard.tr()),
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) =>
-                        const DashboardScreen(mode: DashboardMode.patient),
+                         DashboardScreen(mode: DashboardMode.patient),
                   ),
                 ),
               ),

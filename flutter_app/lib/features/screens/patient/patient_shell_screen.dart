@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/assets_constants.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../../core/old_core/theme/app_theme.dart';
 import '../dashboard/dashboard_screen.dart';
 import 'session_start_screen.dart';
@@ -24,10 +25,9 @@ class _PatientShellScreenState extends State<PatientShellScreen> {
       _snackbarShown = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
-        final t = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(t.welcomeSnackbar),
+            content: Text(LocaleKeys.welcomeSnackbar.tr()),
             duration: const Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
           ),
@@ -38,7 +38,7 @@ class _PatientShellScreenState extends State<PatientShellScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
+    
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -57,17 +57,17 @@ class _PatientShellScreenState extends State<PatientShellScreen> {
           NavigationDestination(
             icon: const Icon(Icons.home_outlined),
             selectedIcon: const Icon(Icons.home),
-            label: t.tabHome,
+            label: LocaleKeys.tabHome.tr(),
           ),
           NavigationDestination(
             icon: const Icon(Icons.insights_outlined),
             selectedIcon: const Icon(Icons.insights),
-            label: t.tabProgress,
+            label: LocaleKeys.tabProgress.tr(),
           ),
           NavigationDestination(
             icon: const Icon(Icons.help_outline),
             selectedIcon: const Icon(Icons.help),
-            label: t.tabHelp,
+            label: LocaleKeys.tabHelp.tr(),
           ),
         ],
       ),
@@ -80,10 +80,9 @@ class _HelpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.helpTitle)),
+      appBar: AppBar(title: Text(LocaleKeys.helpTitle.tr())),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -101,7 +100,7 @@ class _HelpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    t.helpWelcome,
+                    LocaleKeys.helpWelcome.tr(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 20,
@@ -111,7 +110,7 @@ class _HelpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    t.helpWelcomeDesc,
+                    LocaleKeys.helpWelcomeDesc.tr(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: HopeColors.muted,
@@ -125,7 +124,7 @@ class _HelpScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // --- How to Use (dd2.jpeg) ---
-          _SectionHeader(t.helpHowToUse),
+          _SectionHeader(LocaleKeys.helpHowToUse.tr()),
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
@@ -134,69 +133,69 @@ class _HelpScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // --- Exercises Guide ---
-          _SectionHeader(t.helpExercisesGuide),
+          _SectionHeader(LocaleKeys.helpExercisesGuide.tr()),
           const SizedBox(height: 8),
           _ExerciseTile(
             icon: Icons.open_with,
             color: Colors.blue,
-            title: t.helpReach,
-            desc: t.helpReachDesc,
-            tip: t.helpReachTip,
+            title: LocaleKeys.helpReach.tr(),
+            desc: LocaleKeys.helpReachDesc.tr(),
+            tip: LocaleKeys.helpReachTip.tr(),
           ),
           _ExerciseTile(
             icon: Icons.back_hand,
             color: Colors.orange,
-            title: t.helpGrasp,
-            desc: t.helpGraspDesc,
-            tip: t.helpGraspTip,
+            title: LocaleKeys.helpGrasp.tr(),
+            desc: LocaleKeys.helpGraspDesc.tr(),
+            tip: LocaleKeys.helpGraspTip.tr(),
           ),
           _ExerciseTile(
             icon: Icons.precision_manufacturing,
             color: Colors.purple,
-            title: t.helpManipulation,
-            desc: t.helpManipulationDesc,
-            tip: t.helpManipulationTip,
+            title: LocaleKeys.helpManipulation.tr(),
+            desc: LocaleKeys.helpManipulationDesc.tr(),
+            tip: LocaleKeys.helpManipulationTip.tr(),
           ),
           _ExerciseTile(
             icon: Icons.pan_tool,
             color: Colors.green,
-            title: t.helpRelease,
-            desc: t.helpReleaseDesc,
-            tip: t.helpReleaseTip,
+            title: LocaleKeys.helpRelease.tr(),
+            desc: LocaleKeys.helpReleaseDesc.tr(),
+            tip: LocaleKeys.helpReleaseTip.tr(),
           ),
           const SizedBox(height: 20),
 
           // --- Understanding Your Results ---
-          _SectionHeader(t.helpResultsTitle),
+          _SectionHeader(LocaleKeys.helpResultsTitle.tr()),
           const SizedBox(height: 8),
           _ResultTile(
             Icons.check_circle,
             Colors.green,
-            t.helpResultSuccess,
-            t.helpResultSuccessDesc,
+            LocaleKeys.helpResultSuccess.tr(),
+            LocaleKeys.helpResultSuccessDesc.tr(),
           ),
           _ResultTile(
             Icons.refresh,
             Colors.orange,
-            t.helpResultTryAgain,
-            t.helpResultTryAgainDesc,
+            LocaleKeys.helpResultTryAgain.tr(),
+            LocaleKeys.helpResultTryAgainDesc.tr(),
           ),
           _ResultTile(
             Icons.fitness_center,
             Colors.red,
-            t.helpResultLowForce,
-            t.helpResultLowForceDesc,
+            LocaleKeys.helpResultLowForce.tr(),
+            LocaleKeys.helpResultLowForceDesc.tr(),
           ),
           _ResultTile(
             Icons.speed,
             Colors.blue,
-            t.helpResultSpeed,
-            t.helpResultSpeedDesc,
+            LocaleKeys.helpResultSpeed.tr(),
+            LocaleKeys.helpResultSpeedDesc.tr(),
           ),
           const SizedBox(height: 20),
 
           // --- Electrode Placement (dd1.jpeg) ---
-          _SectionHeader(t.helpElectrodePlacement),
+          _SectionHeader(LocaleKeys.helpElectrodePlacement.tr()),
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
@@ -205,18 +204,18 @@ class _HelpScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // --- Troubleshooting ---
-          _SectionHeader(t.helpTroubleshooting),
+          _SectionHeader(LocaleKeys.helpTroubleshooting.tr()),
           const SizedBox(height: 8),
           _TroubleshootTile(
-            t.helpTroubleNoResponse,
-            t.helpTroubleNoResponseFix,
+            LocaleKeys.helpTroubleNoResponse.tr(),
+            LocaleKeys.helpTroubleNoResponseFix.tr(),
           ),
-          _TroubleshootTile(t.helpTroubleNoData, t.helpTroubleNoDataFix),
-          _TroubleshootTile(t.helpTroubleStrange, t.helpTroubleStrangeFix),
+          _TroubleshootTile(LocaleKeys.helpTroubleNoData.tr(), LocaleKeys.helpTroubleNoDataFix.tr()),
+          _TroubleshootTile(LocaleKeys.helpTroubleStrange.tr(), LocaleKeys.helpTroubleStrangeFix.tr()),
           const SizedBox(height: 20),
 
           // --- Safety Tips ---
-          _SectionHeader(t.helpSafetyTitle),
+          _SectionHeader(LocaleKeys.helpSafetyTitle.tr()),
           const SizedBox(height: 8),
           Card(
             child: Padding(
@@ -224,10 +223,10 @@ class _HelpScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _SafetyRow(t.helpSafety1),
-                  _SafetyRow(t.helpSafety2),
-                  _SafetyRow(t.helpSafety3),
-                  _SafetyRow(t.helpSafety4),
+                  _SafetyRow(LocaleKeys.helpSafety1.tr()),
+                  _SafetyRow(LocaleKeys.helpSafety2.tr()),
+                  _SafetyRow(LocaleKeys.helpSafety3.tr()),
+                  _SafetyRow(LocaleKeys.helpSafety4.tr()),
                 ],
               ),
             ),
@@ -235,7 +234,7 @@ class _HelpScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // --- About + Contact ---
-          _SectionHeader(t.helpAbout),
+          _SectionHeader(LocaleKeys.helpAbout.tr()),
           const SizedBox(height: 8),
           Card(
             child: Padding(
@@ -244,7 +243,7 @@ class _HelpScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    t.helpAboutDesc,
+                    LocaleKeys.helpAboutDesc.tr(),
                     style: const TextStyle(
                       color: HopeColors.muted,
                       height: 1.5,
@@ -261,7 +260,7 @@ class _HelpScreen extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          t.helpTip,
+                          LocaleKeys.helpTip.tr(),
                           style: const TextStyle(
                             fontStyle: FontStyle.italic,
                             color: HopeColors.ink,

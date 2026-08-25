@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
-import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../core/old_core/theme/app_theme.dart';
 import '../widgets/language_toggle.dart';
 import 'patient/patient_shell_screen.dart';
@@ -11,10 +12,9 @@ class RoleSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.chooseYourRole),
+        title: Text(LocaleKeys.chooseYourRole.tr()),
         actions: const [LanguageToggle()],
       ),
       body: Padding(
@@ -24,14 +24,14 @@ class RoleSelectionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              t.roleIntro,
+              LocaleKeys.roleIntro.tr(),
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, color: HopeColors.muted, height: 1.4),
             ),
             const SizedBox(height: 40),
             _ModeCard(
-              title: t.rolePatient,
-              description: t.rolePatientDesc,
+              title: LocaleKeys.rolePatient.tr(),
+              description: LocaleKeys.rolePatientDesc.tr(),
               icon: Icons.personal_injury,
               color: HopeColors.teal,
               onTap: () => Navigator.push(
@@ -41,8 +41,8 @@ class RoleSelectionScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _ModeCard(
-              title: t.roleDoctor,
-              description: t.roleDoctorDesc,
+              title: LocaleKeys.roleDoctor.tr(),
+              description: LocaleKeys.roleDoctorDesc.tr(),
               icon: Icons.medical_services,
               color: HopeColors.navy,
               onTap: () => Navigator.push(
@@ -109,7 +109,7 @@ class _ModeCard extends StatelessWidget {
                 ),
               ),
               Icon(
-                Directionality.of(context) == TextDirection.rtl
+                Directionality.of(context) == TextDirection.RTL
                     ? Icons.chevron_left
                     : Icons.chevron_right,
                 color: HopeColors.muted,

@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/old_core/debug/app_logger.dart';
-import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../state/session_provider.dart';
 
 /// Button that opens a fullscreen modal for recording + uploading a session
@@ -37,7 +38,6 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     if (_hasUpload) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -48,7 +48,7 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
               const Icon(Icons.check_circle, color: Colors.green, size: 18),
               const SizedBox(width: 6),
               Text(
-                t.videoUploaded,
+                LocaleKeys.videoUploaded.tr(),
                 style: const TextStyle(color: Colors.green),
               ),
             ],
@@ -56,7 +56,7 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
           const SizedBox(height: 6),
           OutlinedButton.icon(
             icon: const Icon(Icons.replay),
-            label: Text(t.reRecord),
+            label: Text(LocaleKeys.reRecord.tr()),
             onPressed: _open,
           ),
         ],
@@ -64,7 +64,7 @@ class _VideoRecorderWidgetState extends State<VideoRecorderWidget> {
     }
     return OutlinedButton.icon(
       icon: const Icon(Icons.videocam_outlined),
-      label: Text(t.recordVideoOfYourself),
+      label: Text(LocaleKeys.recordVideoOfYourself.tr()),
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(vertical: 14),
       ),
@@ -171,30 +171,29 @@ class _RecorderModalState extends State<_RecorderModal> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        title: Text(t.recordVideo),
+        title: Text(LocaleKeys.recordVideo.tr()),
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () => Navigator.of(context).pop(false),
-          tooltip: t.close,
+          tooltip: LocaleKeys.close.tr(),
         ),
       ),
-      body: SafeArea(child: _body(t)),
+      body: SafeArea(child: _body()),
     );
   }
 
-  Widget _body(AppLocalizations t) {
+  Widget _body() {
     if (_initFailed) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Text(
-            t.cameraNotAvailable,
+            LocaleKeys.cameraNotAvailable.tr(),
             style: const TextStyle(color: Colors.white),
             textAlign: TextAlign.center,
           ),
@@ -215,12 +214,12 @@ class _RecorderModalState extends State<_RecorderModal> {
             ),
           ),
         ),
-        Padding(padding: const EdgeInsets.all(24), child: _controlBar(t)),
+        Padding(padding: const EdgeInsets.all(24), child: _controlBar()),
       ],
     );
   }
 
-  Widget _controlBar(AppLocalizations t) {
+  Widget _controlBar() {
     if (_uploading) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -235,7 +234,7 @@ class _RecorderModalState extends State<_RecorderModal> {
           ),
           const SizedBox(width: 12),
           Text(
-            t.uploadingVideo,
+            LocaleKeys.uploadingVideo.tr(),
             style: const TextStyle(color: Colors.white, fontSize: 16),
           ),
         ],
@@ -254,7 +253,7 @@ class _RecorderModalState extends State<_RecorderModal> {
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
             ),
             icon: const Icon(Icons.stop),
-            label: Text(t.stopRecording),
+            label: Text(LocaleKeys.stopRecording.tr()),
             onPressed: _stopAndUpload,
           ),
         ],
@@ -264,7 +263,7 @@ class _RecorderModalState extends State<_RecorderModal> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          t.tapToStart,
+          LocaleKeys.tapToStart.tr(),
           style: const TextStyle(color: Colors.white70, fontSize: 13),
         ),
         const SizedBox(height: 12),
@@ -313,7 +312,6 @@ class _RecordingDotState extends State<_RecordingDot>
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -327,7 +325,7 @@ class _RecordingDotState extends State<_RecordingDot>
         ),
         const SizedBox(width: 6),
         Text(
-          t.videoRecording,
+          LocaleKeys.videoRecording.tr(),
           style: const TextStyle(color: Colors.white, fontSize: 14),
         ),
       ],

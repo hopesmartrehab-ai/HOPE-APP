@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../core/old_core/debug/app_logger.dart';
-import '../../core/old_core/l10n/gen/app_localizations.dart';
 
 /// Plays a session video from a presigned S3 URL. Backend regenerates the URL
 /// on every GET /sessions/{id}, so reopening the session detail effectively
@@ -61,7 +62,6 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     switch (_status) {
       case _PlayerStatus.loading:
         return const SizedBox(
@@ -82,13 +82,13 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
               const Icon(Icons.videocam_off, color: Colors.grey, size: 36),
               const SizedBox(height: 8),
               Text(
-                t.videoUnavailable,
+                LocaleKeys.videoUnavailable.tr(),
                 style: const TextStyle(color: Colors.grey),
               ),
               const SizedBox(height: 8),
               TextButton.icon(
                 icon: const Icon(Icons.refresh),
-                label: Text(t.retry),
+                label: Text(LocaleKeys.retry.tr()),
                 onPressed: () async {
                   await _controller?.dispose();
                   _controller = null;

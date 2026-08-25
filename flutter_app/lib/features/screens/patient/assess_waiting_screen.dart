@@ -1,9 +1,10 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../../core/old_core/services/exercise_videos.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/error_snackbar.dart';
@@ -41,7 +42,6 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<SessionProvider>();
-    final t = AppLocalizations.of(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (provider.errorMessage != null) {
@@ -61,7 +61,7 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.assessment),
+        title: Text(LocaleKeys.assessment.tr()),
         actions: const [LanguageToggle()],
       ),
       body: SingleChildScrollView(
@@ -103,14 +103,14 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
             ),
             const SizedBox(height: 24),
             // ---- Accumulation progress / waiting UI ----
-            ..._buildAccumulationUI(provider, t),
+            ..._buildAccumulationUI(provider),
             const SizedBox(height: 16),
             const VideoRecorderWidget(),
             const SizedBox(height: 24),
             const Divider(),
             const SizedBox(height: 12),
             Text(
-              t.noGloveSimulate,
+              LocaleKeys.noGloveSimulate.tr(),
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.grey, fontSize: 13),
             ),
@@ -124,7 +124,7 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
                   )
                 : OutlinedButton.icon(
                     icon: const Icon(Icons.science_outlined),
-                    label: Text(t.simulateGloveAssessment),
+                    label: Text(LocaleKeys.simulateGloveAssessment.tr()),
                     onPressed: () =>
                         context.read<SessionProvider>().simulateGlove(),
                   ),
@@ -136,7 +136,6 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
 
   List<Widget> _buildAccumulationUI(
     SessionProvider provider,
-    AppLocalizations t,
   ) {
     final startedAt = provider.accumulationStartedAt;
     final secondsReq = provider.secondsRequired;
@@ -162,7 +161,7 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  t.deviceDisconnectedWarning,
+                  LocaleKeys.deviceDisconnectedWarning.tr(),
                   style: TextStyle(color: Colors.amber.shade900, fontSize: 13),
                 ),
               ),
@@ -185,7 +184,7 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
       if (remaining > 0) {
         widgets.addAll([
           Text(
-            t.accumulationProgress,
+            LocaleKeys.accumulationProgress.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
@@ -193,13 +192,13 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
           LinearProgressIndicator(value: progress),
           const SizedBox(height: 12),
           Text(
-            t.accumulationTimeRemaining(mins, secs),
+            LocaleKeys.accumulationTimeRemaining.tr(args: [mins, secs]),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
           Text(
-            t.batchesReceived(batches),
+            LocaleKeys.batchesReceived.tr(args: [batches.toString()]),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 14, color: Colors.grey),
           ),
@@ -210,7 +209,7 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
           const Center(child: CircularProgressIndicator()),
           const SizedBox(height: 16),
           Text(
-            t.dataCollectionComplete,
+            LocaleKeys.dataCollectionComplete.tr(),
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
@@ -222,13 +221,13 @@ class _AssessWaitingScreenState extends State<AssessWaitingScreen> {
         const Center(child: CircularProgressIndicator()),
         const SizedBox(height: 24),
         Text(
-          t.waitingForDevice,
+          LocaleKeys.waitingForDevice.tr(),
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 16),
         Text(
-          t.assessmentDesc,
+          LocaleKeys.assessmentDesc.tr(),
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 16, color: Colors.grey),
         ),

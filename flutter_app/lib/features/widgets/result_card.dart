@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
-import '../../core/old_core/l10n/gen/app_localizations.dart';
 
 class ResultCard extends StatelessWidget {
   final String functionName;
@@ -36,8 +37,8 @@ class ResultCard extends StatelessWidget {
             ),
             Text(
               passed
-                  ? AppLocalizations.of(context).pass
-                  : AppLocalizations.of(context).fail,
+                  ? LocaleKeys.success.tr()
+                  : LocaleKeys.fail.tr(),
               style: TextStyle(
                 color: color,
                 fontWeight: FontWeight.bold,

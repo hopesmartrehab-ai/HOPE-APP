@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../../core/old_core/theme/app_theme.dart';
 import '../dashboard/dashboard_screen.dart';
 import 'session_list_screen.dart';
@@ -18,11 +19,11 @@ class _PractitionerShellScreenState extends State<PractitionerShellScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
+   
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
+        children:  [
           SessionListScreen(),
           DashboardScreen(mode: DashboardMode.practitioner),
         ],
@@ -36,12 +37,12 @@ class _PractitionerShellScreenState extends State<PractitionerShellScreen> {
           NavigationDestination(
             icon: const Icon(Icons.list_alt_outlined),
             selectedIcon: const Icon(Icons.list_alt),
-            label: t.tabSessions,
+            label: LocaleKeys.tabSessions.tr(),
           ),
           NavigationDestination(
             icon: const Icon(Icons.insights_outlined),
             selectedIcon: const Icon(Icons.insights),
-            label: t.tabDashboard,
+            label: LocaleKeys.tabDashboard.tr(),
           ),
         ],
       ),

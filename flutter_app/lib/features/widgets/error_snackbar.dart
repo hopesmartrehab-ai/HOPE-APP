@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
-import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../state/session_provider.dart';
 
 /// Show the SessionProvider's last error as a SnackBar, mapping the
@@ -8,7 +9,7 @@ import '../state/session_provider.dart';
 /// without doing anything if there's nothing to show.
 void showSessionError(BuildContext context, String? raw) {
   if (raw == null || raw.isEmpty) return;
-  final t = AppLocalizations.of(context);
-  final msg = raw == SessionProvider.errorNoNetwork ? t.noInternet : raw;
+  
+  final msg = raw == SessionProvider.errorNoNetwork ? LocaleKeys.noInternet.tr() : raw;
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
 }

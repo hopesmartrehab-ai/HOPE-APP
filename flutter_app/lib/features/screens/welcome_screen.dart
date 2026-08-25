@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
-import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../core/old_core/theme/app_theme.dart';
 import '../widgets/language_toggle.dart';
 import 'role_selection_screen.dart';
@@ -10,7 +11,6 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: HopeColors.offWhite,
       body: SafeArea(
@@ -31,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
                   Image.asset('assets/logo.png', height: 280),
                   const SizedBox(height: 32),
                   Text(
-                    t.welcomeTo,
+                    LocaleKeys.welcomeTo.tr(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 20,
@@ -40,7 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    t.appName,
+                    LocaleKeys.appName.tr(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 56,
@@ -51,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    t.appTagline,
+                    LocaleKeys.appTagline.tr(),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 18,
@@ -66,7 +66,7 @@ class WelcomeScreen extends StatelessWidget {
                         builder: (_) => const RoleSelectionScreen(),
                       ),
                     ),
-                    child: Text(t.getStarted),
+                    child: Text(LocaleKeys.getStarted.tr(),)
                   ),
                   const SizedBox(height: 16),
                 ],

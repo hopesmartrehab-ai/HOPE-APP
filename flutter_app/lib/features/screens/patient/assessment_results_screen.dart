@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import '../../widgets/result_card.dart';
@@ -24,7 +25,6 @@ class AssessmentResultsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<SessionProvider>();
     final assessment = provider.currentSession?.assessmentResults;
-    final t = AppLocalizations.of(context);
 
     if (assessment == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -35,7 +35,7 @@ class AssessmentResultsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.assessmentResults),
+        title: Text(LocaleKeys.assessmentResults.tr()),
         actions: const [LanguageToggle()],
       ),
       body: Padding(
@@ -48,7 +48,7 @@ class AssessmentResultsScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  t.functionsPassed(passedCount, results.length),
+                  LocaleKeys.functionsPassed.tr(args: [passedCount.toString(), results.length.toString()]),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
@@ -73,7 +73,7 @@ class AssessmentResultsScreen extends StatelessWidget {
             const SizedBox(height: 16),
             OutlinedButton.icon(
               icon: const Icon(Icons.refresh),
-              label: Text(t.redoAssessment),
+              label: Text(LocaleKeys.redoAssessment.tr()),
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
@@ -88,7 +88,7 @@ class AssessmentResultsScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (_) => const QuestionnaireScreen()),
               ),
-              child: Text(t.continueToCheckin),
+              child: Text(LocaleKeys.continueToCheckin.tr()),
             ),
           ],
         ),

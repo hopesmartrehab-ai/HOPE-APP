@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/old_core/l10n/gen/app_localizations.dart';
 import '../state/locale_provider.dart';
 
 /// Subtle pill-shaped language toggle. Designed to sit in an `AppBar.actions`
@@ -15,7 +16,7 @@ class LanguageToggle extends StatelessWidget {
     final provider = context.watch<LocaleProvider>();
     final isEn = provider.locale.languageCode == 'en';
     final label = isEn ? 'ع' : 'EN';
-    final tooltip = AppLocalizations.of(context).languageToggleTooltip;
+    final tooltip =LocaleKeys.languageToggleTooltip.tr();
 
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 8),
@@ -58,7 +59,7 @@ class FloatingLanguageToggle extends StatelessWidget {
     final provider = context.watch<LocaleProvider>();
     final isEn = provider.locale.languageCode == 'en';
     final label = isEn ? 'ع' : 'EN';
-    final tooltip = AppLocalizations.of(context).languageToggleTooltip;
+    final tooltip =LocaleKeys.languageToggleTooltip.tr();
 
     return Material(
       color: Colors.white.withValues(alpha: 0.85),
