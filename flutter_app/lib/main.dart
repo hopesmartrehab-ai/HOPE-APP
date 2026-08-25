@@ -42,6 +42,7 @@ Future<void> main() async {
       saveLocale: true,
       child: DevicePreview(
         enabled: kDebugMode,
+
         builder: (context) => const MyApp(),
       ),
     ),

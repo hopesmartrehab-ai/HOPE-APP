@@ -13,8 +13,8 @@ analyzer:
     - linux/**
 linter:
   rules:
-    - prefer_const_constructors
-    - prefer_const_literals_to_create_immutables
-    - always_put_required_named_parameters_first
-    - prefer_final_fields
-    - prefer_final_locals
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    always_put_required_named_parameters_first: true
+    prefer_final_fields: true
+    prefer_final_locals: true

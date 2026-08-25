@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/theme/theme_extension.dart';
 
-import '../constants/locale_keys.dart';
 import '../theme/styles/app_text_styles.dart';
 
 /// A reusable confirmation dialog used for destructive actions (e.g. delete).

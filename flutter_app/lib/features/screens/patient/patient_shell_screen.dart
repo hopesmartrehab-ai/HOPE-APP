@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hope_app/core/constants/assets_constants.dart';
 
 import '../../../core/old_core/l10n/gen/app_localizations.dart';
 import '../../../core/old_core/theme/app_theme.dart';
