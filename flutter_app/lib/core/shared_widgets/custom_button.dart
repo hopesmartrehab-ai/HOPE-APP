@@ -70,7 +70,7 @@ class CustomButton extends StatelessWidget {
               ? context.white
               : backgroundColor ?? context.primaryColor,
 
-          disabledBackgroundColor: context.disabledButtonColor,
+          disabledBackgroundColor: context.buttonDisabledBg,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 80),

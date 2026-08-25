@@ -62,7 +62,7 @@ class AppConfirmDialog extends StatelessWidget {
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      backgroundColor: context.scaffoldBackgroundColor,
+      backgroundColor: context.scaffoldBg,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
         child: Column(

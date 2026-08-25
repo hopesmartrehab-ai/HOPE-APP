@@ -54,7 +54,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       scrolledUnderElevation: 0,
       elevation: 0,
-      backgroundColor: context.scaffoldBackgroundColor,
+      backgroundColor: context.scaffoldBg,
       title: Text(
         title,
         style: Styles.s16(

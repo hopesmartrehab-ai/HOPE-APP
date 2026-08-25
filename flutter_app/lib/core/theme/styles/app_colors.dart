@@ -1,67 +1,117 @@
 import 'package:flutter/material.dart';
 
+// ─────────────────────────────────────────────────────────────
+// LIGHT THEME PALETTE
+// ─────────────────────────────────────────────────────────────
 abstract class AppColors {
-  static const Color textBlack = Color.fromRGBO(28, 28, 28, 1);
-  static const Color whiteColor = Color(0xffffffff);
-  static const Color blackColor = Color(0xff000000);
-  static const Color textExtraStrongColor = Color(0xff8C8C8C);
-  static const Color borderAndDividerColor = Color(0xffE8E9F1);
-  static const Color foregroundColor = Color(0xffF7F7F7);
-  static const Color textMutedColor = Color(0xffBFBFBF);
-  static const Color disabledButtonColor = Color(0xffEDEDED);
-  static const Color mutedGoldColor = Color(0xffBC9658);
-  static const Color redColor = Color(0xffC9372C);
-  //
-  //
-  static const Color statusTextColor = Color(0xff2F80ED);
+  // ── Brand ────────────────────────────────────────────────
+  /// Main brand color. Used for AppBar bg, primary buttons, key accents.
+  static const Color primary = Color(0xFF1A4663);
 
-  //new colors
-  static const Color navy = Color(0xFF1A4663);
-  static const Color teal = Color(0xFF357185);
+  /// Secondary / teal accent. Used for nav indicators, outlined buttons, icons.
+  static const Color secondary = Color(0xFF357185);
+
+  /// Soft green accent. Used for success states and subtle highlights.
   static const Color sage = Color(0xFF89B189);
-  static const Color offWhite = Color(0xFFE9E8E6);
-  static const Color ink = Color(0xFF1F2933);
-  static const Color muted = Color(0xFF5C6B77);
 
-  static const Color scaffoldBackgroundColor = Color(0xffFFFFFF);
-  static const Color primaryColor = Color(0xff1A4663);
-  static const Color lightLightnessColor = Color(0xffFFFFFF);
-  static const Color darkDark = Color(0xff2F3036);
-  static const Color darkLight = Color(0xff71727A);
-  static const Color darkLightest = Color(0xff8F9098);
-  static const Color textWhite = Color(0xffffffff);
-  static const Color darkMedium = Color(0xff494A50);
-  static const Color errorDark = Color(0xffED3241);
-  static const Color errorColor = Color(0xffF13637);
+  // ── Backgrounds ─────────────────────────────────────────
+  /// Main screen background (Scaffold).
+  static const Color scaffoldBg = Color(0xFFFFFFFF);
+
+  /// Surface color — cards, modals, bottom sheets.
+  static const Color surface = Color(0xFFFFFFFF);
+
+  /// Slightly off-white. Used as page background when you want warmth.
+  static const Color surfaceVariant = Color(0xFFE9E8E6);
+
+  /// Container backgrounds (e.g., input fills, section backgrounds).
+  static const Color containerBg = Color(0xFFF7F7F7);
+
+  /// AppBar background.
+  static const Color appBarBg = Color(0xFF1A4663);
+
+  /// Bottom nav bar background.
+  static const Color navBarBg = Color(0xFFFFFFFF);
+
+  /// Bottom nav indicator (active tab highlight).
+  static const Color navIndicator = Color(0x26357185); // teal 15%
+
+  // ── Text ────────────────────────────────────────────────
+  /// Primary text — headings, titles, body.
+  static const Color textPrimary = Color(0xFF1F2933);
+
+  /// Secondary text — subtitles, card descriptions.
+  static const Color textSecondary = Color(0xFF5C6B77);
+
+  /// Hint / placeholder text in inputs.
+  static const Color textHint = Color(0xFFBFBFBF);
+
+  /// Muted meta text — timestamps, captions.
+  static const Color textMuted = Color(0xFF8C8C8C);
+
+  /// White text — used on dark/colored backgrounds.
+  static const Color textOnPrimary = Color(0xFFFFFFFF);
+
+  // ── Borders & Dividers ──────────────────────────────────
+  /// Border and divider lines.
+  static const Color border = Color(0xFFE8E9F1);
+
+  // ── Buttons ─────────────────────────────────────────────
+  /// Disabled button background.
+  static const Color buttonDisabledBg = Color(0xFFEDEDED);
+
+  /// Disabled button text/icon.
+  static const Color buttonDisabledFg = Color(0xFF8C8C8C);
+
+  // ── Status ──────────────────────────────────────────────
+  /// Success / completed status.
+  static const Color statusSuccess = Color(0xFF2F80ED);
+
+  /// Warning / pending status.
+  static const Color statusWarning = Color(0xFFBC9658);
+
+  /// Error / danger.
+  static const Color statusError = Color(0xFFF13637);
+
+  /// Destructive actions (delete, remove).
+  static const Color statusDestructive = Color(0xFFC9372C);
 }
 
+// ─────────────────────────────────────────────────────────────
+// DARK THEME PALETTE
+// ─────────────────────────────────────────────────────────────
 abstract class AppDarkColors {
-  // Dark Theme Colors
-  static const Color textBlack = Color(0xffEAEAEA);
-  static const Color textHintBold = Color(0xffC1C1C1);
-  static const Color textHintLight = Color(0xffA0A0A0);
-  static const Color redColor = Color(0xffCF2D2D);
-  static const Color white = Color(0xffffffff);
-  static const Color disabledButtonColor = Color(0xff4B4B4B);
-  static const Color bordersColor = Color(0xff333333);
-  static const Color buttomSheetTopColor = Color(0xff455A64);
-  static const Color pendingColor = Color(0xffE5B000);
-  static const Color completedColor = Color(0xff00C853);
+  // ── Brand (same primary, everything else inverted) ───────
+  static const Color primary = Color(0xFF1A4663);
+  static const Color secondary = Color(0xFF357185);
+  static const Color sage = Color(0xFF89B189);
 
-  //new colors
-  static const Color scaffoldBackgroundColor = Color(0xff141414);
-  static const Color primaryColor = Color(0xff1A4663);
-  static const Color lightLightnessColor = Color(0xffFFFFFF);
-  static const Color darkDark = Color(0xffEAEAEA);
-  static const Color darkLight = Color(0xff919191);
-  static const Color darkLightest = Color(0xff8F9098);
-  static const Color textWhite = Color(0xffffffff);
-  static const Color darkMedium = Color(0xffEAEAEA);
-  static const Color errorDark = Color(0xffED3241);
+  // ── Backgrounds ─────────────────────────────────────────
+  static const Color scaffoldBg = Color(0xFF141414);
+  static const Color surface = Color(0xFF1C1C1C);
+  static const Color surfaceVariant = Color(0xFF232323);
+  static const Color containerBg = Color(0xFF2A2A2A);
+  static const Color appBarBg = Color(0xFF1A4663);
+  static const Color navBarBg = Color(0xFF1C1C1C);
+  static const Color navIndicator = Color(0x26357185);
+
+  // ── Text ────────────────────────────────────────────────
+  static const Color textPrimary = Color(0xFFEAEAEA);
+  static const Color textSecondary = Color(0xFFA0A0A0);
+  static const Color textHint = Color(0xFF7A7A7A);
+  static const Color textMuted = Color(0xFFC1C1C1);
+  static const Color textOnPrimary = Color(0xFFFFFFFF);
+
+  // ── Borders & Dividers ──────────────────────────────────
+  static const Color border = Color(0xFF333333);
+
+  // ── Buttons ─────────────────────────────────────────────
+  static const Color buttonDisabledBg = Color(0xFF4B4B4B);
+  static const Color buttonDisabledFg = Color(0xFFA0A0A0);
+
+  // ── Status ──────────────────────────────────────────────
+  static const Color statusSuccess = Color(0xFF00C853);
+  static const Color statusWarning = Color(0xFFE5B000);
+  static const Color statusError = Color(0xFFCF2D2D);
+  static const Color statusDestructive = Color(0xFFCF2D2D);
 }
-
-
-
-/*
-https://www.figma.com/design/PA3SsQuS7DMMn5CgLT7MBh/Tara-Car?node-id=14-5&p=f&t=BsvhZE0jaA2ibOtA-0
-*/
