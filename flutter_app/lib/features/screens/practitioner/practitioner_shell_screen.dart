@@ -19,11 +19,10 @@ class _PractitionerShellScreenState extends State<PractitionerShellScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children:  [
+        children: const [
           SessionListScreen(),
           DashboardScreen(mode: DashboardMode.practitioner),
         ],

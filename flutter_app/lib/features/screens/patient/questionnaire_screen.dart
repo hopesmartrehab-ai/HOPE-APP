@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:provider/provider.dart';
+
 import '../../state/session_provider.dart';
 import '../../widgets/language_toggle.dart';
 import 'exercise_waiting_screen.dart';
@@ -17,61 +18,61 @@ class _Question {
 }
 
 final List<_Question> _questions = [
-  _Question(
+  const _Question(
     'sleep_hours',
     'assets/questionnaire/sleep.jpeg',
     LocaleKeys.qSleep,
     _AnswerKind.hours,
   ),
-  _Question(
+  const _Question(
     'body_temperature',
     'assets/questionnaire/temperature.jpeg',
     LocaleKeys.qTemperature,
     _AnswerKind.tempC,
   ),
-  _Question(
+  const _Question(
     'blood_sugar',
     'assets/questionnaire/blood_sugar.jpeg',
     LocaleKeys.qBloodSugar,
     _AnswerKind.bloodSugar,
   ),
-  _Question(
+  const _Question(
     'blood_pressure',
     'assets/questionnaire/blood_pressure.jpeg',
     LocaleKeys.qBloodPressure,
     _AnswerKind.bloodPressure,
   ),
-  _Question(
+  const _Question(
     'headache',
     'assets/questionnaire/headache.jpeg',
     LocaleKeys.qHeadache,
     _AnswerKind.yesNo,
   ),
-  _Question(
+  const _Question(
     'dizzy',
     'assets/questionnaire/dizzy.jpeg',
     LocaleKeys.qDizzy,
     _AnswerKind.yesNo,
   ),
-  _Question(
+  const _Question(
     'fatigue',
     'assets/questionnaire/fatigue.jpeg',
     LocaleKeys.qFatigue,
     _AnswerKind.yesNo,
   ),
-  _Question(
+  const _Question(
     'arm_pain',
     'assets/questionnaire/arm_pain.jpeg',
     LocaleKeys.qArmPain,
     _AnswerKind.painScale,
   ),
-  _Question(
+  const _Question(
     'hand_movement',
     'assets/questionnaire/hand_movement.jpeg',
     LocaleKeys.qHandMovement,
     _AnswerKind.yesNo,
   ),
-  _Question(
+  const _Question(
     'falls_injuries',
     'assets/questionnaire/falls.jpeg',
     LocaleKeys.qFalls,
@@ -351,10 +352,7 @@ class _InputForKind extends StatelessWidget {
           initIfNull: true,
         );
       case _AnswerKind.bloodPressure:
-        return _BloodPressureInput(
-          value: value as Map?,
-          onChanged: onChanged,
-        );
+        return _BloodPressureInput(value: value as Map?, onChanged: onChanged);
     }
   }
 }

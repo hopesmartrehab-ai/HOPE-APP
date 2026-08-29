@@ -73,7 +73,7 @@ class _SessionListScreenState extends State<SessionListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.sessionHistory.tr()),
-        actions:  const [LanguageToggle()],
+        actions: const [LanguageToggle()],
       ),
       body: RefreshIndicator(
         onRefresh: () => context.read<SessionProvider>().loadSessionHistory(),
@@ -113,7 +113,7 @@ class _SessionListScreenState extends State<SessionListScreen> {
                       ].join(' | '),
                     ),
                     trailing: Chip(
-                      label: Text(LocaleKeys.statusUnknown.tr()), // Replace with actual status label translation
+                      label: Text(_statusLabel(s.status)),
                       backgroundColor: _statusColor(
                         s.status,
                       ).withValues(alpha: 0.15),

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
 
@@ -26,7 +26,11 @@ class RoleSelectionScreen extends StatelessWidget {
             Text(
               LocaleKeys.roleIntro.tr(),
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 16, color: HopeColors.muted, height: 1.4),
+              style: const TextStyle(
+                fontSize: 16,
+                color: HopeColors.muted,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 40),
             _ModeCard(
@@ -47,7 +51,9 @@ class RoleSelectionScreen extends StatelessWidget {
               color: HopeColors.navy,
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const PractitionerShellScreen()),
+                MaterialPageRoute(
+                  builder: (_) => const PractitionerShellScreen(),
+                ),
               ),
             ),
           ],
@@ -109,7 +115,7 @@ class _ModeCard extends StatelessWidget {
                 ),
               ),
               Icon(
-                Directionality.of(context) == TextDirection.RTL
+                Directionality.of(context) == TextDirection.rtl
                     ? Icons.chevron_left
                     : Icons.chevron_right,
                 color: HopeColors.muted,

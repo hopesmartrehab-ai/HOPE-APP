@@ -80,7 +80,7 @@ class SessionStartScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) =>
-                         DashboardScreen(mode: DashboardMode.patient),
+                        const DashboardScreen(mode: DashboardMode.patient),
                   ),
                 ),
               ),
