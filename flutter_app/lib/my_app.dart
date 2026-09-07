@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hope_app/core/local_storage/local_storage.dart';
 import 'package:hope_app/core/old_core/debug/debug_overlay.dart';
 import 'package:hope_app/core/theme/logic/theme_cubit.dart';
-import 'package:hope_app/features/screens/welcome_screen.dart';
+import 'package:hope_app/features/screens/splash/screens/splash_screen.dart';
 
 import 'core/theme/styles/app_theme.dart';
 
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             themeMode: state.themeMode,
             theme: AppThemes.lightTheme,
             darkTheme: AppThemes.darkTheme,
-            home: const DebugOverlay(child: WelcomeScreen()),
+            home: const DebugOverlay(child: SplashScreen()),
           );
         },
       ),
