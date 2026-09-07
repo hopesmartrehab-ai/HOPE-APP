@@ -36,6 +36,43 @@ abstract class AppColors {
   /// Bottom nav indicator (active tab highlight).
   static const Color navIndicator = Color(0x26357185); // teal 15%
 
+  // ── Splash ──────────────────────────────────────────────
+  /// Native/Dart splash background.
+  static const Color splashBackground = Color(0xFF0A1520);
+
+  /// Splash gradient top-left color.
+  static const Color splashGradientStart = Color(0xFF163E61);
+
+  /// Splash gradient center color.
+  static const Color splashGradientMiddle = Color(0xFF0D2B44);
+
+  /// Splash gradient bottom-right color.
+  static const Color splashGradientEnd = Color(0xFF0A1F33);
+
+  /// Green glow used behind the splash mark.
+  static const Color splashGreenGlow = Color(0xFF4FB679);
+
+  /// Blue glow used near the lower splash edge.
+  static const Color splashBlueGlow = Color(0xFF347CB3);
+
+  /// Outer circle stroke on the splash mark.
+  static const Color splashOuterCircleBorder = Color(0x0DFFFFFF);
+
+  /// Inner circle stroke on the splash mark.
+  static const Color splashInnerCircleBorder = Color(0x14FFFFFF);
+
+  /// Splash title text.
+  static const Color splashTitle = textOnPrimary;
+
+  /// Splash subtitle text.
+  static const Color splashSubtitle = Color(0x80FFFFFF);
+
+  /// Splash pagination dot color.
+  static const Color splashDot = Color(0x4DFFFFFF);
+
+  /// Shared transparent color token.
+  static const Color transparent = Color(0x00000000);
+
   // ── Text ────────────────────────────────────────────────
   /// Primary text — headings, titles, body.
   static const Color textPrimary = Color(0xFF1F2933);

@@ -7,4 +7,10 @@ abstract class AppRoute {
   //     MaterialPageRoute(builder: (context) => const SomethingWentWrongScreen()),
   //   );
   // }
+  // static void goToRoleSelection({required BuildContext context}) {
+  //   Navigator.of(context).pushAndRemoveUntil(
+  //     MaterialPageRoute(builder: (_) => const RoleSelectionScreen()),
+  //     (route) => false,
+  //   );
+  // }
 }

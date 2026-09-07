@@ -6,7 +6,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hope_app/core/local_storage/local_storage.dart';
-import 'package:hope_app/core/old_core/debug/debug_overlay.dart';
 import 'package:hope_app/core/theme/logic/theme_cubit.dart';
 import 'package:hope_app/features/screens/splash/screens/splash_screen.dart';
 
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [BlocProvider(create: (context) => ThemeCubit())],
       child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
+        builder: (context, _) {
           return MaterialApp(
             title: 'Hope',
             navigatorKey: navigatorKey,
@@ -40,10 +39,8 @@ class MyApp extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             debugShowCheckedModeBanner: false,
-            themeMode: state.themeMode,
             theme: AppThemes.lightTheme,
-            darkTheme: AppThemes.darkTheme,
-            home: const DebugOverlay(child: SplashScreen()),
+            home: const SplashScreen(),
           );
         },
       ),
