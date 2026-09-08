@@ -4,6 +4,8 @@
   "appName": "HOPE",
   "appTagline": "Smart Rehab System",
   "getStarted": "Get Started",
+  "splashTitle": "HOPE",
+  "splashSubtitle": "SMART REHABILITATION",
   "chooseYourRole": "Choose Your Role",
   "roleIntro": "Start your journey in physical therapy.Choose your role.",
   "rolePatient": "Patient",

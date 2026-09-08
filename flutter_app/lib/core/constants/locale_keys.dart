@@ -57,6 +57,8 @@ class LocaleKeys {
   static const String skip = 'skip';
   static const String next = 'next';
   static const String getStarted = 'getStarted';
+  static const String splashTitle = 'splashTitle';
+  static const String splashSubtitle = 'splashSubtitle';
   static const String onboardingTitle1 = 'onboardingTitle1';
   static const String onboardingSubTitle1 = 'onboardingSubTitle1';
   static const String onboardingTitle2 = 'onboardingTitle2';

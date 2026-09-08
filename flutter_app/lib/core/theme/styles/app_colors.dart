@@ -38,16 +38,16 @@ abstract class AppColors {
 
   // ── Splash ──────────────────────────────────────────────
   /// Native/Dart splash background.
-  static const Color splashBackground = Color(0xFF0A1520);
+  static const Color splashBackground = scaffoldBg;
 
   /// Splash gradient top-left color.
-  static const Color splashGradientStart = Color(0xFF163E61);
+  static const Color splashGradientStart = scaffoldBg;
 
   /// Splash gradient center color.
-  static const Color splashGradientMiddle = Color(0xFF0D2B44);
+  static const Color splashGradientMiddle = Color(0xFFF8FBFC);
 
   /// Splash gradient bottom-right color.
-  static const Color splashGradientEnd = Color(0xFF0A1F33);
+  static const Color splashGradientEnd = scaffoldBg;
 
   /// Green glow used behind the splash mark.
   static const Color splashGreenGlow = Color(0xFF4FB679);
@@ -56,19 +56,19 @@ abstract class AppColors {
   static const Color splashBlueGlow = Color(0xFF347CB3);
 
   /// Outer circle stroke on the splash mark.
-  static const Color splashOuterCircleBorder = Color(0x0DFFFFFF);
+  static const Color splashOuterCircleBorder = Color(0x1A1A4663);
 
   /// Inner circle stroke on the splash mark.
-  static const Color splashInnerCircleBorder = Color(0x14FFFFFF);
+  static const Color splashInnerCircleBorder = Color(0x261A4663);
 
   /// Splash title text.
-  static const Color splashTitle = textOnPrimary;
+  static const Color splashTitle = primary;
 
   /// Splash subtitle text.
-  static const Color splashSubtitle = Color(0x80FFFFFF);
+  static const Color splashSubtitle = textSecondary;
 
   /// Splash pagination dot color.
-  static const Color splashDot = Color(0x4DFFFFFF);
+  static const Color splashDot = Color(0x66357185);
 
   /// Shared transparent color token.
   static const Color transparent = Color(0x00000000);

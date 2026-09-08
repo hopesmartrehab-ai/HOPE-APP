@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hope_app/core/local_storage/local_storage.dart';
 import 'package:hope_app/core/theme/logic/theme_cubit.dart';
-import 'package:hope_app/features/screens/splash/screens/splash_screen.dart';
+import 'package:hope_app/features/splash/screens/splash_screen.dart';
 
 import 'core/theme/styles/app_theme.dart';
 

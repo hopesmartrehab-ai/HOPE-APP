@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:hope_app/features/onboarding/onboarding_screen.dart';
+
 abstract class AppRoute {
   AppRoute._();
 
@@ -7,10 +10,14 @@ abstract class AppRoute {
   //     MaterialPageRoute(builder: (context) => const SomethingWentWrongScreen()),
   //   );
   // }
-  // static void goToRoleSelection({required BuildContext context}) {
-  //   Navigator.of(context).pushAndRemoveUntil(
-  //     MaterialPageRoute(builder: (_) => const RoleSelectionScreen()),
-  //     (route) => false,
-  //   );
-  // }
+  static void goToOnboarding({required BuildContext context}) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+      (route) => false,
+    );
+  }
+
+  static void goToRoleSelection({required BuildContext context}) {
+    goToOnboarding(context: context);
+  }
 }
