@@ -38,7 +38,7 @@ class OnboardingBottomSection extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                onboardingItems[currentPage].title.tr(),
+                onboardingItems[currentPage].titleKey.tr(),
                 style: Styles.s26(context).copyWith(
                   color: AppColors.onboardingPrimary,
                   fontWeight: FontWeight.w700,
@@ -47,7 +47,7 @@ class OnboardingBottomSection extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                onboardingItems[currentPage].description.tr(),
+                onboardingItems[currentPage].descriptionKey.tr(),
                 style: Styles.s14(context).copyWith(
                   color: AppColors.onboardingSecondary,
                   fontSize: 15,
@@ -57,7 +57,10 @@ class OnboardingBottomSection extends StatelessWidget {
               const SizedBox(height: 32),
               Row(
                 children: [
-                  OnboardingDots(controller: controller, count: 3),
+                  OnboardingDots(
+                    controller: controller,
+                    count: onboardingItems.length,
+                  ),
                   const Spacer(),
                   currentPage == onboardingItems.length - 1
                       ? SizedBox(

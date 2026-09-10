@@ -49,7 +49,7 @@ class OnboardingTopSection extends StatelessWidget {
                 children: [
                   Align(
                     alignment: AlignmentDirectional.centerEnd,
-                    child: index == 2
+                    child: index == onboardingItems.length - 1
                         ? const SizedBox(height: 32)
                         : TextButton(
                             onPressed: onSkip,

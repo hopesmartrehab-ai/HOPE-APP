@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/assets_constants.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
@@ -16,25 +15,26 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   int _currentPage = 0;
-  final List<OnboardingItem> _onboardingItems = [
+
+  static const List<OnboardingItem> _onboardingItems = [
     OnboardingItem(
-      title: LocaleKeys.onboardingTherapyTitle.tr(),
-      description: LocaleKeys.onboardingTherapyDescription.tr(),
+      titleKey: LocaleKeys.onboardingTherapyTitle,
+      descriptionKey: LocaleKeys.onboardingTherapyDescription,
       image: Assets.onboardingTherapy,
       topColor: AppColors.onboardingTherapyTop,
       bottomColor: AppColors.onboardingTherapyBottom,
     ),
     OnboardingItem(
-      title: LocaleKeys.onboardingGloveTitle.tr(),
-      description: LocaleKeys.onboardingGloveDescription.tr(),
+      titleKey: LocaleKeys.onboardingGloveTitle,
+      descriptionKey: LocaleKeys.onboardingGloveDescription,
       image: Assets.onboardingGlove,
       topColor: AppColors.onboardingGloveTop,
       bottomColor: AppColors.onboardingGloveBottom,
       hasImageBackground: true,
     ),
     OnboardingItem(
-      title: LocaleKeys.onboardingPlanetTitle.tr(),
-      description: LocaleKeys.onboardingPlanetDescription.tr(),
+      titleKey: LocaleKeys.onboardingPlanetTitle,
+      descriptionKey: LocaleKeys.onboardingPlanetDescription,
       image: Assets.onboardingPlanet,
       topColor: AppColors.onboardingPlanetTop,
       bottomColor: AppColors.onboardingPlanetBottom,
