@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+  static const onboardingTherapy = 'assets/images/onboarding_therapy.png';
+  static const onboardingGlove = 'assets/images/onboarding_glove.png';
+  static const onboardingPlanet = 'assets/images/onboarding_planet.png';
+  static const onboardingNext = 'assets/icons/onboarding_next.svg';
+
   /// Assets for assetsFlagsLogo
   /// assets/flags/logo.png
   static const String assetsFlagsLogo = "assets/flags/logo.png";
@@ -12,7 +16,8 @@ class Assets {
 
   /// Assets for assetsImagesHopeSplashLogo
   /// assets/images/hope_splash_logo.png
-  static const String assetsImagesHopeSplashLogo = "assets/images/hope_splash_logo.png";
+  static const String assetsImagesHopeSplashLogo =
+      "assets/images/hope_splash_logo.png";
 
   /// Assets for assetsTranslationsAr
   /// assets/translations/ar.json
@@ -22,4 +27,3 @@ class Assets {
   /// assets/translations/en.json
   static const String assetsTranslationsEn = "assets/translations/en.json";
 }
-

@@ -1,4 +1,13 @@
 {
+  "onboardingTherapyTitle": "تأهيل مصمم خصيصًا لك.",
+  "onboardingGloveTitle": "تتبّع ذكي للحركة",
+  "onboardingPlanetTitle": "تعافَ. العب. تقدّم.",
+  "onboardingTherapyDescription": "ابدأ رحلة التأهيل الخاصة بك بتمارين تناسب قدراتك وأهدافك للتعافي.",
+  "onboardingGloveDescription": "استخدم قفاز HOPE الذكي لتتبّع حركات يدك والحصول على ملاحظات فورية أثناء أداء تمارينك.",
+  "onboardingPlanetDescription": "تجربة تأهيل ممتعة بالألعاب. أكمل التحديات وتابع إنجازاتك وازدد قوة مع كوكب HOPE.",
+  "onboardingSkip": "تخطي",
+  "onboardingStart": "لنبدأ",
+  "onboardingNext": "التالي",
   "appTitle": "هوب لإعادة التأهيل",
   "welcomeTo": "مرحباً بك في",
   "appName": "هوب",

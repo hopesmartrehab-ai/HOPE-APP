@@ -280,6 +280,15 @@ class LocaleKeys {
   static const String deviceDisconnectedWarning = 'deviceDisconnectedWarning';
   static const String waitingForDevice = 'waitingForDevice';
   static const String dataCollectionComplete = 'dataCollectionComplete';
+  static const onboardingTherapyTitle = 'onboardingTherapyTitle';
+  static const onboardingGloveTitle = 'onboardingGloveTitle';
+  static const onboardingPlanetTitle = 'onboardingPlanetTitle';
+  static const onboardingTherapyDescription = 'onboardingTherapyDescription';
+  static const onboardingGloveDescription = 'onboardingGloveDescription';
+  static const onboardingPlanetDescription = 'onboardingPlanetDescription';
+  static const onboardingSkip = 'onboardingSkip';
+  static const onboardingStart = 'onboardingStart';
+  static const onboardingNext = 'onboardingNext';
   static const search = 'search';
   static const dashboardWelcomePractitioner = 'dashboardWelcomePractitioner';
 }

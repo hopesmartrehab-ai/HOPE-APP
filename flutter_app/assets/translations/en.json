@@ -1,4 +1,13 @@
 {
+  "onboardingTherapyTitle": "Rehabilitation made for you.",
+  "onboardingGloveTitle": "Smart Motion Tracking",
+  "onboardingPlanetTitle": "Recover. Play. Progress.",
+  "onboardingTherapyDescription": "Start your personalized rehabilitation journey with exercises tailored to your abilities and recovery goals.",
+  "onboardingGloveDescription": "Use HOPE Smart Glove to track your hand movements and receive real-time feedback while performing your exercises.",
+  "onboardingPlanetDescription": "Gamified rehab experience. Complete challenges, track achievements, and grow stronger with HOPE Planet.",
+  "onboardingSkip": "Skip",
+  "onboardingStart": "Let's Start",
+  "onboardingNext": "Next",
   "appTitle": "HOPE Rehabilitation",
   "welcomeTo": "Welcome to",
   "appName": "HOPE",

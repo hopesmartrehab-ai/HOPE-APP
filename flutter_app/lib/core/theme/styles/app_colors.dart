@@ -4,6 +4,17 @@ import 'package:flutter/material.dart';
 // LIGHT THEME PALETTE
 // ─────────────────────────────────────────────────────────────
 abstract class AppColors {
+  static const Color onboardingPrimary = Color(0xFF163E61);
+  static const Color onboardingSecondary = Color(0xFF5A7A96);
+  static const Color onboardingStart = Color(0xFF4FB679);
+  static const Color onboardingTherapyTop = Color(0xFFF0F8F4);
+  static const Color onboardingTherapyBottom = Color(0xFFE8F4F0);
+  static const Color onboardingGloveTop = Color(0xFFEEF3F8);
+  static const Color onboardingGloveBottom = Color(0xFFE4EDF5);
+  static const Color onboardingPlanetTop = Color(0xFFEDF5F3);
+  static const Color onboardingPlanetBottom = Color(0xFFE4F0EC);
+  static const Color onboardingGloveCardEnd = Color(0xFFD4E5F5);
+  static const Color onboardingShadow = Color(0x1A000000);
   // ── Brand ────────────────────────────────────────────────
   /// Main brand color. Used for AppBar bg, primary buttons, key accents.
   static const Color primary = Color(0xFF1A4663);
@@ -69,9 +80,6 @@ abstract class AppColors {
 
   /// Splash pagination dot color.
   static const Color splashDot = Color(0x66357185);
-
-  /// Shared transparent color token.
-  static const Color transparent = Color(0x00000000);
 
   // ── Text ────────────────────────────────────────────────
   /// Primary text — headings, titles, body.
