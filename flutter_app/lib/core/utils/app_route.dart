@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hope_app/features/onboarding/onboarding_screen.dart';
+import 'package:hope_app/features/onboarding/screens/onboarding_screen.dart';
 
 abstract class AppRoute {
   AppRoute._();
