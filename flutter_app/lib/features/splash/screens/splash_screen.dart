@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
+import 'package:hope_app/core/utils/app_route.dart';
 import 'package:hope_app/features/splash/widgets/radial_glow.dart';
 import 'package:hope_app/features/splash/widgets/splash_dots.dart';
 import 'package:hope_app/features/splash/widgets/splash_mark.dart';
@@ -15,6 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(seconds: 1), () {
+      AppRoute.goToOnboarding(context: context);
+    });
   }
 
   @override
