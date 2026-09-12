@@ -23,23 +23,26 @@ class OnboardingContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: OnboardingTopSection(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 380,
+            child: OnboardingTopSection(
+              controller: controller,
+              onboardingItems: onboardingItems,
+              onPageChanged: onPageChanged,
+              onSkip: onSkip,
+            ),
+          ),
+          OnboardingBottomSection(
             controller: controller,
             onboardingItems: onboardingItems,
-            onPageChanged: onPageChanged,
-            onSkip: onSkip,
+            currentPage: currentPage,
+            onNext: onNext,
           ),
-        ),
-        OnboardingBottomSection(
-          controller: controller,
-          onboardingItems: onboardingItems,
-          currentPage: currentPage,
-          onNext: onNext,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

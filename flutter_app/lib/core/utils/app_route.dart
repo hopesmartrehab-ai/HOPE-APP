@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/features/onboarding/screens/onboarding_screen.dart';
+import 'package:hope_app/features/welcome/screens/welcome_screen.dart';
 
 abstract class AppRoute {
   AppRoute._();
@@ -15,6 +16,12 @@ abstract class AppRoute {
       MaterialPageRoute(builder: (_) => const OnboardingScreen()),
       (route) => false,
     );
+  }
+
+  static void goToWelcome({required BuildContext context}) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const WelcomeScreen()));
   }
 
   static void goToRoleSelection({required BuildContext context}) {

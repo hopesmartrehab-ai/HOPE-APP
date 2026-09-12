@@ -206,6 +206,12 @@ Do not introduce a deep `domain/data/presentation` split for a small session-flo
 | Shared widget files | Name by UI responsibility | `custom_button.dart`, `result_card.dart`, `language_toggle.dart` |
 | Constants files | Shared noun-based names | `locale_keys.dart`, `api_keys.dart`, `assets_constants.dart` |
 
+### Flutter Style Values
+
+Write UI numeric values directly. Do not use inline arithmetic expressions for styling values such as `height`, `width`, `fontSize`, `padding`, `radius`, animation angles, or text line-height. For example, write `height: 1.25` instead of `height: 37.5 / 30`.
+
+Use `SingleChildScrollView` for scrollable Flutter screen content. Do not use `LayoutBuilder` for these responsive screen layouts.
+
 ### API, Model, Localization, and Error Rules
 
 | Rule | Required behavior |

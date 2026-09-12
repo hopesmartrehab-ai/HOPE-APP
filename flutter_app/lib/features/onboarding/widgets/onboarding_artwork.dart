@@ -10,8 +10,8 @@ class OnboardingArtwork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 280,
-      height: 260,
+      width: 240,
+      height: 220,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         boxShadow: const [
@@ -46,8 +46,8 @@ class OnboardingArtwork extends StatelessWidget {
                 child: Center(
                   child: Image.asset(
                     item.image,
-                    width: 220,
-                    height: 220,
+                    width: 180,
+                    height: 180,
                     fit: BoxFit.contain,
                     excludeFromSemantics: true,
                   ),
@@ -55,8 +55,8 @@ class OnboardingArtwork extends StatelessWidget {
               )
             : Image.asset(
                 item.image,
-                width: 280,
-                height: 260,
+                width: 240,
+                height: 220,
                 fit: BoxFit.cover,
                 excludeFromSemantics: true,
               ),

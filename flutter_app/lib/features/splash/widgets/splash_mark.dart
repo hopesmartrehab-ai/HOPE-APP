@@ -55,7 +55,7 @@ class SplashMark extends StatelessWidget {
                   textStyle: Styles.s28(context).copyWith(
                     color: AppColors.splashTitle,
                     fontSize: 36,
-                    height: 40 / 36,
+                    height: 1.11,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -66,7 +66,7 @@ class SplashMark extends StatelessWidget {
                 style: GoogleFonts.inter(
                   textStyle: Styles.s14(context).copyWith(
                     color: AppColors.splashSubtitle,
-                    height: 20 / 14,
+                    height: 1.43,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

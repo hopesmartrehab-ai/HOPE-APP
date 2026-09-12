@@ -8,8 +8,8 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     required this.title,
     required this.isLoading,
-    required this.isBackgroundPrimary,
     super.key,
+    this.isBackgroundPrimary = true,
     this.borderRadius,
     this.foregroundColor,
     this.backgroundColor,
@@ -39,7 +39,7 @@ class CustomButton extends StatelessWidget {
 
   Color _foreground(BuildContext context) {
     if (isStroked) {
-      return context.primaryColor;
+      return foregroundColor ?? context.primaryColor;
     }
 
     if (onPressed == null && !isLoading) {
@@ -68,13 +68,16 @@ class CustomButton extends StatelessWidget {
 
           backgroundColor: isStroked
               ? context.white
-              : backgroundColor ?? context.primaryColor,
+              : backgroundColor ??
+                    (isBackgroundPrimary
+                        ? context.primaryColor
+                        : context.surfaceColor),
 
           disabledBackgroundColor: context.buttonDisabledBg,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 80),
-            side: isStroked
+            side: isStroked && borderSide == BorderSide.none
                 ? BorderSide(color: context.primaryColor)
                 : borderSide,
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/assets_constants.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
+import 'package:hope_app/core/utils/app_route.dart';
 import 'package:hope_app/features/onboarding/models/onboarding_item.dart';
 import 'package:hope_app/features/onboarding/widgets/onboarding_content_view.dart';
 
@@ -53,7 +54,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );
+      return;
     }
+
+    AppRoute.goToWelcome(context: context);
   }
 
   void _onSkip() {

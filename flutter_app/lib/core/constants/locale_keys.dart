@@ -289,6 +289,17 @@ class LocaleKeys {
   static const onboardingSkip = 'onboardingSkip';
   static const onboardingStart = 'onboardingStart';
   static const onboardingNext = 'onboardingNext';
+  static const welcomeTitle = 'welcomeTitle';
+  static const welcomeDescription = 'welcomeDescription';
+  static const welcomeCreateAccount = 'welcomeCreateAccount';
+  static const welcomeSignIn = 'welcomeSignIn';
+  static const welcomeFeatureGamified = 'welcomeFeatureGamified';
+  static const welcomeFeatureSmartGlove = 'welcomeFeatureSmartGlove';
+  static const welcomeFeatureProgress = 'welcomeFeatureProgress';
+  static const welcomeTermsPrefix = 'welcomeTermsPrefix';
+  static const welcomeTermsService = 'welcomeTermsService';
+  static const welcomeTermsMiddle = 'welcomeTermsMiddle';
+  static const welcomePrivacyPolicy = 'welcomePrivacyPolicy';
   static const search = 'search';
   static const dashboardWelcomePractitioner = 'dashboardWelcomePractitioner';
 }

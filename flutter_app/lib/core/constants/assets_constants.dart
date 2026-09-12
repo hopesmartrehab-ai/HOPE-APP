@@ -4,6 +4,7 @@ class Assets {
   static const onboardingTherapy = 'assets/images/onboarding_therapy.png';
   static const onboardingGlove = 'assets/images/onboarding_glove.png';
   static const onboardingPlanet = 'assets/images/onboarding_planet.png';
+  static const welcomeHopeLogo = 'assets/images/welcome_hope_logo.png';
   static const onboardingNext = 'assets/icons/onboarding_next.svg';
 
   /// Assets for assetsFlagsLogo
