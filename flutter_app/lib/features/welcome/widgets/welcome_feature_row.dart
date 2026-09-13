@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
+import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/features/welcome/widgets/welcome_feature_card.dart';
 
 class WelcomeFeatureRow extends StatelessWidget {
@@ -23,7 +24,7 @@ class WelcomeFeatureRow extends StatelessWidget {
                 child: WelcomeFeatureCard(
                   icon: '🏆',
                   title: LocaleKeys.welcomeFeatureGamified.tr(),
-                  backgroundColor: const Color(0xFFFFF9F0),
+                  backgroundColor: AppColors.welcomeFeatureGamifiedBackground,
                 ),
               ),
             ),
@@ -35,7 +36,7 @@ class WelcomeFeatureRow extends StatelessWidget {
                 child: WelcomeFeatureCard(
                   icon: '🧤',
                   title: LocaleKeys.welcomeFeatureSmartGlove.tr(),
-                  backgroundColor: const Color(0xFFF0F8FF),
+                  backgroundColor: AppColors.welcomeFeatureSmartGloveBackground,
                 ),
               ),
             ),
@@ -47,7 +48,7 @@ class WelcomeFeatureRow extends StatelessWidget {
                 child: WelcomeFeatureCard(
                   icon: '📈',
                   title: LocaleKeys.welcomeFeatureProgress.tr(),
-                  backgroundColor: const Color(0xFFF0FBF5),
+                  backgroundColor: AppColors.welcomeFeatureProgressBackground,
                 ),
               ),
             ),

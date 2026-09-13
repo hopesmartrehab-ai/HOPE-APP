@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/features/auth/screens/sign_in_screen.dart';
+import 'package:hope_app/features/auth/screens/sign_up_screen.dart';
 import 'package:hope_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:hope_app/features/welcome/screens/welcome_screen.dart';
 
@@ -22,6 +24,18 @@ abstract class AppRoute {
     Navigator.of(
       context,
     ).push(MaterialPageRoute(builder: (_) => const WelcomeScreen()));
+  }
+
+  static void goToSignUp({required BuildContext context}) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const SignUpScreen()));
+  }
+
+  static void goToSignIn({required BuildContext context}) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const SignInScreen()));
   }
 
   static void goToRoleSelection({required BuildContext context}) {

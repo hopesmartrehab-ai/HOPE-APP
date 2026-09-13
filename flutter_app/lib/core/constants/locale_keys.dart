@@ -300,6 +300,18 @@ class LocaleKeys {
   static const welcomeTermsService = 'welcomeTermsService';
   static const welcomeTermsMiddle = 'welcomeTermsMiddle';
   static const welcomePrivacyPolicy = 'welcomePrivacyPolicy';
+  static const signUpSubtitle = 'signUpSubtitle';
+  static const signInSubtitle = 'signInSubtitle';
+  static const emailAddress = 'emailAddress';
+  static const emailHint = 'emailHint';
+  static const passwordHint = 'passwordHint';
+  static const passwordHelper = 'passwordHelper';
+  static const repeatPassword = 'repeatPassword';
+  static const agreeToHopePrefix = 'agreeToHopePrefix';
+  static const healthDataConsent = 'healthDataConsent';
+  static const forgotPasswordQuestion = 'forgotPasswordQuestion';
+  static const demoTip = 'demoTip';
+  static const demoTipDescription = 'demoTipDescription';
   static const search = 'search';
   static const dashboardWelcomePractitioner = 'dashboardWelcomePractitioner';
 }

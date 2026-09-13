@@ -159,7 +159,7 @@
   "helpTitle": "Help & Guide",
   "helpWelcome": "Welcome to HOPE",
   "dashboardWelcomePractitioner": "Welcome Practitioner",
-"dashboardWelcomePatient": "Welcome Patient",
+  "dashboardWelcomePatient": "Welcome Patient",
   "helpWelcomeDesc": "Your smart rehabilitation assistant. Follow the steps, complete the tasks, and track your progress easily.",
   "helpHowToUse": "How to Use",
   "helpExercisesGuide": "Exercises Guide",
@@ -217,5 +217,17 @@
   "anErrorOccurred": "An error occurred, please try again",
   "error": "Error",
   "success": "Success",
-  "search": "Search"
+  "search": "Search",
+  "signUpSubtitle": "Join HOPE and start your rehabilitation journey",
+  "signInSubtitle": "Sign in to continue your recovery journey",
+  "emailAddress": "Email Address",
+  "emailHint": "sarah@example.com",
+  "passwordHint": "At least 8 characters",
+  "passwordHelper": "Use a mix of letters, numbers, and symbols",
+  "repeatPassword": "Repeat your password",
+  "agreeToHopePrefix": "I agree to HOPE's ",
+  "healthDataConsent": " and consent to my health data being processed for rehabilitation purposes.",
+  "forgotPasswordQuestion": "Forgot password?",
+  "demoTip": "Demo tip:",
+  "demoTipDescription": " The app will guide you through the full assessment flow after signing in."
 }

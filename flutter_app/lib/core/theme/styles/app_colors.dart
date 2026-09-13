@@ -15,6 +15,12 @@ abstract class AppColors {
   static const Color onboardingPlanetBottom = Color(0xFFE4F0EC);
   static const Color onboardingGloveCardEnd = Color(0xFFD4E5F5);
   static const Color onboardingShadow = Color(0x1A000000);
+  static const Color onboardingBorder = Color(0xFFD4E2EF);
+  static const Color onboardingLink = Color(0xFF347CB3);
+  static const Color onboardingHint = Color(0xFF8AAEC4);
+  static const Color welcomeFeatureGamifiedBackground = Color(0xFFFFF9F0);
+  static const Color welcomeFeatureSmartGloveBackground = Color(0xFFF0F8FF);
+  static const Color welcomeFeatureProgressBackground = Color(0xFFF0FBF5);
   // ── Brand ────────────────────────────────────────────────
   /// Main brand color. Used for AppBar bg, primary buttons, key accents.
   static const Color primary = Color(0xFF1A4663);

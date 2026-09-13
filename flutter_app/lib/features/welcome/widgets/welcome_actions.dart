@@ -4,6 +4,7 @@ import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/shared_widgets/custom_button.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
+import 'package:hope_app/core/utils/app_route.dart';
 
 class WelcomeActions extends StatelessWidget {
   const WelcomeActions({super.key});
@@ -18,7 +19,7 @@ class WelcomeActions extends StatelessWidget {
           backgroundColor: AppColors.onboardingStart,
           borderRadius: 16,
           height: 56,
-          onPressed: () {},
+          onPressed: () => AppRoute.goToSignUp(context: context),
           style: Styles.s16(context),
         ),
         const SizedBox(height: 12),
@@ -28,7 +29,7 @@ class WelcomeActions extends StatelessWidget {
           isStroked: true,
           borderRadius: 16,
           height: 56,
-          onPressed: () {},
+          onPressed: () => AppRoute.goToSignIn(context: context),
           foregroundColor: AppColors.onboardingPrimary,
           style: Styles.s16(context),
         ),
@@ -40,7 +41,7 @@ class WelcomeActions extends StatelessWidget {
               TextSpan(
                 text: LocaleKeys.welcomeTermsService.tr(),
                 style: const TextStyle(
-                  color: Color(0xFF347CB3),
+                  color: AppColors.onboardingLink,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -48,7 +49,7 @@ class WelcomeActions extends StatelessWidget {
               TextSpan(
                 text: LocaleKeys.welcomePrivacyPolicy.tr(),
                 style: const TextStyle(
-                  color: Color(0xFF347CB3),
+                  color: AppColors.onboardingLink,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -57,7 +58,7 @@ class WelcomeActions extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Styles.s12(
             context,
-          ).copyWith(color: const Color(0xFF8AAEC4), height: 1.33),
+          ).copyWith(color: AppColors.onboardingHint, height: 1.33),
         ),
       ],
     );

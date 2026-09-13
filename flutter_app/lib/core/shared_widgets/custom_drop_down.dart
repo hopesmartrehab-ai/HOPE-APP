@@ -4,6 +4,8 @@ import 'package:hope_app/core/theme/theme_extension.dart';
 
 import '../constants/locale_keys.dart';
 import '../theme/styles/app_text_styles.dart';
+import 'clicked_widget.dart';
+import 'custom_text_form_field.dart';
 
 class CustomDropDown<T> extends StatefulWidget {
   final List<T> items;
@@ -124,47 +126,34 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
             if (widget.enableSearch)
               Padding(
                 padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
-                child: TextField(
+                child: CustomTextFormField(
                   controller: _searchController,
                   onChanged: _filterItems,
-                  decoration: InputDecoration(
-                    hintText: "LocaleKeys.search.tr()",
-                    prefixIcon: Padding(
-                      padding: const EdgeInsetsDirectional.all(18.0),
-                      child: Icon(
-                        Icons.search,
-                        size: 16,
-                        color: context.darkLightestColor,
-                      ),
-                    ),
-                    // Clear search field button
-                    suffixIcon: _searchController.text.isNotEmpty
-                        ? IconButton(
-                            icon: Icon(
-                              Icons.clear,
-                              color: context.redColor,
-                              size: 16,
-                            ),
-                            onPressed: _clearSearch,
-                          )
-                        : null,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: context.primaryColor),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: context.bordersColor),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: context.bordersColor),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 12,
+                  hintText: LocaleKeys.search.tr(),
+                  borderColor: context.bordersColor,
+                  borderRadius: 12,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsetsDirectional.all(18.0),
+                    child: Icon(
+                      Icons.search,
+                      size: 16,
+                      color: context.darkLightestColor,
                     ),
                   ),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.clear,
+                            color: context.redColor,
+                            size: 16,
+                          ),
+                          onPressed: _clearSearch,
+                        )
+                      : null,
                 ),
               ),
             const SizedBox(height: 12),
@@ -190,7 +179,7 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8),
-                          child: GestureDetector(
+                          child: ClickedWidget(
                             onTap: () {
                               setState(() {
                                 selectedId = itemId;
@@ -244,7 +233,7 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ClickedWidget(
       onTap: widget.isAcceptEdits
           ? () {
               FocusScope.of(context).unfocus();

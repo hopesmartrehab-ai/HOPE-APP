@@ -70,7 +70,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final currentItem = _onboardingItems[_currentPage];
+
     return Scaffold(
+      backgroundColor: currentItem.bottomColor,
       body: OnboardingContentView(
         controller: _controller,
         onboardingItems: _onboardingItems,

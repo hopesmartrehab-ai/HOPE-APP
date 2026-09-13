@@ -26,6 +26,9 @@ class CustomTextFormField extends StatefulWidget {
     this.maxLength,
     this.focusNode,
     this.style,
+    this.hintStyle,
+    this.fillColor,
+    this.contentPadding,
     this.onFieldSubmitted,
     this.textInputAction,
     this.borderRadius = 12,
@@ -47,6 +50,9 @@ class CustomTextFormField extends StatefulWidget {
   final int? maxLength;
   final FocusNode? focusNode;
   final TextStyle? style;
+  final TextStyle? hintStyle;
+  final Color? fillColor;
+  final EdgeInsetsGeometry? contentPadding;
   final Function(String)? onFieldSubmitted;
   final TextInputAction? textInputAction;
   final double? borderRadius;
@@ -126,10 +132,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             : widget.suffixIcon,
         prefixIcon: widget.prefixIcon,
         hintStyle:
-            widget.style ??
+            widget.hintStyle ??
             Styles.s14(context).copyWith(color: context.darkLightestColor),
         hintText: widget.hintText,
-        fillColor: context.white,
+        fillColor: widget.fillColor ?? context.white,
+        contentPadding: widget.contentPadding,
 
         label: widget.labelText != null
             ? Text(

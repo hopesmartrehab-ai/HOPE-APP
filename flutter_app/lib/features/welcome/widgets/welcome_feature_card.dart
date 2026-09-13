@@ -21,16 +21,16 @@ class WelcomeFeatureCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: backgroundColor,
-        border: Border.all(color: const Color(0xFFD4E2EF)),
+        border: Border.all(color: AppColors.onboardingBorder),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x1A000000),
+            color: AppColors.onboardingShadow,
             offset: Offset(0, 1),
             blurRadius: 1.5,
           ),
           BoxShadow(
-            color: Color(0x1A000000),
+            color: AppColors.onboardingShadow,
             offset: Offset(0, 1),
             blurRadius: 1,
           ),
