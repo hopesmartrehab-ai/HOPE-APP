@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hope_app/features/auth/screens/sign_in_screen.dart';
-import 'package:hope_app/features/auth/screens/sign_up_screen.dart';
+import 'package:hope_app/features/auth/login/screens/sign_in_screen.dart';
+import 'package:hope_app/features/auth/register/sign_up_screen.dart';
 import 'package:hope_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:hope_app/features/welcome/screens/welcome_screen.dart';
 

@@ -6,9 +6,9 @@ import 'package:hope_app/core/shared_widgets/custom_button.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
 import 'package:hope_app/core/utils/app_route.dart';
-import 'package:hope_app/features/auth/widgets/auth_footer.dart';
-import 'package:hope_app/features/auth/widgets/auth_header.dart';
-import 'package:hope_app/features/auth/widgets/auth_text_field.dart';
+import 'package:hope_app/features/auth/shared_auth_widget/auth_footer.dart';
+import 'package:hope_app/features/auth/shared_auth_widget/auth_header.dart';
+import 'package:hope_app/features/auth/shared_auth_widget/auth_text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
