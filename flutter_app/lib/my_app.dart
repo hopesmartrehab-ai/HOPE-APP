@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hope_app/core/local_storage/local_storage.dart';
 import 'package:hope_app/core/theme/logic/theme_cubit.dart';
-import 'package:hope_app/features/home/presentation/screen/home_screen.dart';
+import 'package:hope_app/features/home/presentation/assessment_complete/screen/home_assessment_complete_screen.dart';
 
 import 'core/theme/styles/app_theme.dart';
 
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             debugShowCheckedModeBanner: false,
             theme: AppThemes.lightTheme,
-            home: const HomeScreen(),
+            home: const AssessmentCompleteScreen(),
           );
         },
       ),

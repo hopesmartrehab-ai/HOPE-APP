@@ -8,8 +8,8 @@ import 'package:hope_app/features/home/presentation/dashboard/widgets/today_sess
 import 'package:hope_app/features/home/presentation/dashboard/widgets/your_path_card.dart';
 import 'package:hope_app/features/home/presentation/model/home_models.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
