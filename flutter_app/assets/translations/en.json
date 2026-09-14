@@ -229,5 +229,20 @@
   "healthDataConsent": " and consent to my health data being processed for rehabilitation purposes.",
   "forgotPasswordQuestion": "Forgot password?",
   "demoTip": "Demo tip:",
-  "demoTipDescription": " The app will guide you through the full assessment flow after signing in."
+  "demoTipDescription": " The app will guide you through the full assessment flow after signing in.",
+  
+  "greatJobCompleting": "Great Job completing your assessment!",
+  "welcomeToRehabJourney": "Welcome to your\nrehabilitation journey",
+  "assessmentComplete": "Assessment Complete",
+  "hopeAnalyzedPerformance": "HOPE has analyzed your performance and created a personalized rehabilitation plan for you.",
+  "baselineScore": "Baseline\nScore",
+  "recoveryPotential": "Recovery\nPotential",
+  "estProgram": "Est. Program",
+  "onlineRehabilitation": "Online\nRehabilitation",
+  "monthlyClinicalFollowUp": "Monthly Clinical Follow-Up",
+  "recommended": "Recommended",
+  "assessmentResultsShow": "Your assessment results show you're well-positioned for structured remote rehabilitation.",
+  "viewAssessmentReport": "View Assessment Report",
+  "detailedPerformanceBreakdown": "Detailed performance breakdown",
+  "exploreMyPlan": "Explore My Plan"
 }

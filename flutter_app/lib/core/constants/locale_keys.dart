@@ -314,4 +314,18 @@ class LocaleKeys {
   static const demoTipDescription = 'demoTipDescription';
   static const search = 'search';
   static const dashboardWelcomePractitioner = 'dashboardWelcomePractitioner';
+  static const greatJobCompleting = 'greatJobCompleting';
+  static const welcomeToRehabJourney = 'welcomeToRehabJourney';
+  static const assessmentComplete = 'assessmentComplete';
+  static const hopeAnalyzedPerformance = 'hopeAnalyzedPerformance';
+  static const baselineScore = 'baselineScore';
+  static const recoveryPotential = 'recoveryPotential';
+  static const estProgram = 'estProgram';
+  static const onlineRehabilitation = 'onlineRehabilitation';
+  static const monthlyClinicalFollowUp = 'monthlyClinicalFollowUp';
+  static const recommended = 'recommended';
+  static const assessmentResultsShow = 'assessmentResultsShow';
+  static const viewAssessmentReport = 'viewAssessmentReport';
+  static const detailedPerformanceBreakdown = 'detailedPerformanceBreakdown';
+  static const exploreMyPlan = 'exploreMyPlan';
 }

@@ -229,5 +229,22 @@
   "healthDataConsent": " وأوافق على معالجة بياناتي الصحية لأغراض التأهيل.",
   "forgotPasswordQuestion": "هل نسيت كلمة المرور؟",
   "demoTip": "نصيحة للتجربة:",
-  "demoTipDescription": " سيرشدك التطبيق خلال مسار التقييم الكامل بعد تسجيل الدخول."
+  "demoTipDescription": " سيرشدك التطبيق خلال مسار التقييم الكامل بعد تسجيل الدخول.",
+
+
+
+  "greatJobCompleting": "عمل رائع في إتمام تقييمك!",
+  "welcomeToRehabJourney": "مرحباً بك في\nرحلة التأهيل الخاصة بك",
+  "assessmentComplete": "اكتمل التقييم",
+  "hopeAnalyzedPerformance": "قامت HOPE بتحليل أدائك وإنشاء خطة تأهيل مخصصة لك.",
+  "baselineScore": "النتيجة\nالأساسية",
+  "recoveryPotential": "فرص\nالتعافي",
+  "estProgram": "مدة البرنامج",
+  "onlineRehabilitation": "تأهيل\nعن بُعد",
+  "monthlyClinicalFollowUp": "متابعة سريرية شهرية",
+  "recommended": "موصى به",
+  "assessmentResultsShow": "تُظهر نتائج تقييمك أنك في وضع مناسب لبدء برنامج تأهيل عن بُعد.",
+  "viewAssessmentReport": "عرض تقرير التقييم",
+  "detailedPerformanceBreakdown": "تحليل مفصل للأداء",
+  "exploreMyPlan": "استكشف خطتي"
 }
