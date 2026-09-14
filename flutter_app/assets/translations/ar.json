@@ -255,7 +255,6 @@
   "exercises": "تمارين",
   "duration": "المدة",
   "streak": "أيام متتالية",
-  "startSession": "ابدأ الجلسة",
   "yourPath": "مسارك",
   "nextFollowUp": "المتابعة القادمة: {}",
   "weekOf": "أسبوع {}\nمن {}",
@@ -268,5 +267,6 @@
   "details": "التفاصيل",
   "overallProgress": "التقدم الإجمالي",
   "gripStrength": "قوة القبضة",
-  "coordination": "التناسق"
+  "coordination": "التناسق", 
+  "rehabTipDescription": "ستختار استخدام القفاز الذكي أو الهاتف فقط قبل البدء. خذ فترات راحة بين التمارين إذا لزم الأمر."
 }

@@ -349,4 +349,12 @@ class LocaleKeys {
   static const overallProgress = 'overallProgress';
   static const gripStrength = 'gripStrength';
   static const coordination = 'coordination';
+  static const todaysSessionUpper = 'todaysSessionUpper';
+  static const estDuration = 'estDuration';
+  static const sessionExercises = 'sessionExercises';
+  static const easy = 'easy';
+  static const medium = 'medium';
+  static const hard = 'hard';
+  static const tip = 'tip';
+  static const rehabTipDescription = 'rehabTipDescription';
 }

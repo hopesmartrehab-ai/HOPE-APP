@@ -253,7 +253,6 @@
   "exercises": "Exercises",
   "duration": "Duration",
   "streak": "Streak",
-  "startSession": "Start Session",
   "yourPath": "YOUR PATH",
   "nextFollowUp": "Next follow-up: {}",
   "weekOf": "Week {}\nof {}",
@@ -266,5 +265,6 @@
   "details": "Details",
   "overallProgress": "Overall Progress",
   "gripStrength": "Grip Strength",
-  "coordination": "Coordination"
+  "coordination": "Coordination",
+  "rehabTipDescription": "You'll choose Smart Glove or Mobile Only before starting. Take breaks between exercises if needed."
 }
