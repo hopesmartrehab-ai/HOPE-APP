@@ -4,11 +4,12 @@ import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/shared_widgets/custom_button.dart';
 import 'package:hope_app/core/shared_widgets/gradient_background.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
-import 'package:hope_app/features/home/presentation/home_assessment_complete/widget/assessment_complete_card.dart';
-import 'package:hope_app/features/home/presentation/home_assessment_complete/widget/custom_header.dart';
-import 'package:hope_app/features/home/presentation/home_assessment_complete/widget/get_started_section.dart';
-import 'package:hope_app/features/home/presentation/home_assessment_complete/widget/recommendation_card.dart';
-import 'package:hope_app/features/home/presentation/home_assessment_complete/widget/welcome_texts.dart';
+import 'package:hope_app/features/home/presentation/assessment_complete/widget/assessment_complete_card.dart';
+import 'package:hope_app/features/home/presentation/assessment_complete/widget/custom_header.dart';
+import 'package:hope_app/features/home/presentation/assessment_complete/widget/get_started_section.dart';
+import 'package:hope_app/features/home/presentation/assessment_complete/widget/recommendation_card.dart';
+import 'package:hope_app/features/home/presentation/assessment_complete/widget/welcome_texts.dart';
+import 'package:hope_app/features/home/presentation/dashboard/screen/home_screen.dart';
 import 'package:hope_app/features/home/presentation/model/assessment_result_model.dart';
 
 class HomeAssessmentCompleteScreen extends StatefulWidget {
@@ -53,7 +54,11 @@ class _HomeAssessmentCompleteScreenState
                   backgroundColor: AppColors.onboardingStart,
                   foregroundColor: Colors.white,
                   borderRadius: 16.0,
-                  onPressed: () => null,
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -328,4 +328,25 @@ class LocaleKeys {
   static const viewAssessmentReport = 'viewAssessmentReport';
   static const detailedPerformanceBreakdown = 'detailedPerformanceBreakdown';
   static const exploreMyPlan = 'exploreMyPlan';
+  static const goodMorning = 'goodMorning';
+  static const keepUpGreatWork = 'keepUpGreatWork';
+  static const todaysSession = 'todaysSession';
+  static const dayOf = 'dayOf';
+  static const focus = 'focus';
+  static const exercises = 'exercises';
+  static const duration = 'duration';
+  static const streak = 'streak';
+  static const yourPath = 'yourPath';
+  static const nextFollowUp = 'nextFollowUp';
+  static const weekOf = 'weekOf';
+  static const thisWeek = 'thisWeek';
+  static const viewAll = 'viewAll';
+  static const sessionsDone = 'sessionsDone';
+  static const improvement = 'improvement';
+  static const dayStreak = 'dayStreak';
+  static const recoveryProgress = 'recoveryProgress';
+  static const details = 'details';
+  static const overallProgress = 'overallProgress';
+  static const gripStrength = 'gripStrength';
+  static const coordination = 'coordination';
 }
