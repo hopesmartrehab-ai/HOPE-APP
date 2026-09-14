@@ -4,6 +4,7 @@ import 'package:hope_app/features/auth/register/sign_up_screen.dart';
 import 'package:hope_app/features/home/presentation/assessment_complete/screen/home_assessment_complete_screen.dart';
 import 'package:hope_app/features/home/presentation/dashboard/screen/dashboard_screen.dart';
 import 'package:hope_app/features/onboarding/screens/onboarding_screen.dart';
+import 'package:hope_app/features/rehab/presentation/screens/rehab_screen.dart';
 import 'package:hope_app/features/welcome/screens/welcome_screen.dart';
 
 abstract class AppRoute {
@@ -54,6 +55,13 @@ abstract class AppRoute {
   static void goToDashboard({required BuildContext context}) {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => const DashboardScreen()),
+      (route) => false,
+    );
+  }
+
+  static void goToRehab({required BuildContext context}) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const RehabScreen()),
       (route) => false,
     );
   }
