@@ -13,9 +13,10 @@ class SplashMark extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 300,
-      height: 300,
+      height: 400,
       child: Stack(
         alignment: Alignment.center,
+        clipBehavior: Clip.none,
         children: [
           Container(
             width: 270,
@@ -39,39 +40,43 @@ class SplashMark extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                Assets.assetsImagesHopeSplashLogo,
-                width: 128,
-                height: 128,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(height: 26),
-              Text(
-                LocaleKeys.splashTitle.tr(),
-                style: GoogleFonts.manrope(
-                  textStyle: Styles.s28(context).copyWith(
-                    color: AppColors.splashTitle,
-                    fontSize: 36,
-                    height: 1.11,
-                    fontWeight: FontWeight.w700,
+
+          Image.asset(
+            Assets.assetsImagesHopeSplashLogo,
+            width: 128,
+            height: 128,
+            fit: BoxFit.contain,
+          ),
+
+          Positioned(
+            top: 300,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  LocaleKeys.splashTitle.tr(),
+                  style: GoogleFonts.manrope(
+                    textStyle: Styles.s28(context).copyWith(
+                      color: AppColors.splashTitle,
+                      fontSize: 36,
+                      height: 1.11,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                LocaleKeys.splashSubtitle.tr(),
-                style: GoogleFonts.inter(
-                  textStyle: Styles.s14(context).copyWith(
-                    color: AppColors.splashSubtitle,
-                    height: 1.43,
-                    fontWeight: FontWeight.w500,
+                const SizedBox(height: 8),
+                Text(
+                  LocaleKeys.splashSubtitle.tr(),
+                  style: GoogleFonts.inter(
+                    textStyle: Styles.s14(context).copyWith(
+                      color: AppColors.splashSubtitle,
+                      height: 1.43,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

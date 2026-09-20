@@ -31,12 +31,12 @@ class OnboardingTopSection extends StatelessWidget {
         final item = onboardingItems[index];
 
         return DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [item.topColor, item.bottomColor],
-            ),
+          decoration: const BoxDecoration(
+            // gradient: LinearGradient(
+            //   begin: Alignment.topCenter,
+            //   end: Alignment.bottomCenter,
+            //   colors: [item.topColor, item.bottomColor],
+            // ),
           ),
           child: SafeArea(
             bottom: false,
