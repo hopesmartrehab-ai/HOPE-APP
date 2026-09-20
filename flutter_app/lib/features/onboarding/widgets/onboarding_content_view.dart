@@ -23,13 +23,12 @@ class OnboardingContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: MediaQuery.sizeOf(context).height,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           children: [
-            SizedBox(
-              height: 360,
+            Expanded(
               child: OnboardingTopSection(
                 controller: controller,
                 onboardingItems: onboardingItems,
@@ -37,13 +36,11 @@ class OnboardingContentView extends StatelessWidget {
                 onSkip: onSkip,
               ),
             ),
-            Expanded(
-              child: OnboardingBottomSection(
-                controller: controller,
-                onboardingItems: onboardingItems,
-                currentPage: currentPage,
-                onNext: onNext,
-              ),
+            OnboardingBottomSection(
+              controller: controller,
+              onboardingItems: onboardingItems,
+              currentPage: currentPage,
+              onNext: onNext,
             ),
           ],
         ),

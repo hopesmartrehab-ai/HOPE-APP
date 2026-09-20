@@ -3,8 +3,12 @@ import 'package:hope_app/features/auth/login/screens/sign_in_screen.dart';
 import 'package:hope_app/features/auth/register/sign_up_screen.dart';
 import 'package:hope_app/features/home/presentation/assessment_complete/screen/home_assessment_complete_screen.dart';
 import 'package:hope_app/features/home/presentation/dashboard/screen/dashboard_screen.dart';
+import 'package:hope_app/features/main_layout/screens/main_navigation_screen.dart';
 import 'package:hope_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:hope_app/features/rehab/presentation/screens/rehab_screen.dart';
+import 'package:hope_app/features/start%20_session/presentation/screens/connect_glove_screen.dart';
+import 'package:hope_app/features/start%20_session/presentation/screens/training_format_screen.dart';
+import 'package:hope_app/features/start%20_session/presentation/screens/training_setup_screen.dart';
 import 'package:hope_app/features/welcome/screens/welcome_screen.dart';
 
 abstract class AppRoute {
@@ -63,6 +67,41 @@ abstract class AppRoute {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => const RehabScreen()),
       (route) => false,
+    );
+  }
+
+  static void goToMainNavigation({required BuildContext context}) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
+      (route) => false,
+    );
+  }
+
+  static void goToTrainingSetup({required BuildContext context}) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const TrainingSetupScreen()));
+  }
+
+  static void goToConnectGlove({
+    required BuildContext context,
+    required TrainingApproach selectedApproach,
+  }) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => ConnectGloveScreen(selectedApproach: selectedApproach),
+      ),
+    );
+  }
+
+  static void goToTrainingFormat({
+    required BuildContext context,
+    required TrainingApproach selectedApproach,
+  }) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TrainingFormatScreen(selectedApproach: selectedApproach),
+      ),
     );
   }
 }

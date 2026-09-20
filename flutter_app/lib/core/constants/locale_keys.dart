@@ -356,5 +356,34 @@ class LocaleKeys {
   static const medium = 'medium';
   static const hard = 'hard';
   static const tip = 'tip';
-  static const rehabTipDescription = 'rehabTipDescription';
+  static const String rehabTipDescription = 'rehabTipDescription';
+
+  // ── Navigation Bar ──────────────────────────────────────
+  static const String tabRehab = 'tabRehab';
+  static const String tabProfile = 'tabProfile';
+  static const String progressComingSoon = 'progressComingSoon';
+  static const String profileComingSoon = 'profileComingSoon';
+
+  static const trainingSetup = 'trainingSetup';
+  static const howWouldYouLikeToTrain = 'howWouldYouLikeToTrain';
+  static const choosePreferredTraining = 'choosePreferredTraining';
+  static const useSmartGlove = 'useSmartGlove';
+  static const useSmartGloveDesc = 'useSmartGloveDesc';
+  static const mobileOnly = 'mobileOnly';
+  static const mobileOnlyDesc = 'mobileOnlyDesc';
+  static const smartGloveInfo = 'smartGloveInfo';
+  static const mobileOnlyInfo = 'mobileOnlyInfo';
+  static const mobileDevice = 'mobileDevice';
+  static const mobileDeviceDesc = 'mobileDeviceDesc';
+  static const connectSmartGlove = 'connectSmartGlove';
+  static const ensureGloveNearby = 'ensureGloveNearby';
+  static const connecting = 'connecting';
+  static const trainingFormat = 'trainingFormat';
+  static const chooseTrainingFormat = 'chooseTrainingFormat';
+  static const chooseTrainingFormatDesc = 'chooseTrainingFormatDesc';
+  static const playGame = 'playGame';
+  static const playGameDesc = 'playGameDesc';
+  static const followVideoExercise = 'followVideoExercise';
+  static const followVideoDesc = 'followVideoDesc';
+  static const trainingWith = 'trainingWith';
 }

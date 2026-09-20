@@ -9,6 +9,7 @@ import 'package:hope_app/features/rehab/data/models/rehab_models.dart';
 import 'package:hope_app/features/rehab/presentation/widgets/exercise_list_item.dart';
 import 'package:hope_app/features/rehab/presentation/widgets/rehab_overview_card.dart';
 import 'package:hope_app/features/rehab/presentation/widgets/rehab_tip_card.dart';
+import 'package:hope_app/core/utils/app_route.dart';
 
 class RehabScreen extends StatelessWidget {
   const RehabScreen({super.key});
@@ -111,7 +112,7 @@ class RehabScreen extends StatelessWidget {
                     backgroundColor: const Color(0xFF4ADE80),
                     foregroundColor: Colors.white,
                     borderRadius: 16.0,
-                    onPressed: () {},
+                    onPressed: () => AppRoute.goToTrainingSetup(context: context),
                   ),
                 ),
               ),

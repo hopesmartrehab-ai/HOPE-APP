@@ -4,6 +4,7 @@ import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/shared_widgets/custom_button.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
+import 'package:hope_app/core/utils/app_route.dart';
 import 'package:hope_app/features/home/presentation/model/home_models.dart';
 
 class TodaySessionCard extends StatelessWidget {
@@ -100,7 +101,7 @@ class TodaySessionCard extends StatelessWidget {
                 backgroundColor: const Color(0xFF4ADE80),
                 foregroundColor: Colors.white,
                 borderRadius: 16.0,
-                onPressed: () {},
+                onPressed: () => AppRoute.goToTrainingSetup(context: context),
               ),
             ],
           ),

@@ -41,37 +41,43 @@ class OnboardingTopSection extends StatelessWidget {
           child: SafeArea(
             bottom: false,
             child: Padding(
-              padding: const EdgeInsetsDirectional.only(
-                start: 32,
-                top: 16,
-                end: 24,
-              ),
+              padding: const EdgeInsets.only(top: 8),
               child: Column(
                 children: [
                   Align(
-                    alignment: AlignmentDirectional.centerEnd,
+                    alignment: Alignment.centerRight,
                     child: index == onboardingItems.length - 1
-                        ? const SizedBox(height: 24)
+                        ? const SizedBox.shrink()
                         : ClickedWidget(
                             onTap: onSkip,
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
                                 vertical: 8,
                               ),
                               child: Text(
                                 LocaleKeys.onboardingSkip.tr(),
-                                style: Styles.s10(context).copyWith(
+                                style: Styles.s14(context).copyWith(
                                   color: AppColors.onboardingSecondary,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ),
                   ),
-                  const Spacer(),
-                  OnboardingArtwork(item: item),
-                  const Spacer(),
+                  Expanded(
+                    child: Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        height: MediaQuery.of(context).size.width * 0.7,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFE2EDF8),
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        child: Center(child: OnboardingArtwork(item: item)),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -29,75 +29,72 @@ class OnboardingBottomSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: onboardingItems[currentPage].bottomColor,
       ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(32, 8, 32, 48),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                onboardingItems[currentPage].titleKey.tr(),
-                style: Styles.s26(context).copyWith(
-                  color: AppColors.onboardingPrimary,
-                  fontWeight: FontWeight.w700,
-                  height: 1.25,
-                ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              onboardingItems[currentPage].titleKey.tr(),
+              style: Styles.s26(context).copyWith(
+                color: AppColors.onboardingPrimary,
+                fontWeight: FontWeight.w700,
+                height: 1.25,
               ),
-              const SizedBox(height: 12),
-              Text(
-                onboardingItems[currentPage].descriptionKey.tr(),
-                style: Styles.s14(context).copyWith(
-                  color: AppColors.onboardingSecondary,
-                  fontSize: 15,
-                  height: 1.6,
-                ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              onboardingItems[currentPage].descriptionKey.tr(),
+              style: Styles.s14(context).copyWith(
+                color: AppColors.onboardingSecondary,
+                fontSize: 15,
+                height: 1.5,
               ),
-              const SizedBox(height: 32),
-              Row(
-                children: [
-                  OnboardingDots(
-                    controller: controller,
-                    count: onboardingItems.length,
-                  ),
-                  const Spacer(),
-                  currentPage == onboardingItems.length - 1
-                      ? SizedBox(
-                          width: 234,
-                          child: CustomButton(
-                            title: LocaleKeys.onboardingStart.tr(),
-                            isLoading: false,
-                            isBackgroundPrimary: true,
-                            backgroundColor: AppColors.onboardingStart,
-                            borderRadius: 16,
-                            height: 52,
-                            onPressed: onNext,
-                          ),
-                        )
-                      : CustomButton(
-                          title: LocaleKeys.onboardingNext.tr(),
+            ),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OnboardingDots(
+                  controller: controller,
+                  count: onboardingItems.length,
+                ),
+                currentPage == onboardingItems.length - 1
+                    ? SizedBox(
+                        width: 234,
+                        child: CustomButton(
+                          title: LocaleKeys.onboardingStart.tr(),
                           isLoading: false,
                           isBackgroundPrimary: true,
-                          backgroundColor: AppColors.onboardingPrimary,
-                          width: 56,
-                          height: 52,
+                          backgroundColor: AppColors.onboardingStart,
                           borderRadius: 16,
-                          padding: EdgeInsets.zero,
+                          height: 52,
                           onPressed: onNext,
-                          child: Transform.flip(
-                            flipX: context.locale.languageCode == 'ar',
-                            child: const AppSvg(
-                              assetName: Assets.onboardingNext,
-                              width: 20,
-                              height: 20,
-                            ),
+                        ),
+                      )
+                    : CustomButton(
+                        title: LocaleKeys.onboardingNext.tr(),
+                        isLoading: false,
+                        isBackgroundPrimary: true,
+                        backgroundColor: AppColors.onboardingPrimary,
+                        width: 56,
+                        height: 52,
+                        borderRadius: 16,
+                        padding: EdgeInsets.zero,
+                        onPressed: onNext,
+                        child: Transform.flip(
+                          flipX: context.locale.languageCode == 'ar',
+                          child: const AppSvg(
+                            assetName: Assets.onboardingNext,
+                            width: 20,
+                            height: 20,
                           ),
                         ),
-                ],
-              ),
-            ],
-          ),
+                      ),
+              ],
+            ),
+            const SizedBox(height: 32),
+          ],
         ),
       ),
     );

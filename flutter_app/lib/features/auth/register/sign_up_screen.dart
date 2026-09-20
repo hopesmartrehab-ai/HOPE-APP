@@ -144,7 +144,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       backgroundColor: AppColors.onboardingStart,
                       borderRadius: 16,
                       height: 56,
-                      onPressed: () {},
+                      onPressed: () =>
+                          AppRoute.goToMainNavigation(context: context),
                       style: Styles.s16(context),
                     ),
                     const SizedBox(height: 16),
