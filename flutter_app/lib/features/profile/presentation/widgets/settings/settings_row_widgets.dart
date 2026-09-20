@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
 
@@ -34,9 +36,14 @@ class SettingsLinkRow {
 }
 
 class SettingsNotificationCard extends StatelessWidget {
-  const SettingsNotificationCard({required this.items, super.key});
+  const SettingsNotificationCard({
+    required this.items,
+    required this.onToggle,
+    super.key,
+  });
 
   final List<SettingsNotificationToggle> items;
+  final void Function(int index, bool value)? onToggle;
 
   @override
   Widget build(BuildContext context) {
@@ -58,19 +65,20 @@ class SettingsNotificationCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Notifications',
+            LocaleKeys.notifications.tr(),
             style: Styles.s18(
               context,
             ).copyWith(color: AppColors.primary, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 10),
-          for (final item in items)
+          for (var i = 0; i < items.length; i++)
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: SettingsToggleRow(
-                title: item.title,
-                subtitle: item.subtitle,
-                value: item.value,
+                title: items[i].title,
+                subtitle: items[i].subtitle,
+                value: items[i].value,
+                onChanged: (value) => onToggle?.call(i, value),
               ),
             ),
         ],
@@ -80,9 +88,14 @@ class SettingsNotificationCard extends StatelessWidget {
 }
 
 class SettingsPreferenceCard extends StatelessWidget {
-  const SettingsPreferenceCard({required this.items, super.key});
+  const SettingsPreferenceCard({
+    required this.items,
+    this.onLanguageTap,
+    super.key,
+  });
 
   final List<SettingsPreferenceRow> items;
+  final VoidCallback? onLanguageTap;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +117,12 @@ class SettingsPreferenceCard extends StatelessWidget {
           for (final item in items)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              child: SettingsValueRow(row: item),
+              child: SettingsValueRow(
+                row: item,
+                onTap: item.label == LocaleKeys.language.tr()
+                    ? onLanguageTap
+                    : null,
+              ),
             ),
         ],
       ),
@@ -163,21 +181,21 @@ class SettingsDangerCard extends StatelessWidget {
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: SettingsDangerRowWidget(
               icon: Icons.delete_outline_rounded,
-              label: 'Delete Account',
+              label: LocaleKeys.deleteAccount.tr(),
             ),
           ),
-          Divider(height: 1, thickness: 1, color: Color(0xFFF0F2F5)),
+          const Divider(height: 1, thickness: 1, color: Color(0xFFF0F2F5)),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: SettingsDangerRowWidget(
               icon: Icons.logout_rounded,
-              label: 'Sign Out',
+              label: LocaleKeys.signOut.tr(),
             ),
           ),
         ],
@@ -191,12 +209,14 @@ class SettingsToggleRow extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.value,
+    this.onChanged,
     super.key,
   });
 
   final String title;
   final String subtitle;
   final bool value;
+  final ValueChanged<bool>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +248,7 @@ class SettingsToggleRow extends StatelessWidget {
           scale: 0.82,
           child: Switch(
             value: value,
-            onChanged: (_) {},
+            onChanged: onChanged,
             activeTrackColor: const Color(0xFF5DBE7A),
             inactiveTrackColor: const Color(0xFFDDE5EA),
             activeThumbColor: Colors.white,
@@ -241,13 +261,14 @@ class SettingsToggleRow extends StatelessWidget {
 }
 
 class SettingsValueRow extends StatelessWidget {
-  const SettingsValueRow({required this.row, super.key});
+  const SettingsValueRow({required this.row, this.onTap, super.key});
 
   final SettingsPreferenceRow row;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    final rowContent = Row(
       children: [
         Container(
           width: 28,
@@ -273,7 +294,28 @@ class SettingsValueRow extends StatelessWidget {
             context,
           ).copyWith(color: AppColors.primary, fontWeight: FontWeight.w500),
         ),
+        if (onTap != null) ...[
+          const SizedBox(width: 8),
+          const Icon(
+            Icons.chevron_right_rounded,
+            color: AppColors.primary,
+            size: 20,
+          ),
+        ],
       ],
+    );
+
+    if (onTap == null) {
+      return rowContent;
+    }
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: rowContent,
+      ),
     );
   }
 }

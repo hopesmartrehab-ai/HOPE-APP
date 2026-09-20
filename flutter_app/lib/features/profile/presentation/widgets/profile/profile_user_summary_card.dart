@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
+import 'package:hope_app/features/profile/models/profile_models.dart';
 
 class ProfileUserSummaryCard extends StatelessWidget {
-  const ProfileUserSummaryCard({super.key});
+  const ProfileUserSummaryCard({required this.user, super.key});
+
+  final ProfileSummaryModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +19,10 @@ class ProfileUserSummaryCard extends StatelessWidget {
             color: const Color(0xFF1A4663),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: const Center(
+          child: Center(
             child: Text(
-              'S',
-              style: TextStyle(
+              user.initials,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.w700,
@@ -33,7 +36,7 @@ class ProfileUserSummaryCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sarah Johnson',
+                user.fullName,
                 style: Styles.s22(context).copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w700,
@@ -41,7 +44,7 @@ class ProfileUserSummaryCard extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'sarah.johnson@email.com',
+                user.email,
                 style: Styles.s12(
                   context,
                 ).copyWith(color: AppColors.textSecondary),
@@ -59,7 +62,7 @@ class ProfileUserSummaryCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      'Active',
+                      user.status,
                       style: Styles.s12(context).copyWith(
                         color: const Color(0xFF2E7D32),
                         fontWeight: FontWeight.w700,
@@ -68,7 +71,7 @@ class ProfileUserSummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Week 2',
+                    user.weekLabel,
                     style: Styles.s12(
                       context,
                     ).copyWith(color: AppColors.textSecondary),

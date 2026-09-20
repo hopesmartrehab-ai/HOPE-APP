@@ -141,17 +141,14 @@ abstract class LocalStorage {
   // static void deleteUser() => local?.remove(StorageKeys.userModule);
 
   static Future<void> setLocaleLanguage(String locale) async {
-    await local?.setString(StorageKeys.localeLanguage, locale);
+    final normalized = locale.toLowerCase();
+    final languageCode = normalized.startsWith('ar') ? 'ar' : 'en';
+    await local?.setString(StorageKeys.localeLanguage, languageCode);
   }
 
   static String getLocaleLanguage() {
-    if (local?.getString(StorageKeys.localeLanguage) == 'en') {
-      return 'en';
-    } else if (local?.getString(StorageKeys.localeLanguage) == 'ar_EG') {
-      return 'ar';
-    } else {
-      return local?.getString(StorageKeys.localeLanguage) ?? 'en';
-    }
+    final storedLocale = local?.getString(StorageKeys.localeLanguage) ?? 'en';
+    return storedLocale.toLowerCase().startsWith('ar') ? 'ar' : 'en';
   }
 
   static Future<void> setIsDarkModeOn({required bool isDarkMode}) async {

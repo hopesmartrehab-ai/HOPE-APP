@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
-
-class ProfileMenuItem {
-  const ProfileMenuItem({
-    required this.icon,
-    required this.label,
-    this.trailing,
-    this.isDestructive = false,
-  });
-
-  final IconData icon;
-  final String label;
-  final String? trailing;
-  final bool isDestructive;
-}
+import 'package:hope_app/features/profile/models/profile_models.dart';
 
 class ProfileMenuList extends StatelessWidget {
   const ProfileMenuList({required this.items, super.key, this.onItemTap});
 
-  final List<ProfileMenuItem> items;
-  final void Function(ProfileMenuItem item)? onItemTap;
+  final List<ProfileMenuModel> items;
+  final void Function(ProfileMenuModel item)? onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +38,7 @@ class ProfileMenuList extends StatelessWidget {
 class ProfileMenuRow extends StatelessWidget {
   const ProfileMenuRow({required this.item, super.key, this.onTap});
 
-  final ProfileMenuItem item;
+  final ProfileMenuModel item;
   final VoidCallback? onTap;
 
   @override

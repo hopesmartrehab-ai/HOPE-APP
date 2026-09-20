@@ -1,16 +1,28 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
 
 class AffectedSideSelector extends StatefulWidget {
-  const AffectedSideSelector({super.key});
+  const AffectedSideSelector({this.selectedSide = '', super.key});
+
+  final String selectedSide;
 
   @override
   State<AffectedSideSelector> createState() => _AffectedSideSelectorState();
 }
 
 class _AffectedSideSelectorState extends State<AffectedSideSelector> {
-  String _selectedSide = 'Right Hand';
+  late String _selectedSide;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedSide = widget.selectedSide.isNotEmpty
+        ? widget.selectedSide
+        : LocaleKeys.rightSide.tr();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,30 +44,32 @@ class _AffectedSideSelectorState extends State<AffectedSideSelector> {
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: () => setState(() => _selectedSide = 'Left Hand'),
+              onTap: () =>
+                  setState(() => _selectedSide = LocaleKeys.leftSide.tr()),
               child: _SideChip(
-                label: 'Left Hand',
-                selected: _selectedSide == 'Left Hand',
+                label: LocaleKeys.leftSide.tr(),
+                selected: _selectedSide == LocaleKeys.leftSide.tr(),
               ),
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: GestureDetector(
-              onTap: () => setState(() => _selectedSide = 'Right Hand'),
+              onTap: () =>
+                  setState(() => _selectedSide = LocaleKeys.rightSide.tr()),
               child: _SideChip(
-                label: 'Right Hand',
-                selected: _selectedSide == 'Right Hand',
+                label: LocaleKeys.rightSide.tr(),
+                selected: _selectedSide == LocaleKeys.rightSide.tr(),
               ),
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: GestureDetector(
-              onTap: () => setState(() => _selectedSide = 'Both'),
+              onTap: () => setState(() => _selectedSide = LocaleKeys.both.tr()),
               child: _SideChip(
-                label: 'Both',
-                selected: _selectedSide == 'Both',
+                label: LocaleKeys.both.tr(),
+                selected: _selectedSide == LocaleKeys.both.tr(),
               ),
             ),
           ),

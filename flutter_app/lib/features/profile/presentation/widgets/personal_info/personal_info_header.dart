@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
 
@@ -22,7 +24,7 @@ class PersonalInfoHeader extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Text(
-          'Profile',
+          LocaleKeys.profile.tr(),
           style: Styles.s16(
             context,
           ).copyWith(color: AppColors.primary, fontWeight: FontWeight.w500),
@@ -43,7 +45,7 @@ class PersonalInfoTitleRow extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            'Personal Information',
+            LocaleKeys.personalInformation.tr(),
             style: Styles.s28(
               context,
             ).copyWith(color: AppColors.primary, fontWeight: FontWeight.w700),
@@ -52,7 +54,7 @@ class PersonalInfoTitleRow extends StatelessWidget {
         GestureDetector(
           onTap: onEdit,
           child: Text(
-            'Edit',
+            LocaleKeys.edit.tr(),
             style: Styles.s16(
               context,
             ).copyWith(color: AppColors.primary, fontWeight: FontWeight.w600),

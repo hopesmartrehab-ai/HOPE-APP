@@ -1,63 +1,83 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/shared_widgets/gradient_background.dart';
-import 'package:hope_app/core/theme/styles/app_colors.dart';
+import 'package:hope_app/features/profile/models/profile_models.dart';
+import 'package:hope_app/features/profile/presentation/screens/connected_device_screen.dart';
 import 'package:hope_app/features/profile/presentation/screens/personal_information_screen.dart';
 import 'package:hope_app/features/profile/presentation/screens/settings_screen.dart';
-import 'package:hope_app/features/profile/presentation/widgets/profile_header.dart';
-import 'package:hope_app/features/profile/presentation/widgets/profile_menu_row.dart';
-import 'package:hope_app/features/profile/presentation/widgets/profile_metric_card.dart';
-import 'package:hope_app/features/profile/presentation/widgets/profile_user_summary_card.dart';
+import 'package:hope_app/features/profile/presentation/widgets/profile/app_version_footer.dart';
+import 'package:hope_app/features/profile/presentation/widgets/profile/online_rehabilitation_card.dart';
+import 'package:hope_app/features/profile/presentation/widgets/profile/profile_header.dart';
+import 'package:hope_app/features/profile/presentation/widgets/profile/profile_menu_row.dart';
+import 'package:hope_app/features/profile/presentation/widgets/profile/profile_metric_card.dart';
+import 'package:hope_app/features/profile/presentation/widgets/profile/profile_user_summary_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const metrics = [
-      ProfileMetricItem(
-        value: '28',
-        label: 'Sessions',
-        color: Color(0xFF4CAF50),
-        icon: Icons.check_circle_rounded,
+    final profileModel = ProfileScreenModel(
+      user: const ProfileSummaryModel(
+        initials: 'SJ',
+        fullName: 'Sarah Johnson',
+        email: 'sarah.johnson@email.com',
+        status: 'Active',
+        weekLabel: 'Week 2',
       ),
-      ProfileMetricItem(
-        value: '13',
-        label: 'Day Streak',
-        color: Color(0xFFFF6B57),
-        icon: Icons.local_fire_department_rounded,
+      metrics: [
+        ProfileMetricModel(
+          value: '28',
+          label: LocaleKeys.profileMetricSessions.tr(),
+          color: const Color(0xFF4CAF50),
+          icon: Icons.check_circle_rounded,
+        ),
+        ProfileMetricModel(
+          value: '13',
+          label: LocaleKeys.profileMetricDayStreak.tr(),
+          color: const Color(0xFFFF6B57),
+          icon: Icons.local_fire_department_rounded,
+        ),
+        ProfileMetricModel(
+          value: '4.8',
+          label: LocaleKeys.profileMetricPerformance.tr(),
+          color: const Color(0xFFFFC857),
+          icon: Icons.star_rounded,
+        ),
+      ],
+      menuItems: [
+        ProfileMenuModel(
+          icon: Icons.person_outline_rounded,
+          label: LocaleKeys.personalInformation.tr(),
+        ),
+        ProfileMenuModel(
+          icon: Icons.bluetooth_connected_rounded,
+          label: LocaleKeys.connectedDevice.tr(),
+          trailing: LocaleKeys.smartGlove.tr(),
+        ),
+        ProfileMenuModel(
+          icon: Icons.insert_chart_outlined_rounded,
+          label: LocaleKeys.assessmentReport.tr(),
+        ),
+        ProfileMenuModel(
+          icon: Icons.help_outline_rounded,
+          label: LocaleKeys.helpSupport.tr(),
+        ),
+        ProfileMenuModel(
+          icon: Icons.logout_rounded,
+          label: LocaleKeys.signOut.tr(),
+          isDestructive: true,
+        ),
+      ],
+      onlineRehab: OnlineRehabModel(
+        title: LocaleKeys.profileOnlineRehabTitle.tr(),
+        subtitle: LocaleKeys.profileOnlineRehabSubtitle.tr(),
+        progress: '63%',
       ),
-      ProfileMetricItem(
-        value: '4.8',
-        label: 'Performance',
-        color: Color(0xFFFFC857),
-        icon: Icons.star_rounded,
-      ),
-    ];
-
-    const menuItems = [
-      ProfileMenuItem(
-        icon: Icons.person_outline_rounded,
-        label: 'Personal Information',
-      ),
-      ProfileMenuItem(
-        icon: Icons.bluetooth_connected_rounded,
-        label: 'Connected Device',
-        trailing: 'Smart Glove',
-      ),
-      ProfileMenuItem(
-        icon: Icons.insert_chart_outlined_rounded,
-        label: 'Assessment Report',
-      ),
-      ProfileMenuItem(
-        icon: Icons.help_outline_rounded,
-        label: 'Help & Support',
-      ),
-      ProfileMenuItem(
-        icon: Icons.logout_rounded,
-        label: 'Sign Out',
-        isDestructive: true,
-      ),
-    ];
+      appVersion: 'HOPE v1.2.0',
+    );
 
     return Scaffold(
       body: SafeArea(
@@ -70,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: 8),
                   ProfileHeader(
-                    title: 'MY PROFILE',
+                    title: LocaleKeys.profile.tr().toUpperCase(),
                     onSettingsTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -80,104 +100,78 @@ class ProfileScreen extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 18),
-                  const ProfileUserSummaryCard(),
+                  ProfileUserSummaryCard(user: profileModel.user),
                   const SizedBox(height: 18),
-                  Container(
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: const Color(0xFFDEE7F0)),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEAF4F8),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(
-                            Icons.computer_rounded,
-                            color: AppColors.primary,
-                            size: 22,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Online Rehabilitation',
-                                style: TextStyle(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              Text(
-                                'Monthly Follow-Up • Week 2 of 12',
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(color: AppColors.textSecondary),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEAF9EE),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Text(
-                            '63%',
-                            style: TextStyle(
-                              color: Color(0xFF2E7D32),
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  OnlineRehabilitationCard(model: profileModel.onlineRehab),
                   const SizedBox(height: 18),
-                  const ProfileMetricsRow(metrics: metrics),
+                  ProfileMetricsRow(metrics: profileModel.metrics),
                   const SizedBox(height: 18),
                   ProfileMenuList(
-                    items: menuItems,
+                    items: profileModel.menuItems,
                     onItemTap: (item) {
-                      if (item.label == 'Personal Information') {
+                      if (item.label == LocaleKeys.personalInformation.tr()) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => const PersonalInformationScreen(),
+                          ),
+                        );
+                        return;
+                      }
+
+                      if (item.label == LocaleKeys.connectedDevice.tr()) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const ConnectedDeviceScreen(),
+                          ),
+                        );
+                        return;
+                      }
+
+                      if (item.label == LocaleKeys.helpSupport.tr()) {
+                        final uri = Uri(
+                          scheme: 'mailto',
+                          path: 'hope.support@gmail.com',
+                          queryParameters: {'subject': 'HOPE Support Request'},
+                        );
+                        launchUrl(uri);
+                        return;
+                      }
+
+                      if (item.label == LocaleKeys.signOut.tr()) {
+                        showDialog<void>(
+                          context: context,
+                          builder: (dialogContext) => AlertDialog(
+                            title: Text(LocaleKeys.signOut.tr()),
+                            content: Text(
+                              LocaleKeys.areYouSureYouWantToSignOut.tr(),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(),
+                                child: Text(LocaleKeys.cancel.tr()),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(dialogContext).pop();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        LocaleKeys.signedOutSuccessfully.tr(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Text(LocaleKeys.signOut.tr()),
+                              ),
+                            ],
                           ),
                         );
                       }
                     },
                   ),
                   const SizedBox(height: 14),
-                  Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.info_outline,
-                          size: 12,
-                          color: Color(0xFF7A8A9B),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          'HOPE v1.2.0',
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: AppColors.textSecondary),
-                        ),
-                      ],
-                    ),
-                  ),
+                  AppVersionFooter(version: profileModel.appVersion),
                 ],
               ),
             ),

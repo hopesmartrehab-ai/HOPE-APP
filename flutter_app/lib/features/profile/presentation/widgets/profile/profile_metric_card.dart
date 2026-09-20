@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
-
-class ProfileMetricItem {
-  const ProfileMetricItem({
-    required this.value,
-    required this.label,
-    required this.color,
-    required this.icon,
-  });
-
-  final String value;
-  final String label;
-  final Color color;
-  final IconData icon;
-}
+import 'package:hope_app/features/profile/models/profile_models.dart';
 
 class ProfileMetricsRow extends StatelessWidget {
   const ProfileMetricsRow({required this.metrics, super.key});
 
-  final List<ProfileMetricItem> metrics;
+  final List<ProfileMetricModel> metrics;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +28,7 @@ class ProfileMetricsRow extends StatelessWidget {
 class ProfileMetricCard extends StatelessWidget {
   const ProfileMetricCard({required this.metric, super.key});
 
-  final ProfileMetricItem metric;
+  final ProfileMetricModel metric;
 
   @override
   Widget build(BuildContext context) {

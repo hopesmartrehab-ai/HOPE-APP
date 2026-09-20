@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class UserAvatarCard extends StatelessWidget {
   const UserAvatarCard({
     super.key,
-    this.initial = 'S',
+    this.initials = 'S',
     this.size = 86,
     this.borderRadius = 22,
     this.backgroundColor = const Color(0xFF1A4663),
   });
 
-  final String initial;
+  final String initials;
   final double size;
   final double borderRadius;
   final Color backgroundColor;
@@ -26,7 +26,7 @@ class UserAvatarCard extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            initial,
+            initials,
             style: const TextStyle(
               color: Colors.white,
               fontSize: 34,

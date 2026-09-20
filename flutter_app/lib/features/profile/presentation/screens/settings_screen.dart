@@ -1,64 +1,110 @@
-import 'package:flutter/material.dart';
-import 'package:hope_app/core/theme/styles/app_colors.dart';
-import 'package:hope_app/features/profile/presentation/widgets/profile_header.dart';
-import 'package:hope_app/features/profile/presentation/widgets/settings_row_widgets.dart';
+import 'dart:async';
 
-class SettingsScreen extends StatelessWidget {
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/app_localization.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
+import 'package:hope_app/core/local_storage/local_storage.dart';
+import 'package:hope_app/core/theme/styles/app_colors.dart';
+import 'package:hope_app/features/profile/models/profile_models.dart';
+import 'package:hope_app/features/profile/presentation/widgets/profile/profile_header.dart';
+import 'package:hope_app/features/profile/presentation/widgets/settings/settings_app_footer.dart';
+import 'package:hope_app/features/profile/presentation/widgets/settings/settings_row_widgets.dart';
+
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    const notificationItems = [
-      SettingsNotificationToggle(
-        title: 'Push Notifications',
-        subtitle: 'Receive all app notifications',
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  late List<NotificationSettingModel> _notificationItems;
+
+  @override
+  void initState() {
+    super.initState();
+    _notificationItems = [
+      NotificationSettingModel(
+        title: LocaleKeys.pushNotifications.tr(),
+        subtitle: LocaleKeys.pushNotificationsSubtitle.tr(),
         value: true,
       ),
-      SettingsNotificationToggle(
-        title: 'Session Reminders',
-        subtitle: 'Daily reminder for your training sessions',
+      NotificationSettingModel(
+        title: LocaleKeys.sessionReminders.tr(),
+        subtitle: LocaleKeys.sessionRemindersSubtitle.tr(),
         value: true,
       ),
-      SettingsNotificationToggle(
-        title: 'Progress Alerts',
-        subtitle: 'Celebrate milestones and achievements',
+      NotificationSettingModel(
+        title: LocaleKeys.progressAlerts.tr(),
+        subtitle: LocaleKeys.progressAlertsSubtitle.tr(),
         value: false,
       ),
-      SettingsNotificationToggle(
-        title: 'Therapist Updates',
-        subtitle: 'Notifications when therapist reviews your session',
+      NotificationSettingModel(
+        title: LocaleKeys.therapistUpdates.tr(),
+        subtitle: LocaleKeys.therapistUpdatesSubtitle.tr(),
         value: true,
       ),
     ];
+  }
 
-    const preferenceItems = [
+  void _toggleNotification(int index, bool value) {
+    setState(() {
+      _notificationItems[index] = NotificationSettingModel(
+        title: _notificationItems[index].title,
+        subtitle: _notificationItems[index].subtitle,
+        value: value,
+      );
+    });
+  }
+
+  void _toggleLanguage() {
+    final currentLocale = context.locale.languageCode;
+    final nextLocale = currentLocale == 'ar'
+        ? AppLocalizations.englishLocale
+        : AppLocalizations.arabicLocale;
+
+    context.setLocale(nextLocale);
+    unawaited(LocalStorage.setLocaleLanguage(nextLocale.languageCode));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentLanguage = context.locale.languageCode == 'ar'
+        ? LocaleKeys.arabic.tr()
+        : LocaleKeys.english.tr();
+
+    final preferenceItems = [
       SettingsPreferenceRow(
         icon: Icons.language_rounded,
-        label: 'Language',
-        value: 'English',
+        label: LocaleKeys.language.tr(),
+        value: currentLanguage,
       ),
       SettingsPreferenceRow(
         icon: Icons.straighten_rounded,
-        label: 'Units',
-        value: 'Metric',
+        label: LocaleKeys.units.tr(),
+        value: LocaleKeys.metric.tr(),
       ),
       SettingsPreferenceRow(
         icon: Icons.light_mode_rounded,
-        label: 'Theme',
-        value: 'Light',
+        label: LocaleKeys.theme.tr(),
+        value: LocaleKeys.light.tr(),
       ),
     ];
 
-    const legalItems = [
+    final legalItems = [
       SettingsLinkRow(
         icon: Icons.lock_outline_rounded,
-        label: 'Privacy Settings',
+        label: LocaleKeys.privacySettings.tr(),
       ),
       SettingsLinkRow(
         icon: Icons.description_outlined,
-        label: 'Terms of Service',
+        label: LocaleKeys.termsOfService.tr(),
       ),
-      SettingsLinkRow(icon: Icons.info_outline_rounded, label: 'About HOPE'),
+      SettingsLinkRow(
+        icon: Icons.info_outline_rounded,
+        label: LocaleKeys.aboutHope.tr(),
+      ),
     ];
 
     return Scaffold(
@@ -71,53 +117,41 @@ class SettingsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProfileHeader(
-                  title: 'Profile',
+                  title: LocaleKeys.profile.tr(),
                   onBack: () => Navigator.of(context).pop(),
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Settings',
+                  LocaleKeys.settings.tr(),
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 16),
-                const SettingsNotificationCard(items: notificationItems),
+                SettingsNotificationCard(
+                  items: _notificationItems
+                      .map(
+                        (item) => SettingsNotificationToggle(
+                          title: item.title,
+                          subtitle: item.subtitle,
+                          value: item.value,
+                        ),
+                      )
+                      .toList(),
+                  onToggle: _toggleNotification,
+                ),
                 const SizedBox(height: 14),
-                const SettingsPreferenceCard(items: preferenceItems),
+                SettingsPreferenceCard(
+                  items: preferenceItems,
+                  onLanguageTap: _toggleLanguage,
+                ),
                 const SizedBox(height: 14),
-                const SettingsLinksCard(items: legalItems),
+                SettingsLinksCard(items: legalItems),
                 const SizedBox(height: 14),
                 const SettingsDangerCard(),
                 const SizedBox(height: 18),
-                Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 18,
-                        height: 18,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF0D2C45),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: const Icon(
-                          Icons.favorite_rounded,
-                          size: 10,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'HOPE Smart Rehabilitation • v1.2.0',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: const Color(0xFF7A8A9B),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const SettingsAppFooter(),
               ],
             ),
           ),

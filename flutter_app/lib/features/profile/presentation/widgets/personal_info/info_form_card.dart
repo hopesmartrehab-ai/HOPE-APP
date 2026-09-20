@@ -1,9 +1,22 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
 
 class InfoFormCard extends StatelessWidget {
-  const InfoFormCard({super.key});
+  const InfoFormCard({
+    required this.fullName,
+    required this.email,
+    required this.phoneNumber,
+    required this.dateOfBirth,
+    super.key,
+  });
+
+  final String fullName;
+  final String email;
+  final String phoneNumber;
+  final String dateOfBirth;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +33,28 @@ class InfoFormCard extends StatelessWidget {
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _InfoRow(label: 'FULL NAME', value: 'Sarah Johnson'),
-          Divider(height: 1, thickness: 1, color: Color(0xFFE7EDF3)),
-          _InfoRow(label: 'EMAIL ADDRESS', value: 'sarah.johnson@email.com'),
-          Divider(height: 1, thickness: 1, color: Color(0xFFE7EDF3)),
-          _InfoRow(label: 'PHONE NUMBER', value: '+1 (555) 234-5678'),
-          Divider(height: 1, thickness: 1, color: Color(0xFFE7EDF3)),
-          _InfoRow(label: 'DATE OF BIRTH', value: 'March 12, 1985'),
+          _InfoRow(
+            label: LocaleKeys.profileFieldFullName.tr(),
+            value: fullName,
+          ),
+          const Divider(height: 1, thickness: 1, color: Color(0xFFE7EDF3)),
+          _InfoRow(
+            label: LocaleKeys.profileFieldEmailAddress.tr(),
+            value: email,
+          ),
+          const Divider(height: 1, thickness: 1, color: Color(0xFFE7EDF3)),
+          _InfoRow(
+            label: LocaleKeys.profileFieldPhoneNumber.tr(),
+            value: phoneNumber,
+          ),
+          const Divider(height: 1, thickness: 1, color: Color(0xFFE7EDF3)),
+          _InfoRow(
+            label: LocaleKeys.profileFieldDateOfBirth.tr(),
+            value: dateOfBirth,
+          ),
         ],
       ),
     );

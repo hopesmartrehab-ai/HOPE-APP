@@ -1,12 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
-import 'package:hope_app/features/profile/presentation/widgets/affected_side_selector.dart';
-import 'package:hope_app/features/profile/presentation/widgets/info_form_card.dart';
-import 'package:hope_app/features/profile/presentation/widgets/personal_info_header.dart';
-import 'package:hope_app/features/profile/presentation/widgets/user_avatar_card.dart';
+import 'package:hope_app/features/profile/models/profile_models.dart';
+import 'package:hope_app/features/profile/presentation/widgets/personal_info/affected_side_selector.dart';
+import 'package:hope_app/features/profile/presentation/widgets/personal_info/info_form_card.dart';
+import 'package:hope_app/features/profile/presentation/widgets/personal_info/personal_info_header.dart';
+import 'package:hope_app/features/profile/presentation/widgets/personal_info/personal_info_section_title.dart';
+import 'package:hope_app/features/profile/presentation/widgets/personal_info/user_avatar_card.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
-  const PersonalInformationScreen({super.key});
+  const PersonalInformationScreen({super.key, this.model});
+
+  final PersonalInfoModel? model;
 
   @override
   State<PersonalInformationScreen> createState() =>
@@ -16,6 +22,19 @@ class PersonalInformationScreen extends StatefulWidget {
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   @override
   Widget build(BuildContext context) {
+    final model =
+        widget.model ??
+        const PersonalInfoModel(
+          fullName: 'Sarah Johnson',
+          email: 'sarah.johnson@email.com',
+          phoneNumber: '+1 (555) 234-5678',
+          dateOfBirth: 'March 12, 1985',
+          therapistName: 'Dr. Amina Hassan',
+          therapistRole: 'Rehabilitation Specialist',
+          affectedSide: 'Right Side',
+          initials: 'SJ',
+        );
+
     return Scaffold(
       backgroundColor: const Color(0xFFF0F4F8),
       body: SafeArea(
@@ -32,17 +51,17 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 const SizedBox(height: 20),
                 const PersonalInfoTitleRow(onEdit: null),
                 const SizedBox(height: 24),
-                const UserAvatarCard(),
+                UserAvatarCard(initials: model.initials),
                 const SizedBox(height: 22),
-                const InfoFormCard(),
+                InfoFormCard(
+                  fullName: model.fullName,
+                  email: model.email,
+                  phoneNumber: model.phoneNumber,
+                  dateOfBirth: model.dateOfBirth,
+                ),
                 const SizedBox(height: 18),
-                Text(
-                  'ASSIGNED THERAPIST',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF7A8A9B),
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w700,
-                  ),
+                PersonalInfoSectionTitle(
+                  title: LocaleKeys.assignedTherapist.tr().toUpperCase(),
                 ),
                 const SizedBox(height: 10),
                 Container(
@@ -83,7 +102,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Dr. Amina Hassan',
+                              model.therapistName,
                               style: Theme.of(context).textTheme.titleMedium
                                   ?.copyWith(
                                     color: AppColors.primary,
@@ -92,7 +111,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Rehabilitation Specialist',
+                              model.therapistRole,
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(color: AppColors.textSecondary),
                             ),
@@ -103,16 +122,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                Text(
-                  'AFFECTED SIDE',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: const Color(0xFF7A8A9B),
-                    letterSpacing: 0.8,
-                    fontWeight: FontWeight.w700,
-                  ),
+                PersonalInfoSectionTitle(
+                  title: LocaleKeys.affectedSide.tr().toUpperCase(),
                 ),
                 const SizedBox(height: 10),
-                const AffectedSideSelector(),
+                AffectedSideSelector(selectedSide: model.affectedSide),
               ],
             ),
           ),
