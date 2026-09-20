@@ -216,6 +216,20 @@ abstract class LocalStorage {
     local?.remove(StorageKeys.showGuestDialogOnHome);
   }
 
+  static Future<void> setShouldShowAssessmentCompleteHome({
+    required bool shouldShow,
+  }) async {
+    await local?.setBool(StorageKeys.showAssessmentCompleteHome, shouldShow);
+  }
+
+  static bool getShouldShowAssessmentCompleteHome() {
+    return local?.getBool(StorageKeys.showAssessmentCompleteHome) ?? true;
+  }
+
+  static void deleteShouldShowAssessmentCompleteHome() {
+    local?.remove(StorageKeys.showAssessmentCompleteHome);
+  }
+
   static void setAppleuser({required String email}) {
     debugPrint('email: $email');
     if (email.isNotEmpty && email == 'store@store.com') {

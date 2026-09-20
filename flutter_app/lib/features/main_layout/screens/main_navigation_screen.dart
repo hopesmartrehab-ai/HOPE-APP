@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
+import 'package:hope_app/core/local_storage/local_storage.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
+import 'package:hope_app/features/home/presentation/assessment_complete/screen/home_assessment_complete_screen.dart';
 import 'package:hope_app/features/home/presentation/dashboard/screen/dashboard_screen.dart';
 import 'package:hope_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:hope_app/features/progress/presentation/screens/progress_screen.dart';
@@ -18,11 +20,13 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = const [
-    DashboardScreen(),
-    RehabScreen(),
-    ProgressScreen(),
-    ProfileScreen(),
+  late final List<Widget> _screens = [
+    LocalStorage.getShouldShowAssessmentCompleteHome()
+        ? const AssessmentCompleteScreen()
+        : const DashboardScreen(),
+    const RehabScreen(),
+    const ProgressScreen(),
+    const ProfileScreen(),
   ];
 
   @override

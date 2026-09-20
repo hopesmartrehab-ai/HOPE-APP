@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/locale_keys.dart';
+import 'package:hope_app/core/local_storage/local_storage.dart';
 import 'package:hope_app/core/shared_widgets/custom_button.dart';
 import 'package:hope_app/core/shared_widgets/gradient_background.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
@@ -53,7 +54,14 @@ class _AssessmentCompleteScreenState extends State<AssessmentCompleteScreen> {
                   backgroundColor: AppColors.onboardingStart,
                   foregroundColor: Colors.white,
                   borderRadius: 16.0,
-                  onPressed: () => AppRoute.goToDashboard(context: context),
+                  onPressed: () async {
+                    await LocalStorage.setShouldShowAssessmentCompleteHome(
+                      shouldShow: false,
+                    );
+                    if (context.mounted) {
+                      AppRoute.goToMainLayout(context: context);
+                    }
+                  },
                 ),
               ],
             ),

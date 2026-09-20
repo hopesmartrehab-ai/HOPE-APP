@@ -8,6 +8,7 @@ abstract class StorageKeys {
   static const String guestId = 'guestId';
   static const String isGuestUser = 'isGuestUser';
   static const String showGuestDialogOnHome = 'showGuestDialogOnHome';
+  static const String showAssessmentCompleteHome = 'showAssessmentCompleteHome';
   static const String recentSearches = 'recentSearches';
   static const String isAppleUser = 'isAppleUser';
   static const String settings = 'settings';
