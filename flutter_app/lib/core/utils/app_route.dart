@@ -6,9 +6,8 @@ import 'package:hope_app/features/home/presentation/dashboard/screen/dashboard_s
 import 'package:hope_app/features/main_layout/screens/main_navigation_screen.dart';
 import 'package:hope_app/features/onboarding/screens/onboarding_screen.dart';
 import 'package:hope_app/features/rehab/presentation/screens/rehab_screen.dart';
-import 'package:hope_app/features/start%20_session/presentation/screens/connect_glove_screen.dart';
-import 'package:hope_app/features/start%20_session/presentation/screens/training_format_screen.dart';
-import 'package:hope_app/features/start%20_session/presentation/screens/training_setup_screen.dart';
+import 'package:hope_app/features/start%20_session/presentation/start_session_flow_screen.dart';
+import 'package:hope_app/features/start%20_session/presentation/start_session_types.dart';
 import 'package:hope_app/features/welcome/screens/welcome_screen.dart';
 
 abstract class AppRoute {
@@ -80,7 +79,7 @@ abstract class AppRoute {
   static void goToTrainingSetup({required BuildContext context}) {
     Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (_) => const TrainingSetupScreen()));
+    ).push(MaterialPageRoute(builder: (_) => const StartSessionFlowScreen()));
   }
 
   static void goToConnectGlove({
@@ -89,7 +88,10 @@ abstract class AppRoute {
   }) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => ConnectGloveScreen(selectedApproach: selectedApproach),
+        builder: (_) => StartSessionFlowScreen(
+          initialPage: 1,
+          initialApproach: selectedApproach,
+        ),
       ),
     );
   }
@@ -100,7 +102,10 @@ abstract class AppRoute {
   }) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => TrainingFormatScreen(selectedApproach: selectedApproach),
+        builder: (_) => StartSessionFlowScreen(
+          initialPage: 2,
+          initialApproach: selectedApproach,
+        ),
       ),
     );
   }
