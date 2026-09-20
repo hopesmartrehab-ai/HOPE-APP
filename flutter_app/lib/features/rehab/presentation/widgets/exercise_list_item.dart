@@ -54,7 +54,7 @@ class ExerciseListItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          Text(exercise.iconEmoji, style: const TextStyle(fontSize: 20)),
+          Icon(exercise.icon, size: 20, color: AppColors.primary),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

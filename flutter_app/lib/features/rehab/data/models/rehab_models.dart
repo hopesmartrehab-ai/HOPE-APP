@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class RehabSessionModel {
   final String title;
   final int exercisesCount;
@@ -21,14 +23,14 @@ class ExerciseModel {
   final String title;
   final int durationMin;
   final ExerciseDifficulty difficulty;
-  final String iconEmoji;
+  final IconData icon;
 
   const ExerciseModel({
     required this.id,
     required this.title,
     required this.durationMin,
     required this.difficulty,
-    required this.iconEmoji,
+    required this.icon,
   });
 }
 

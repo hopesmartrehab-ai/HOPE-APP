@@ -22,17 +22,17 @@ class RehabOverviewCard extends StatelessWidget {
       child: Row(
         children: [
           _OverviewItem(
-            icon: '💪',
+            icon: Icons.fitness_center,
             value: session.exercisesCount.toString(),
             label: LocaleKeys.exercises.tr(),
           ),
           _OverviewItem(
-            icon: '⏱️',
+            icon: Icons.timer,
             value: '~${session.estDurationMin} min',
             label: LocaleKeys.estDuration.tr(),
           ),
           _OverviewItem(
-            icon: '🎯',
+            icon: Icons.track_changes,
             value: session.focusArea,
             label: LocaleKeys.focus.tr(),
           ),
@@ -43,7 +43,7 @@ class RehabOverviewCard extends StatelessWidget {
 }
 
 class _OverviewItem extends StatelessWidget {
-  final String icon;
+  final IconData icon;
   final String value;
   final String label;
 
@@ -58,7 +58,7 @@ class _OverviewItem extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Text(icon, style: const TextStyle(fontSize: 24)),
+          Icon(icon, size: 24, color: AppColors.primary),
           const SizedBox(height: 8),
           Text(
             value,

@@ -33,22 +33,23 @@ class ThisWeekSection extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 8),
         Row(
           children: [
             _WeekStatCard(
-              icon: '✅',
+              icon: Icons.task_alt,
               value: '${statsData.sessionsDone}/${statsData.totalSessions}',
               label: LocaleKeys.sessionsDone.tr(),
             ),
             const SizedBox(width: 12),
             _WeekStatCard(
-              icon: '📈',
+              icon: Icons.trending_up,
               value: '+${statsData.improvementPercentage}%',
               label: LocaleKeys.improvement.tr(),
             ),
             const SizedBox(width: 12),
             _WeekStatCard(
-              icon: '🔥',
+              icon: Icons.local_fire_department,
               value: statsData.dayStreak.toString(),
               label: LocaleKeys.dayStreak.tr(),
             ),
@@ -60,7 +61,7 @@ class ThisWeekSection extends StatelessWidget {
 }
 
 class _WeekStatCard extends StatelessWidget {
-  final String icon;
+  final IconData icon;
   final String value;
   final String label;
 
@@ -80,24 +81,45 @@ class _WeekStatCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(width: 0.1, color: Colors.grey),
+            border: Border.all(
+              width: 0.5,
+              color: Colors.grey.withValues(alpha: 0.2),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.03),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(icon, style: const TextStyle(fontSize: 20)),
-              const SizedBox(height: 12),
+              Icon(
+                icon,
+                size: 24,
+                color: icon == Icons.local_fire_department
+                    ? Colors.orange
+                    : icon == Icons.task_alt
+                    ? Colors.green
+                    : AppColors.primary,
+              ),
+              const SizedBox(height: 10),
               Text(
                 value,
                 style: Styles.s18(context).copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),
               Text(
                 label,
                 style: Styles.s11(context).copyWith(color: Colors.grey),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

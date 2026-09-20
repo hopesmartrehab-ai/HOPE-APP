@@ -55,7 +55,7 @@ class TodaySessionCard extends StatelessWidget {
                       style: Styles.s12(context).copyWith(color: Colors.green),
                     ),
                   ),
-                  const Text('👋', style: TextStyle(fontSize: 24)),
+                  const Icon(Icons.waving_hand, size: 24, color: Colors.white),
                 ],
               ),
               const SizedBox(height: 12),
@@ -76,19 +76,19 @@ class TodaySessionCard extends StatelessWidget {
               Row(
                 children: [
                   _SessionStatBox(
-                    icon: '💪',
+                    icon: Icons.fitness_center,
                     value: sessionData.exercisesCount.toString(),
                     label: LocaleKeys.exercises.tr(),
                   ),
                   const SizedBox(width: 8),
                   _SessionStatBox(
-                    icon: '⏱️',
+                    icon: Icons.timer,
                     value: '${sessionData.durationMinutes} min',
                     label: LocaleKeys.duration.tr(),
                   ),
                   const SizedBox(width: 8),
                   _SessionStatBox(
-                    icon: '🔥',
+                    icon: Icons.local_fire_department,
                     value: '${sessionData.streakDays} day',
                     label: LocaleKeys.streak.tr(),
                   ),
@@ -112,7 +112,7 @@ class TodaySessionCard extends StatelessWidget {
 }
 
 class _SessionStatBox extends StatelessWidget {
-  final String icon;
+  final IconData icon;
   final String value;
   final String label;
 
@@ -133,7 +133,13 @@ class _SessionStatBox extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text(icon, style: const TextStyle(fontSize: 18)),
+            Icon(
+              icon,
+              size: 18,
+              color: icon == Icons.local_fire_department
+                  ? Colors.orangeAccent
+                  : Colors.white,
+            ),
             const SizedBox(height: 8),
             Text(
               value,

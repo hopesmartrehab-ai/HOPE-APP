@@ -329,6 +329,8 @@ class LocaleKeys {
   static const detailedPerformanceBreakdown = 'detailedPerformanceBreakdown';
   static const exploreMyPlan = 'exploreMyPlan';
   static const goodMorning = 'goodMorning';
+  static const goodAfternoon = 'goodAfternoon';
+  static const goodEvening = 'goodEvening';
   static const keepUpGreatWork = 'keepUpGreatWork';
   static const todaysSession = 'todaysSession';
   static const dayOf = 'dayOf';

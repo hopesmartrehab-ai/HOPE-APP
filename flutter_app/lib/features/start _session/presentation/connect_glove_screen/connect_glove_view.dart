@@ -43,10 +43,31 @@ class _ConnectGloveViewState extends State<ConnectGloveView> {
         children: [
           const ConnectGloveHeader(),
           const Expanded(child: Center(child: ConnectionRippleView())),
-          Center(
-            child: Text(
-              LocaleKeys.connecting.tr(),
-              style: Styles.s14(context).copyWith(color: Colors.grey[500]),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE6F4EA).withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
+            ),
+            child: Row(
+              children: [
+                const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.green,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  LocaleKeys.connecting.tr(),
+                  style: Styles.s14(
+                    context,
+                  ).copyWith(color: Colors.green, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 40),

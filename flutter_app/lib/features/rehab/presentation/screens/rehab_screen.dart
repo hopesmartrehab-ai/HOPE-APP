@@ -5,11 +5,11 @@ import 'package:hope_app/core/shared_widgets/custom_button.dart';
 import 'package:hope_app/core/shared_widgets/gradient_background.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/core/theme/styles/app_text_styles.dart';
+import 'package:hope_app/core/utils/app_route.dart';
 import 'package:hope_app/features/rehab/data/models/rehab_models.dart';
 import 'package:hope_app/features/rehab/presentation/widgets/exercise_list_item.dart';
 import 'package:hope_app/features/rehab/presentation/widgets/rehab_overview_card.dart';
 import 'package:hope_app/features/rehab/presentation/widgets/rehab_tip_card.dart';
-import 'package:hope_app/core/utils/app_route.dart';
 
 class RehabScreen extends StatelessWidget {
   const RehabScreen({super.key});
@@ -28,21 +28,21 @@ class RehabScreen extends StatelessWidget {
           title: 'Wrist Rotation Warm-Up',
           durationMin: 3,
           difficulty: ExerciseDifficulty.easy,
-          iconEmoji: '🔄',
+          icon: Icons.autorenew,
         ),
         ExerciseModel(
           id: '2',
           title: 'Power Grip Hold',
           durationMin: 5,
           difficulty: ExerciseDifficulty.medium,
-          iconEmoji: '✊',
+          icon: Icons.fitness_center,
         ),
         ExerciseModel(
           id: '3',
           title: 'Pinch & Release Seq...',
           durationMin: 5,
           difficulty: ExerciseDifficulty.medium,
-          iconEmoji: '🤏',
+          icon: Icons.pan_tool,
         ),
       ],
     );

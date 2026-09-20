@@ -53,7 +53,7 @@ class DashboardScreen extends StatelessWidget {
               children: [
                 const CustomHeader(),
                 const SizedBox(height: 24),
-                HomeWelcomeSection(userName: "${mockData.userName} 👋"),
+                HomeWelcomeSection(userName: mockData.userName),
                 const SizedBox(height: 24),
                 TodaySessionCard(sessionData: mockData.todaySession),
                 const SizedBox(height: 16),
