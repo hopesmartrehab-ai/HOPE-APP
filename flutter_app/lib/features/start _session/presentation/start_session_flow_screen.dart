@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hope_app/features/assessment/presentation/screens/assessment_planet_flow_screen.dart';
+import 'package:hope_app/features/game/assessment_game_web_view.dart';
 import 'package:hope_app/features/start%20_session/presentation/connect_glove_screen/connect_glove_view.dart';
 import 'package:hope_app/features/start%20_session/presentation/shared_widgets/shared_session_app_bar.dart';
 import 'package:hope_app/features/start%20_session/presentation/shared_widgets/shared_session_bottom_bar.dart';
@@ -31,20 +31,13 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
   TrainingApproach? selectedApproach;
   TrainingFormatType? selectedFormat;
 
-  int _normalizedPageIndex(int page) {
-    return page;
-  }
-
   @override
   void initState() {
     super.initState();
-    selectedApproach =
-        widget.initialApproach ??
-        (widget.isAssessmentMode ? TrainingApproach.smartGlove : null);
-    selectedFormat =
-        widget.initialFormat ??
-        (widget.isAssessmentMode ? TrainingFormatType.video : null);
-    _currentPage = _normalizedPageIndex(widget.initialPage);
+    selectedApproach = widget.isAssessmentMode ? null : widget.initialApproach;
+    selectedFormat = widget.initialFormat;
+
+    _currentPage = widget.initialPage;
     _pageController = PageController(initialPage: _currentPage);
   }
 
@@ -55,10 +48,19 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
   }
 
   bool get _canContinue {
+    if (_currentPage == 0) {
+      return selectedApproach != null;
+    }
+
+    if (widget.isAssessmentMode) {
+      return selectedApproach != null;
+    }
+
     switch (_currentPage) {
-      case 0:
-        return selectedApproach != null;
       case 1:
+        if (selectedApproach == TrainingApproach.mobileOnly) {
+          return selectedFormat != null;
+        }
         return selectedApproach == TrainingApproach.smartGlove;
       case 2:
         return selectedApproach == TrainingApproach.smartGlove &&
@@ -82,7 +84,14 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
   }
 
   void _handleContinue() {
-    if (!_canContinue) {
+    if (!_canContinue || selectedApproach == null) {
+      return;
+    }
+
+    if (widget.isAssessmentMode && _currentPage == 0) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const AssessmentGameWebView()),
+      );
       return;
     }
 
@@ -94,43 +103,21 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
       );
       return;
     }
-
-    if (_currentPage == 2 && selectedFormat != null) {
-      if (widget.isAssessmentMode) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const AssessmentPlanetFlowScreen()),
-        );
-        return;
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final pages = <Widget>[];
+
     pages.add(
       TrainingSetupView(
         selectedApproach: selectedApproach,
         onApproachSelected: (value) {
           setState(() {
             selectedApproach = value;
-            if (widget.isAssessmentMode) {
-              selectedApproach = TrainingApproach.smartGlove;
-            }
             selectedFormat = widget.isAssessmentMode
                 ? TrainingFormatType.video
-                : null;
-
-            if (widget.isAssessmentMode) {
-              _currentPage = 0;
-              _pageController.jumpToPage(0);
-              return;
-            }
-
-            if (value == TrainingApproach.smartGlove && _currentPage > 1) {
-              _currentPage = 1;
-              _pageController.jumpToPage(1);
-            }
+                : selectedFormat;
           });
         },
       ),
@@ -143,7 +130,7 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
           onConnected: () {
             if (mounted) {
               _pageController.animateToPage(
-                2,
+                _currentPage + 1,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
               );
@@ -155,7 +142,7 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
 
     pages.add(
       TrainingFormatView(
-        selectedApproach: selectedApproach ?? TrainingApproach.smartGlove,
+        selectedApproach: selectedApproach ?? TrainingApproach.mobileOnly,
         selectedFormat: widget.isAssessmentMode
             ? TrainingFormatType.video
             : selectedFormat,
@@ -178,9 +165,10 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
       ),
       body: PageView(
         controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (index) {
           setState(() {
-            _currentPage = _normalizedPageIndex(index);
+            _currentPage = index;
           });
         },
         children: pages,

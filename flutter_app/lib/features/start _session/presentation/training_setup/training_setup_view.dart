@@ -26,13 +26,31 @@ class TrainingSetupView extends StatelessWidget {
           children: [
             const TrainingSetupHeader(),
             const SizedBox(height: 24),
-            SelectionCard(
-              title: LocaleKeys.useSmartGlove.tr(),
-              description: LocaleKeys.useSmartGloveDesc.tr(),
-              iconEmoji: '🧤',
-              isSelected: selectedApproach == TrainingApproach.smartGlove,
-              onTap: () => onApproachSelected(TrainingApproach.smartGlove),
+
+            Opacity(
+              opacity: 0.5,
+              child: IgnorePointer(
+                ignoring: true,
+                child: SelectionCard(
+                  title: LocaleKeys.useSmartGlove.tr(),
+                  description: LocaleKeys.useSmartGloveDesc.tr(),
+                  iconEmoji: '🧤',
+                  isSelected: false,
+                  onTap: () {},
+                ),
+              ),
             ),
+            const SizedBox(height: 16),
+
+            SelectionCard(
+              title: LocaleKeys.mobileOnly.tr(),
+              description: LocaleKeys.mobileOnlyDesc.tr(),
+              iconEmoji: '📱',
+              isSelected: selectedApproach == TrainingApproach.mobileOnly,
+              onTap: () => onApproachSelected(TrainingApproach.mobileOnly),
+            ),
+            const SizedBox(height: 24),
+
             ApproachInfoCard(selectedApproach: selectedApproach),
           ],
         ),

@@ -158,7 +158,8 @@ class AssessmentReportPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                  onPressed: () => AppRoute.goToDetailedPerformance(context: context),
+                  onPressed: () =>
+                      AppRoute.goToDetailedPerformance(context: context),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFF15314B),
                     side: const BorderSide(

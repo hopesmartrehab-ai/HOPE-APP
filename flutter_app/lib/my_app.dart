@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             debugShowCheckedModeBanner: false,
             theme: AppThemes.lightTheme,
-            home: const SplashScreen(),
+            home: const SafeArea(child: SplashScreen()),
           );
         },
       ),
