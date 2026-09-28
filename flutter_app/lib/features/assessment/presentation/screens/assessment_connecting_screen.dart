@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
+import 'package:hope_app/features/assessment/presentation/screens/assessment_planet_flow_screen.dart';
 
 class AssessmentConnectingScreen extends StatefulWidget {
   const AssessmentConnectingScreen({super.key});
@@ -32,8 +33,6 @@ class _AssessmentConnectingScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              _StatusRow(),
               const SizedBox(height: 18),
               Text(
                 'SMART GLOVE',
@@ -181,7 +180,14 @@ class _AssessmentConnectingScreenState
                   Expanded(
                     child: ElevatedButton(
                       onPressed: isConnected
-                          ? () => Navigator.of(context).pop()
+                          ? () {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const AssessmentPlanetFlowScreen(),
+                                ),
+                              );
+                            }
                           : null,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF5DBE7A),
@@ -207,36 +213,6 @@ class _AssessmentConnectingScreenState
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _StatusRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '9:41',
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const Row(
-            children: [
-              Icon(Icons.signal_cellular_4_bar_rounded, size: 16),
-              SizedBox(width: 8),
-              Icon(Icons.wifi_rounded, size: 16),
-              SizedBox(width: 8),
-              Icon(Icons.battery_full_rounded, size: 16),
-            ],
-          ),
-        ],
       ),
     );
   }

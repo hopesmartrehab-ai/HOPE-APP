@@ -25,8 +25,6 @@ class _AssessmentDeviceSelectionScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              _StatusRow(),
               const SizedBox(height: 18),
               Row(
                 children: [
@@ -88,36 +86,6 @@ class _AssessmentDeviceSelectionScreenState
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _StatusRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '9:41',
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const Row(
-            children: [
-              Icon(Icons.signal_cellular_4_bar_rounded, size: 16),
-              SizedBox(width: 8),
-              Icon(Icons.wifi_rounded, size: 16),
-              SizedBox(width: 8),
-              Icon(Icons.battery_full_rounded, size: 16),
-            ],
-          ),
-        ],
       ),
     );
   }

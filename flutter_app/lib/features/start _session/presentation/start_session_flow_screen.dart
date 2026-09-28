@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/features/assessment/presentation/screens/assessment_planet_flow_screen.dart';
 import 'package:hope_app/features/start%20_session/presentation/connect_glove_screen/connect_glove_view.dart';
 import 'package:hope_app/features/start%20_session/presentation/shared_widgets/shared_session_app_bar.dart';
 import 'package:hope_app/features/start%20_session/presentation/shared_widgets/shared_session_bottom_bar.dart';
@@ -95,7 +96,14 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
     }
 
     if (_currentPage == 2 && selectedFormat != null) {
-      // Hook for next screen navigation if needed.
+      if (widget.isAssessmentMode) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const AssessmentPlanetFlowScreen()),
+        );
+        return;
+      }
+
+      // Standard training flow can continue here if needed.
     }
   }
 

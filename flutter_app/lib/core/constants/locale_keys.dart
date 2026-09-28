@@ -448,4 +448,37 @@ class LocaleKeys {
   static const followVideoExercise = 'followVideoExercise';
   static const followVideoDesc = 'followVideoDesc';
   static const trainingWith = 'trainingWith';
+
+  // ── Assessment Planet Flow ──────────────────────────────────
+  static const String assessmentReady = 'assessmentReady';
+  static const String allSetForAssessment = 'allSetForAssessment';
+  static const String enteringHopePlanetDesc = 'enteringHopePlanetDesc';
+  static const String quickSetupChecklist = 'quickSetupChecklist';
+  static const String checklistComfortableSpot = 'checklistComfortableSpot';
+  static const String checklistAffectedHandReady = 'checklistAffectedHandReady';
+  static const String checklistPhoneNearby = 'checklistPhoneNearby';
+  static const String checklistTakeDeepBreaths = 'checklistTakeDeepBreaths';
+  static const String levelsDuration = 'levelsDuration';
+  static const String enterHopePlanet = 'enterHopePlanet';
+  static const String levelXOf5 = 'levelXOf5';
+  static const String currentTask = 'currentTask';
+  static const String completeLevel = 'completeLevel';
+  static const String levelTitleReachGrasp = 'levelTitleReachGrasp';
+  static const String levelTitleGripStrength = 'levelTitleGripStrength';
+  static const String levelTitleCoordination = 'levelTitleCoordination';
+  static const String levelTitleManipulation = 'levelTitleManipulation';
+  static const String levelTitleReleaseControl = 'levelTitleReleaseControl';
+  static const String taskDescReachGrasp = 'taskDescReachGrasp';
+  static const String taskDescGripStrength = 'taskDescGripStrength';
+  static const String taskDescCoordination = 'taskDescCoordination';
+  static const String taskDescManipulation = 'taskDescManipulation';
+  static const String taskDescReleaseControl = 'taskDescReleaseControl';
+  static const String level5CompleteHeader = 'level5CompleteHeader';
+  static const String allLevelsCompleteTitle = 'allLevelsCompleteTitle';
+  static const String allLevelsCompleteDesc = 'allLevelsCompleteDesc';
+  static const String viewResults = 'viewResults';
+  static const String analyzingYourPerformanceTitle = 'analyzingYourPerformanceTitle';
+  static const String preparingInsightsDesc = 'preparingInsightsDesc';
+  static const String analyzingProgressHeader = 'analyzingProgressHeader';
+  static const String comparingWithBenchmarks = 'comparingWithBenchmarks';
 }
