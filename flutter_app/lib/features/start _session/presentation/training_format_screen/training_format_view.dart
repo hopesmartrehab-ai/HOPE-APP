@@ -11,12 +11,14 @@ class TrainingFormatView extends StatelessWidget {
     required this.selectedApproach,
     required this.selectedFormat,
     required this.onFormatSelected,
+    this.showPlayGame = false,
     super.key,
   });
 
   final TrainingApproach selectedApproach;
   final TrainingFormatType? selectedFormat;
   final ValueChanged<TrainingFormatType> onFormatSelected;
+  final bool showPlayGame;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class TrainingFormatView extends StatelessWidget {
           children: [
             const TrainingFormatHeader(),
             const SizedBox(height: 24),
+
             FormatSelectionCard(
               title: LocaleKeys.followVideoExercise.tr(),
               description: LocaleKeys.followVideoDesc.tr(),
@@ -35,6 +38,18 @@ class TrainingFormatView extends StatelessWidget {
               isSelected: selectedFormat == TrainingFormatType.video,
               onTap: () => onFormatSelected(TrainingFormatType.video),
             ),
+
+            if (showPlayGame) ...[
+              const SizedBox(height: 16),
+              FormatSelectionCard(
+                title: LocaleKeys.playGame.tr(),
+                description: LocaleKeys.playGameDesc.tr(),
+                iconEmoji: '🎮',
+                isSelected: selectedFormat == TrainingFormatType.game,
+                onTap: () => onFormatSelected(TrainingFormatType.game),
+              ),
+            ],
+
             const SizedBox(height: 24),
             DeviceConnectionInfoCard(selectedApproach: selectedApproach),
           ],

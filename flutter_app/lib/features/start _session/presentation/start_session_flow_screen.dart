@@ -102,8 +102,6 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
         );
         return;
       }
-
-      // Standard training flow can continue here if needed.
     }
   }
 
@@ -161,6 +159,7 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
         selectedFormat: widget.isAssessmentMode
             ? TrainingFormatType.video
             : selectedFormat,
+        showPlayGame: !widget.isAssessmentMode,
         onFormatSelected: (value) {
           setState(() {
             selectedFormat = widget.isAssessmentMode
