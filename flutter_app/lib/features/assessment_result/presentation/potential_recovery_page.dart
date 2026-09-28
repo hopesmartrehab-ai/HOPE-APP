@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/locale_keys.dart';
 import '../../../core/utils/app_route.dart';
+import '../domain/entities/assessment_result.dart';
 import 'widgets/recovery_timeline_item_widget.dart';
 
 class PotentialRecoveryPage extends StatelessWidget {
-  const PotentialRecoveryPage({super.key});
+  const PotentialRecoveryPage({required this.result, super.key});
+
+  final AssessmentResult result;
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +133,10 @@ class PotentialRecoveryPage extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      AppRoute.goToPersonalizedPlan(context: context),
+                  onPressed: () => AppRoute.goToPersonalizedPlan(
+                    context: context,
+                    result: result,
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF59C583),
                     foregroundColor: Colors.white,

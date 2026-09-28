@@ -3,8 +3,28 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/locale_keys.dart';
 
+/// Overall result summary: derived score, its band, and how many levels passed.
 class OverallSummaryCardWidget extends StatelessWidget {
-  const OverallSummaryCardWidget({super.key});
+  const OverallSummaryCardWidget({
+    required this.score,
+    required this.bandLabelKey,
+    required this.bandDescriptionKey,
+    required this.passedCount,
+    required this.levelCount,
+    super.key,
+  });
+
+  /// Mean of the level scores, 0..100.
+  final int score;
+
+  /// Locale key naming the functional band for [score].
+  final String bandLabelKey;
+
+  /// Locale key for the paragraph explaining [bandLabelKey].
+  final String bandDescriptionKey;
+
+  final int passedCount;
+  final int levelCount;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +36,7 @@ class OverallSummaryCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1E3A53).withOpacity(0.15),
+            color: const Color(0xFF1E3A53).withValues(alpha: 0.15),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -34,7 +54,7 @@ class OverallSummaryCardWidget extends StatelessWidget {
                   width: 90,
                   height: 90,
                   child: TweenAnimationBuilder<double>(
-                    tween: Tween<double>(begin: 0, end: 60),
+                    tween: Tween<double>(begin: 0, end: score / 100),
                     duration: const Duration(milliseconds: 600),
                     curve: Curves.easeOutCubic,
                     builder: (context, value, child) {
@@ -52,9 +72,9 @@ class OverallSummaryCardWidget extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      '50',
-                      style: TextStyle(
+                    Text(
+                      '$score',
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -79,7 +99,7 @@ class OverallSummaryCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocaleKeys.moderateFunctionalLevel.tr(),
+                  bandLabelKey.tr(),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -89,9 +109,9 @@ class OverallSummaryCardWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  LocaleKeys.moderateFunctionalLevelDesc.tr(),
+                  bandDescriptionKey.tr(),
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 12,
                     height: 1.4,
                   ),
@@ -103,11 +123,13 @@ class OverallSummaryCardWidget extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF59C583).withOpacity(0.2),
+                    color: const Color(0xFF59C583).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    LocaleKeys.levelsDoneBadge.tr(),
+                    LocaleKeys.levelsPassedBadgeCount.tr(
+                      args: [passedCount.toString(), levelCount.toString()],
+                    ),
                     style: const TextStyle(
                       color: Color(0xFF59C583),
                       fontSize: 11,

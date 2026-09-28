@@ -1,15 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/constants/locale_keys.dart';
 
+import '../../../../core/constants/locale_keys.dart';
+import '../logic/level_metric.dart';
+
+/// The measured numbers behind one level's score.
 class InsightsCardWidget extends StatelessWidget {
   const InsightsCardWidget({
-    required this.insights,
+    required this.metrics,
     required this.color,
     super.key,
   });
 
-  final List<String> insights;
+  final List<LevelMetric> metrics;
   final Color color;
 
   @override
@@ -22,7 +25,7 @@ class InsightsCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -40,18 +43,20 @@ class InsightsCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          ...List.generate(
-            insights.length,
-            (i) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+          ...List.generate(metrics.length, (i) {
+            final metric = metrics[i];
+            final isLast = i == metrics.length - 1;
+
+            return Padding(
+              padding: EdgeInsets.only(bottom: isLast ? 0 : 14),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 2),
+                    margin: const EdgeInsets.only(top: 4),
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.15),
+                      color: color.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
                     child: Container(
@@ -66,7 +71,7 @@ class InsightsCardWidget extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      insights[i],
+                      metric.label,
                       style: const TextStyle(
                         color: Color(0xFF6B8296),
                         fontSize: 14,
@@ -75,10 +80,19 @@ class InsightsCardWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(width: 12),
+                  Text(
+                    metric.value,
+                    style: const TextStyle(
+                      color: Color(0xFF15314B),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );

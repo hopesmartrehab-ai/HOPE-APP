@@ -5,20 +5,32 @@ import '../../../../core/constants/locale_keys.dart';
 
 class LevelScoreCardWidget extends StatelessWidget {
   const LevelScoreCardWidget({
-    required this.selectedIndex,
+    required this.levelNumber,
+    required this.levelCount,
     required this.title,
     required this.score,
+    required this.passed,
     required this.color,
     super.key,
   });
 
-  final int selectedIndex;
+  /// This level's position in the session, starting at 1.
+  final int levelNumber;
+
+  /// How many levels the session contained.
+  final int levelCount;
+
   final String title;
   final int score;
+  final bool passed;
   final Color color;
 
   @override
   Widget build(BuildContext context) {
+    final badgeColor = passed
+        ? const Color(0xFF43A047)
+        : const Color(0xFFE8A33D);
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(24),
@@ -27,7 +39,7 @@ class LevelScoreCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -87,8 +99,8 @@ class LevelScoreCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocaleKeys.levelXOf5.tr(
-                    args: [(selectedIndex + 1).toString()],
+                  LocaleKeys.levelXOfTotal.tr(
+                    args: [levelNumber.toString(), levelCount.toString()],
                   ),
                   style: const TextStyle(
                     color: Color(0xFF86A3B8),
@@ -98,13 +110,41 @@ class LevelScoreCardWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Color(0xFF15314B),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          color: Color(0xFF15314B),
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: badgeColor.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        (passed
+                                ? LocaleKeys.levelPassed
+                                : LocaleKeys.levelNotPassed)
+                            .tr(),
+                        style: TextStyle(
+                          color: badgeColor,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 TweenAnimationBuilder<double>(

@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/locale_keys.dart';
 import '../../../core/utils/app_route.dart';
+import '../domain/entities/assessment_result.dart';
+import '../domain/entities/level_outcome.dart';
+import 'logic/level_metric.dart';
+import 'logic/score_palette.dart';
 import 'widgets/insights_card_widget.dart';
 import 'widgets/level_score_card_widget.dart';
 import 'widgets/opportunity_card_widget.dart';
 
+/// Placeholder for a metric the backend sent no value for.
+const String _noValue = '—';
+
 class DetailedPerformancePage extends StatefulWidget {
-  const DetailedPerformancePage({super.key});
+  const DetailedPerformancePage({required this.result, super.key});
+
+  final AssessmentResult result;
 
   @override
   State<DetailedPerformancePage> createState() =>
@@ -18,93 +27,40 @@ class DetailedPerformancePage extends StatefulWidget {
 class _DetailedPerformancePageState extends State<DetailedPerformancePage> {
   int _selectedIndex = 0;
 
-  final List<Map<String, dynamic>> _levelData = [
-    {
-      'titleKey': LocaleKeys.levelTitleReachGrasp,
-      'score': 72,
-      'color': const Color(0xFF59C583),
-      'insights': [
-        'Good reach extension observed',
-        'Grasp pattern stable',
-        'Minor tremor noted at full extension',
-      ],
-      'opportunityKey': LocaleKeys.levelTitleReachGrasp,
-    },
-    {
-      'titleKey': LocaleKeys.levelTitleGripStrength,
-      'score': 58,
-      'color': const Color(0xFF4A80A3),
-      'insights': [
-        'Reduced grip force vs. norm',
-        'Consistency improving',
-        'Consider strengthening exercises',
-      ],
-      'opportunityKey': LocaleKeys.levelTitleGripStrength,
-    },
-    {
-      'titleKey': LocaleKeys.levelTitleCoordination,
-      'score': 65,
-      'color': const Color(0xFF59C583),
-      'insights': [
-        'Opposition sequence performed well',
-        'Speed within expected range',
-        'Right hand dominance clear',
-      ],
-      'opportunityKey': LocaleKeys.levelTitleCoordination,
-    },
-    {
-      'titleKey': LocaleKeys.levelTitleManipulation,
-      'score': 48,
-      'color': const Color(0xFFFF8B49),
-      'insights': [
-        'Rotation range slightly limited',
-        'Fine motor precision needs support',
-        'Targeted exercises recommended',
-      ],
-      'opportunityKey': LocaleKeys.levelTitleManipulation,
-    },
-    {
-      'titleKey': LocaleKeys.levelTitleReleaseControl,
-      'score': 70,
-      'color': const Color(0xFF59C583),
-      'insights': [
-        'Good controlled release',
-        'Individual finger isolation improving',
-        'Continued practice beneficial',
-      ],
-      'opportunityKey': LocaleKeys.levelTitleReleaseControl,
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
-    final currentData = _levelData[_selectedIndex];
-    final color = currentData['color'] as Color;
-    final title = (currentData['titleKey'] as String).tr();
+    final levels = widget.result.outcomes;
+
+    if (levels.isEmpty) {
+      return Scaffold(
+        backgroundColor: const Color(0xFFF2F6F9),
+        appBar: _buildAppBar(context),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Text(
+              LocaleKeys.assessmentResultsError.tr(),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0xFF6B8296),
+                fontSize: 15,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    final index = _selectedIndex < levels.length
+        ? _selectedIndex
+        : levels.length - 1;
+    final outcome = levels[index];
+    final color = scoreAccentColor(outcome.scorePercent);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF2F6F9),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Color(0xFF6B8296),
-            size: 20,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        titleSpacing: -8,
-        title: Text(
-          LocaleKeys.back.tr(),
-          style: const TextStyle(
-            color: Color(0xFF6B8296),
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
+      appBar: _buildAppBar(context),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,14 +82,16 @@ class _DetailedPerformancePageState extends State<DetailedPerformancePage> {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                itemCount: _levelData.length,
-                itemBuilder: (context, index) {
-                  final isSelected = _selectedIndex == index;
-                  final itemTitle = (_levelData[index]['titleKey'] as String).tr();
+                itemCount: levels.length,
+                itemBuilder: (context, i) {
+                  final level = levels[i];
+                  final isSelected = index == i;
+                  final levelName = (level.titleKey ?? level.levelKey).tr();
+
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedIndex = index;
+                        _selectedIndex = i;
                       });
                     },
                     child: AnimatedContainer(
@@ -156,7 +114,7 @@ class _DetailedPerformancePageState extends State<DetailedPerformancePage> {
                       ),
                       child: Center(
                         child: Text(
-                          'L${index + 1}: $itemTitle',
+                          'L${_displayNumber(level, i)}: $levelName',
                           style: TextStyle(
                             color: isSelected
                                 ? Colors.white
@@ -180,19 +138,22 @@ class _DetailedPerformancePageState extends State<DetailedPerformancePage> {
                 child: Column(
                   children: [
                     LevelScoreCardWidget(
-                      selectedIndex: _selectedIndex,
-                      title: title,
-                      score: currentData['score'] as int,
+                      levelNumber: _displayNumber(outcome, index),
+                      levelCount: levels.length,
+                      title: (outcome.titleKey ?? outcome.levelKey).tr(),
+                      score: outcome.scorePercent,
+                      passed: outcome.passed,
                       color: color,
                     ),
                     const SizedBox(height: 16),
                     InsightsCardWidget(
-                      insights: (currentData['insights'] as List).cast<String>(),
+                      metrics: _buildMetrics(outcome),
                       color: color,
                     ),
                     const SizedBox(height: 16),
                     OpportunityCardWidget(
-                      opportunityText: (currentData['opportunityKey'] as String).tr(),
+                      opportunityText: (outcome.titleKey ?? outcome.levelKey)
+                          .tr(),
                     ),
                     const SizedBox(height: 24),
                   ],
@@ -204,7 +165,10 @@ class _DetailedPerformancePageState extends State<DetailedPerformancePage> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => AppRoute.goToPotentialRecovery(context: context),
+                  onPressed: () => AppRoute.goToPotentialRecovery(
+                    context: context,
+                    result: widget.result,
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF59C583),
                     foregroundColor: Colors.white,
@@ -225,6 +189,68 @@ class _DetailedPerformancePageState extends State<DetailedPerformancePage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// The measured numbers behind the level's score.
+  List<LevelMetric> _buildMetrics(LevelOutcome outcome) {
+    return [
+      LevelMetric(
+        label: LocaleKeys.metricAccuracy.tr(),
+        value: '${outcome.accuracyPercent}%',
+      ),
+      LevelMetric(
+        label: LocaleKeys.metricReactionTime.tr(),
+        // The server sends 0 when it has no reaction-time data for the level.
+        value: outcome.averageReactionTime <= 0
+            ? _noValue
+            : outcome.averageReactionTime.toStringAsFixed(2),
+      ),
+      LevelMetric(
+        label: LocaleKeys.metricMissRate.tr(),
+        value: '${outcome.missRatePercent}%',
+      ),
+      LevelMetric(
+        label: LocaleKeys.metricCompletionTime.tr(),
+        value: outcome.completionTime.toStringAsFixed(1),
+      ),
+      LevelMetric(
+        label: LocaleKeys.metricAttempts.tr(),
+        value: outcome.attempts.toString(),
+      ),
+      LevelMetric(
+        label: LocaleKeys.metricSuccesses.tr(),
+        value: outcome.successes.toString(),
+      ),
+    ];
+  }
+
+  /// The level's own number, falling back to its position when the server key
+  /// carries none.
+  int _displayNumber(LevelOutcome outcome, int index) =>
+      outcome.levelNumber > 0 ? outcome.levelNumber : index + 1;
+
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: IconButton(
+        icon: const Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: Color(0xFF6B8296),
+          size: 20,
+        ),
+        onPressed: () => Navigator.pop(context),
+      ),
+      titleSpacing: -8,
+      title: Text(
+        LocaleKeys.back.tr(),
+        style: const TextStyle(
+          color: Color(0xFF6B8296),
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

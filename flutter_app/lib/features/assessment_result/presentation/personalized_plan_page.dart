@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/app_route.dart';
 
 import '../../../core/constants/locale_keys.dart';
+import '../domain/entities/assessment_result.dart';
+import 'logic/rehab_pathway_ui.dart';
 import 'widgets/step_item_widget.dart';
 
 class PersonalizedPlanPage extends StatelessWidget {
-  const PersonalizedPlanPage({super.key});
+  const PersonalizedPlanPage({required this.result, super.key});
+
+  final AssessmentResult result;
 
   @override
   Widget build(BuildContext context) {
+    final pathway = result.pathway;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF2F6F9),
       appBar: AppBar(
@@ -72,16 +78,12 @@ class PersonalizedPlanPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
-                            Icons.laptop_mac_rounded,
-                            color: Colors.white,
-                            size: 32,
-                          ),
+                          Icon(pathway.icon, color: Colors.white, size: 32),
                           const SizedBox(height: 20),
                           Text(
                             LocaleKeys.recommendedPathTag.tr(),
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.7),
+                              color: Colors.white.withValues(alpha: 0.7),
                               fontSize: 11,
                               fontWeight: FontWeight.w700,
                               letterSpacing: 1.2,
@@ -89,7 +91,7 @@ class PersonalizedPlanPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            LocaleKeys.onlineRehabilitation.tr(),
+                            pathway.titleKey.tr(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 22,
@@ -98,18 +100,18 @@ class PersonalizedPlanPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            LocaleKeys.monthlyClinicalFollowUp.tr(),
-                            style: const TextStyle(
-                              color: Color(0xFF59C583),
+                            pathway.followUpKey.tr(),
+                            style: TextStyle(
+                              color: pathway.accentColor,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            LocaleKeys.onlineRehabDesc.tr(),
+                            pathway.descriptionKey.tr(),
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                               fontSize: 14,
                               height: 1.5,
                             ),

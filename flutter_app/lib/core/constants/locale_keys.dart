@@ -534,6 +534,39 @@ class LocaleKeys {
   static const String exploreMyRehabilitationPlan =
       'exploreMyRehabilitationPlan';
 
+  // ── Assessment Results: live data ──────────────────────────
+  static const String levelXOfTotal = 'levelXOfTotal';
+  static const String levelsPassedBadgeCount = 'levelsPassedBadgeCount';
+  static const String completedTodayCount = 'completedTodayCount';
+  static const String functionalLevelHigh = 'functionalLevelHigh';
+  static const String functionalLevelHighDesc = 'functionalLevelHighDesc';
+  static const String functionalLevelNeedsFocus = 'functionalLevelNeedsFocus';
+  static const String functionalLevelNeedsFocusDesc =
+      'functionalLevelNeedsFocusDesc';
+  static const String metricAccuracy = 'metricAccuracy';
+  static const String metricReactionTime = 'metricReactionTime';
+  static const String metricMissRate = 'metricMissRate';
+  static const String metricCompletionTime = 'metricCompletionTime';
+  static const String metricAttempts = 'metricAttempts';
+  static const String metricSuccesses = 'metricSuccesses';
+  static const String levelPassed = 'levelPassed';
+  static const String levelNotPassed = 'levelNotPassed';
+  static const String pathwayOnlineTitle = 'pathwayOnlineTitle';
+  static const String pathwayOnlineFollowUp = 'pathwayOnlineFollowUp';
+  static const String pathwayOnlineDesc = 'pathwayOnlineDesc';
+  static const String pathwayHybridTitle = 'pathwayHybridTitle';
+  static const String pathwayHybridFollowUp = 'pathwayHybridFollowUp';
+  static const String pathwayHybridDesc = 'pathwayHybridDesc';
+  static const String pathwayRehabCenterTitle = 'pathwayRehabCenterTitle';
+  static const String pathwayRehabCenterFollowUp =
+      'pathwayRehabCenterFollowUp';
+  static const String pathwayRehabCenterDesc = 'pathwayRehabCenterDesc';
+  static const String assessmentResultsLoading = 'assessmentResultsLoading';
+  static const String assessmentResultsError = 'assessmentResultsError';
+  static const String assessmentResultsRetry = 'assessmentResultsRetry';
+  static const String assessmentResultsStaleNotice =
+      'assessmentResultsStaleNotice';
+
   // ── Assessment Welcome ─────────────────────────────────────
   static const String hopeAssessmentHeader = 'hopeAssessmentHeader';
   static const String beforeWeBeginTitle = 'beforeWeBeginTitle';
