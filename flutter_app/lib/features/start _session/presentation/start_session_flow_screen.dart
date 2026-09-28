@@ -11,12 +11,14 @@ class StartSessionFlowScreen extends StatefulWidget {
     this.initialPage = 0,
     this.initialApproach,
     this.initialFormat,
+    this.isAssessmentMode = false,
     super.key,
   });
 
   final int initialPage;
   final TrainingApproach? initialApproach;
   final TrainingFormatType? initialFormat;
+  final bool isAssessmentMode;
 
   @override
   State<StartSessionFlowScreen> createState() => _StartSessionFlowScreenState();
@@ -29,17 +31,18 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
   TrainingFormatType? selectedFormat;
 
   int _normalizedPageIndex(int page) {
-    if (selectedApproach == TrainingApproach.mobileOnly && page > 1) {
-      return 1;
-    }
     return page;
   }
 
   @override
   void initState() {
     super.initState();
-    selectedApproach = widget.initialApproach;
-    selectedFormat = widget.initialFormat;
+    selectedApproach =
+        widget.initialApproach ??
+        (widget.isAssessmentMode ? TrainingApproach.smartGlove : null);
+    selectedFormat =
+        widget.initialFormat ??
+        (widget.isAssessmentMode ? TrainingFormatType.video : null);
     _currentPage = _normalizedPageIndex(widget.initialPage);
     _pageController = PageController(initialPage: _currentPage);
   }
@@ -55,10 +58,7 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
       case 0:
         return selectedApproach != null;
       case 1:
-        if (selectedApproach == TrainingApproach.mobileOnly) {
-          return selectedFormat != null;
-        }
-        return false;
+        return selectedApproach == TrainingApproach.smartGlove;
       case 2:
         return selectedApproach == TrainingApproach.smartGlove &&
             selectedFormat != null;
@@ -67,23 +67,14 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
     }
   }
 
-  int get _formatPageIndex {
-    return selectedApproach == TrainingApproach.smartGlove ? 2 : 1;
-  }
-
   void _handleBack() {
     if (_currentPage == 0) {
       Navigator.of(context).pop();
       return;
     }
 
-    final targetPage =
-        selectedApproach == TrainingApproach.mobileOnly && _currentPage == 1
-        ? 0
-        : _currentPage - 1;
-
     _pageController.animateToPage(
-      targetPage,
+      _currentPage - 1,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
@@ -95,19 +86,15 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
     }
 
     if (_currentPage == 0) {
-      final nextPage = selectedApproach == TrainingApproach.smartGlove
-          ? 1
-          : _formatPageIndex;
-
       _pageController.animateToPage(
-        nextPage,
+        1,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
       return;
     }
 
-    if (_currentPage == _formatPageIndex && selectedFormat != null) {
+    if (_currentPage == 2 && selectedFormat != null) {
       // Hook for next screen navigation if needed.
     }
   }
@@ -121,13 +108,20 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
         onApproachSelected: (value) {
           setState(() {
             selectedApproach = value;
-            selectedFormat = null;
+            if (widget.isAssessmentMode) {
+              selectedApproach = TrainingApproach.smartGlove;
+            }
+            selectedFormat = widget.isAssessmentMode
+                ? TrainingFormatType.video
+                : null;
 
-            if (value == TrainingApproach.mobileOnly) {
+            if (widget.isAssessmentMode) {
               _currentPage = 0;
               _pageController.jumpToPage(0);
-            } else if (value == TrainingApproach.smartGlove &&
-                _currentPage > 1) {
+              return;
+            }
+
+            if (value == TrainingApproach.smartGlove && _currentPage > 1) {
               _currentPage = 1;
               _pageController.jumpToPage(1);
             }
@@ -156,10 +150,14 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
     pages.add(
       TrainingFormatView(
         selectedApproach: selectedApproach ?? TrainingApproach.smartGlove,
-        selectedFormat: selectedFormat,
+        selectedFormat: widget.isAssessmentMode
+            ? TrainingFormatType.video
+            : selectedFormat,
         onFormatSelected: (value) {
           setState(() {
-            selectedFormat = value;
+            selectedFormat = widget.isAssessmentMode
+                ? TrainingFormatType.video
+                : value;
           });
         },
       ),

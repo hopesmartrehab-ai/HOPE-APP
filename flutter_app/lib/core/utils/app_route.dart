@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/features/assessment/presentation/screens/assessment_welcome_screen.dart';
 import 'package:hope_app/features/auth/login/screens/sign_in_screen.dart';
 import 'package:hope_app/features/auth/register/sign_up_screen.dart';
 import 'package:hope_app/features/home/presentation/assessment_complete/screen/home_assessment_complete_screen.dart';
@@ -45,6 +46,13 @@ abstract class AppRoute {
 
   static void goToRoleSelection({required BuildContext context}) {
     goToOnboarding(context: context);
+  }
+
+  static void goToAssessmentWelcome({required BuildContext context}) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const AssessmentWelcomeScreen()),
+      (route) => false,
+    );
   }
 
   static void goToAssessmentComplete({required BuildContext context}) {

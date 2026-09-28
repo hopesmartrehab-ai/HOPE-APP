@@ -29,14 +29,6 @@ class TrainingFormatView extends StatelessWidget {
             const TrainingFormatHeader(),
             const SizedBox(height: 24),
             FormatSelectionCard(
-              title: LocaleKeys.playGame.tr(),
-              description: LocaleKeys.playGameDesc.tr(),
-              iconEmoji: '🎮',
-              isSelected: selectedFormat == TrainingFormatType.game,
-              onTap: () => onFormatSelected(TrainingFormatType.game),
-            ),
-            const SizedBox(height: 16),
-            FormatSelectionCard(
               title: LocaleKeys.followVideoExercise.tr(),
               description: LocaleKeys.followVideoDesc.tr(),
               iconEmoji: '▶️',

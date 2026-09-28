@@ -187,6 +187,35 @@ abstract class LocalStorage {
     local?.remove(StorageKeys.isOnboardingCompleted);
   }
 
+  static Future<void> setHasSeenAssessmentIntro({required bool value}) async {
+    await local?.setBool(StorageKeys.hasSeenAssessmentIntro, value);
+    await local?.setBool('hassSeenAssessmentIntro', value);
+    await local?.setBool('hasssSeenAssessmentIntro', value);
+  }
+
+  static bool getHasSeenAssessmentIntro() {
+    final currentValue = local?.getBool(StorageKeys.hasSeenAssessmentIntro);
+    if (currentValue != null) {
+      return currentValue;
+    }
+
+    final legacyValue =
+        local?.getBool('hassSeenAssessmentIntro') ??
+        local?.getBool('hasssSeenAssessmentIntro');
+    if (legacyValue != null) {
+      local?.setBool(StorageKeys.hasSeenAssessmentIntro, legacyValue);
+      return legacyValue;
+    }
+
+    return false;
+  }
+
+  static Future<void> deleteHasSeenAssessmentIntro() async {
+    await local?.remove(StorageKeys.hasSeenAssessmentIntro);
+    await local?.remove('hassSeenAssessmentIntro');
+    await local?.remove('hasssSeenAssessmentIntro');
+  }
+
   static Future<void> setIsGuestUser({required bool isGuestUser}) async {
     await local?.setBool(StorageKeys.isGuestUser, isGuestUser);
   }
@@ -250,10 +279,12 @@ abstract class LocalStorage {
     deleteIsGuestUser();
     deleteShowGuestDialogOnHome();
     deleteIsAppleUser();
+    await deleteHasSeenAssessmentIntro();
   }
 
-  static void clear() {
-    clearSession();
+  static Future<void> clear() async {
+    await clearSession();
+    await local?.clear();
   }
 
   // Saves the list of favorite car IDs to local storage.
