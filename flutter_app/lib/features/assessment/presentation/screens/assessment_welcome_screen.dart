@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/features/assessment/presentation/widgets/assessment_feature_card.dart';
 import 'package:hope_app/features/start%20_session/presentation/start_session_flow_screen.dart';
@@ -37,7 +39,7 @@ class AssessmentWelcomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'HOPE ASSESSMENT',
+                    LocaleKeys.hopeAssessmentHeader.tr(),
                     style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w700,
@@ -48,7 +50,7 @@ class AssessmentWelcomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Text(
-                'Before we begin your rehabilitation journey',
+                LocaleKeys.beforeWeBeginTitle.tr(),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w700,
@@ -57,41 +59,39 @@ class AssessmentWelcomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                'A quick assessment helps HOPE understand your current abilities and create a rehabilitation plan that is personalized to you.',
+                LocaleKeys.beforeWeBeginSub.tr(),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.textSecondary,
                   height: 1.5,
                 ),
               ),
               const SizedBox(height: 18),
-              const AssessmentFeatureCard(
+              AssessmentFeatureCard(
                 icon: Icons.person_rounded,
-                title: 'Personalized to You',
-                subtitle:
-                    'Your results guide every exercise and recommendation.',
-                accentColor: Color(0xFFEAF3FF),
+                title: LocaleKeys.featurePersonalizedTitle.tr(),
+                subtitle: LocaleKeys.featurePersonalizedSub.tr(),
+                accentColor: const Color(0xFFEAF3FF),
               ),
               const SizedBox(height: 10),
-              const AssessmentFeatureCard(
+              AssessmentFeatureCard(
                 icon: Icons.sports_gymnastics_rounded,
-                title: 'Engaging & Gamified',
-                subtitle:
-                    'Complete 5 interactive levels in the HOPE planet experience.',
-                accentColor: Color(0xFFF5F1FF),
+                title: LocaleKeys.featureEngagingTitle.tr(),
+                subtitle: LocaleKeys.featureEngagingSub.tr(),
+                accentColor: const Color(0xFFF5F1FF),
               ),
               const SizedBox(height: 10),
-              const AssessmentFeatureCard(
+              AssessmentFeatureCard(
                 icon: Icons.timer_rounded,
-                title: 'Takes About 10 Minutes',
-                subtitle: 'Go at your own pace — there is no pressure or rush.',
-                accentColor: Color(0xFFF1F8F1),
+                title: LocaleKeys.featureDurationTitle.tr(),
+                subtitle: LocaleKeys.featureDurationSub.tr(),
+                accentColor: const Color(0xFFF1F8F1),
               ),
               const SizedBox(height: 10),
-              const AssessmentFeatureCard(
+              AssessmentFeatureCard(
                 icon: Icons.shield_outlined,
-                title: 'Private & Secure',
-                subtitle: 'Your data is only shared with your care team.',
-                accentColor: Color(0xFFF6F5F0),
+                title: LocaleKeys.featurePrivateTitle.tr(),
+                subtitle: LocaleKeys.featurePrivateSub.tr(),
+                accentColor: const Color(0xFFF6F5F0),
               ),
               const Spacer(),
               SizedBox(
@@ -117,9 +117,12 @@ class AssessmentWelcomeScreen extends StatelessWidget {
                     ),
                     elevation: 0,
                   ),
-                  child: const Text(
-                    'Start Assessment',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  child: Text(
+                    LocaleKeys.startAssessmentButton.tr(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),

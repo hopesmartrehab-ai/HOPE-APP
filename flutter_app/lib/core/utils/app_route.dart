@@ -10,6 +10,11 @@ import 'package:hope_app/features/start%20_session/presentation/start_session_fl
 import 'package:hope_app/features/start%20_session/presentation/start_session_types.dart';
 import 'package:hope_app/features/welcome/screens/welcome_screen.dart';
 
+import '../../features/assessment_result/presentation/assessment_report_screen.dart';
+import '../../features/assessment_result/presentation/detailed_performance_page.dart';
+import '../../features/assessment_result/presentation/personalized_plan_page.dart';
+import '../../features/assessment_result/presentation/potential_recovery_page.dart';
+
 abstract class AppRoute {
   AppRoute._();
 
@@ -119,5 +124,30 @@ abstract class AppRoute {
         ),
       ),
     );
+  }
+
+  static void goToAssessmentReport({required BuildContext context}) {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const AssessmentReportPage()),
+      (route) => false,
+    );
+  }
+
+  static void goToDetailedPerformance({required BuildContext context}) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const DetailedPerformancePage()));
+  }
+
+  static void goToPotentialRecovery({required BuildContext context}) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const PotentialRecoveryPage()));
+  }
+
+  static void goToPersonalizedPlan({required BuildContext context}) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const PersonalizedPlanPage()));
   }
 }

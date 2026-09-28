@@ -1,10 +1,37 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/locale_keys.dart';
+import '../../../../core/utils/app_route.dart';
 
-class AnalyzingPerformancePage extends StatelessWidget {
+class AnalyzingPerformancePage extends StatefulWidget {
   const AnalyzingPerformancePage({super.key});
+
+  @override
+  State<AnalyzingPerformancePage> createState() =>
+      _AnalyzingPerformancePageState();
+}
+
+class _AnalyzingPerformancePageState extends State<AnalyzingPerformancePage> {
+  Timer? _navigationTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _navigationTimer = Timer(const Duration(seconds: 3), () {
+      if (mounted) {
+        AppRoute.goToAssessmentReport(context: context);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _navigationTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -477,8 +477,74 @@ class LocaleKeys {
   static const String allLevelsCompleteTitle = 'allLevelsCompleteTitle';
   static const String allLevelsCompleteDesc = 'allLevelsCompleteDesc';
   static const String viewResults = 'viewResults';
-  static const String analyzingYourPerformanceTitle = 'analyzingYourPerformanceTitle';
+  static const String analyzingYourPerformanceTitle =
+      'analyzingYourPerformanceTitle';
   static const String preparingInsightsDesc = 'preparingInsightsDesc';
   static const String analyzingProgressHeader = 'analyzingProgressHeader';
   static const String comparingWithBenchmarks = 'comparingWithBenchmarks';
+
+  // ── Assessment Results Flow ──────────────────────────────────
+  static const String assessmentReportHeader = 'assessmentReportHeader';
+  static const String yourAssessmentResults = 'yourAssessmentResults';
+  static const String completedTodaySub = 'completedTodaySub';
+  static const String overallProgressLabel = 'overallProgressLabel';
+  static const String moderateFunctionalLevel = 'moderateFunctionalLevel';
+  static const String moderateFunctionalLevelDesc =
+      'moderateFunctionalLevelDesc';
+  static const String levelsDoneBadge = 'levelsDoneBadge';
+  static const String performanceByArea = 'performanceByArea';
+  static const String strengthAreas = 'strengthAreas';
+  static const String focusAreas = 'focusAreas';
+  static const String viewDetailedResults = 'viewDetailedResults';
+  static const String detailedPerformance = 'detailedPerformance';
+  static const String scoreLabel = 'scoreLabel';
+  static const String performanceInsights = 'performanceInsights';
+  static const String opportunityTitle = 'opportunityTitle';
+  static const String opportunityDesc = 'opportunityDesc';
+  static const String viewPotentialRecovery = 'viewPotentialRecovery';
+  static const String potentialRecoveryHeaderDesc =
+      'potentialRecoveryHeaderDesc';
+  static const String expectedImprovement = 'expectedImprovement';
+  static const String functionalRecovery = 'functionalRecovery';
+  static const String dailyActivityIndependence = 'dailyActivityIndependence';
+  static const String recoveryTimeline = 'recoveryTimeline';
+  static const String weeks1_4 = 'weeks1_4';
+  static const String weeks1_4Desc = 'weeks1_4Desc';
+  static const String weeks4_8 = 'weeks4_8';
+  static const String weeks4_8Desc = 'weeks4_8Desc';
+  static const String weeks8_12 = 'weeks8_12';
+  static const String weeks8_12Desc = 'weeks8_12Desc';
+  static const String months3Plus = 'months3Plus';
+  static const String months3PlusDesc = 'months3PlusDesc';
+  static const String recoveryAlertBold = 'recoveryAlertBold';
+  static const String recoveryAlertText = 'recoveryAlertText';
+  static const String seeMyRehabilitationPlan = 'seeMyRehabilitationPlan';
+  static const String yourPersonalizedPlan = 'yourPersonalizedPlan';
+  static const String basedOnPlanetResults = 'basedOnPlanetResults';
+  static const String recommendedPathTag = 'recommendedPathTag';
+  static const String onlineRehabDesc = 'onlineRehabDesc';
+  static const String yourNextSteps = 'yourNextSteps';
+  static const String step1Desc = 'step1Desc';
+  static const String step2Desc = 'step2Desc';
+  static const String step3Desc = 'step3Desc';
+  static const String fullAssessmentReportBoxTitle =
+      'fullAssessmentReportBoxTitle';
+  static const String fullAssessmentReportBoxSub = 'fullAssessmentReportBoxSub';
+  static const String viewAction = 'viewAction';
+  static const String exploreMyRehabilitationPlan =
+      'exploreMyRehabilitationPlan';
+
+  // ── Assessment Welcome ─────────────────────────────────────
+  static const String hopeAssessmentHeader = 'hopeAssessmentHeader';
+  static const String beforeWeBeginTitle = 'beforeWeBeginTitle';
+  static const String beforeWeBeginSub = 'beforeWeBeginSub';
+  static const String featurePersonalizedTitle = 'featurePersonalizedTitle';
+  static const String featurePersonalizedSub = 'featurePersonalizedSub';
+  static const String featureEngagingTitle = 'featureEngagingTitle';
+  static const String featureEngagingSub = 'featureEngagingSub';
+  static const String featureDurationTitle = 'featureDurationTitle';
+  static const String featureDurationSub = 'featureDurationSub';
+  static const String featurePrivateTitle = 'featurePrivateTitle';
+  static const String featurePrivateSub = 'featurePrivateSub';
+  static const String startAssessmentButton = 'startAssessmentButton';
 }
