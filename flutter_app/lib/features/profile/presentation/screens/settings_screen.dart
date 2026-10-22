@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hope_app/core/constants/app_localization.dart';
@@ -58,14 +56,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  void _toggleLanguage() {
+  Future<void> _toggleLanguage() async {
     final currentLocale = context.locale.languageCode;
     final nextLocale = currentLocale == 'ar'
         ? AppLocalizations.englishLocale
         : AppLocalizations.arabicLocale;
 
-    context.setLocale(nextLocale);
-    unawaited(LocalStorage.setLocaleLanguage(nextLocale.languageCode));
+    await context.setLocale(nextLocale);
+    await LocalStorage.setLocaleLanguage(nextLocale.languageCode);
+
+    if (!mounted) return;
+    setState(() {
+      _notificationItems = [
+        for (var index = 0; index < _notificationItems.length; index++)
+          NotificationSettingModel(
+            title: _notificationTitle(index),
+            subtitle: _notificationSubtitle(index),
+            value: _notificationItems[index].value,
+          ),
+      ];
+    });
+  }
+
+  String _notificationTitle(int index) {
+    return [
+      LocaleKeys.pushNotifications,
+      LocaleKeys.sessionReminders,
+      LocaleKeys.progressAlerts,
+      LocaleKeys.therapistUpdates,
+    ][index].tr();
+  }
+
+  String _notificationSubtitle(int index) {
+    return [
+      LocaleKeys.pushNotificationsSubtitle,
+      LocaleKeys.sessionRemindersSubtitle,
+      LocaleKeys.progressAlertsSubtitle,
+      LocaleKeys.therapistUpdatesSubtitle,
+    ][index].tr();
   }
 
   @override

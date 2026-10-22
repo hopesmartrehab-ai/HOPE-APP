@@ -20,19 +20,34 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
-  late final List<Widget> _screens = [
-    LocalStorage.getShouldShowAssessmentCompleteHome()
-        ? const AssessmentCompleteScreen()
-        : const DashboardScreen(),
-    const RehabScreen(),
-    const ProgressScreen(),
-    const ProfileScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
+
     return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: [
+          KeyedSubtree(
+            key: ValueKey('home-$locale'),
+            child: LocalStorage.getShouldShowAssessmentCompleteHome()
+                ? const AssessmentCompleteScreen()
+                : const DashboardScreen(),
+          ),
+          KeyedSubtree(
+            key: ValueKey('rehab-$locale'),
+            child: const RehabScreen(),
+          ),
+          KeyedSubtree(
+            key: ValueKey('progress-$locale'),
+            child: const ProgressScreen(),
+          ),
+          KeyedSubtree(
+            key: ValueKey('profile-$locale'),
+            child: const ProfileScreen(),
+          ),
+        ],
+      ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: AppColors.navBarBg,
