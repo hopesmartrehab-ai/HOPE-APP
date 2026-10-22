@@ -120,7 +120,7 @@ abstract class AppRoute {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => StartSessionFlowScreen(
-          initialPage: 2,
+          initialPage: selectedApproach == TrainingApproach.mobileOnly ? 1 : 2,
           initialApproach: selectedApproach,
         ),
       ),

@@ -8,6 +8,7 @@ import '../domain/entities/assessment_result.dart';
 import '../domain/entities/level_outcome.dart';
 import 'logic/assessment_result_cubit.dart';
 import 'logic/score_palette.dart';
+import 'widgets/assessment_video_button.dart';
 import 'widgets/area_card_widget.dart';
 import 'widgets/overall_summary_card_widget.dart';
 import 'widgets/pathway_banner_widget.dart';
@@ -46,7 +47,8 @@ class _AssessmentReportView extends StatelessWidget {
               case AssessmentResultSuccess(:final result, :final isStale):
                 if (result.outcomes.isEmpty) {
                   return _ReportFailure(
-                    onRetry: () => context.read<AssessmentResultCubit>().retry(),
+                    onRetry: () =>
+                        context.read<AssessmentResultCubit>().retry(),
                   );
                 }
                 return _ReportContent(result: result, isStale: isStale);
@@ -227,10 +229,7 @@ class _ReportContent extends StatelessWidget {
             passedCount: result.passedCount,
             levelCount: result.levelCount,
           ),
-          if (isStale) ...[
-            const SizedBox(height: 16),
-            const _StaleNotice(),
-          ],
+          if (isStale) ...[const SizedBox(height: 16), const _StaleNotice()],
           const SizedBox(height: 20),
           PathwayBannerWidget(pathway: result.pathway),
           const SizedBox(height: 20),
@@ -267,10 +266,16 @@ class _ReportContent extends StatelessWidget {
                     padding: EdgeInsets.only(
                       bottom: i == result.outcomes.length - 1 ? 0 : 16,
                     ),
-                    child: PerformanceBarWidget(
-                      title: (outcome.titleKey ?? outcome.levelKey).tr(),
-                      percentage: outcome.scorePercent,
-                      color: scoreAccentColor(outcome.scorePercent),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PerformanceBarWidget(
+                          title: (outcome.titleKey ?? outcome.levelKey).tr(),
+                          percentage: outcome.scorePercent,
+                          color: scoreAccentColor(outcome.scorePercent),
+                        ),
+                        const AssessmentVideoButton(),
+                      ],
                     ),
                   );
                 }),
@@ -306,8 +311,10 @@ class _ReportContent extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: OutlinedButton(
-              onPressed: () =>
-                  AppRoute.goToDetailedPerformance(context: context, result: result),
+              onPressed: () => AppRoute.goToDetailedPerformance(
+                context: context,
+                result: result,
+              ),
               style: OutlinedButton.styleFrom(
                 foregroundColor: const Color(0xFF15314B),
                 side: const BorderSide(color: Color(0xFF15314B), width: 1.5),

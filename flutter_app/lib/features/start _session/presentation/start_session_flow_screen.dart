@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hope_app/features/assessment/presentation/screens/assessment_planet_flow_screen.dart';
 import 'package:hope_app/features/game/assessment_game_web_view.dart';
 import 'package:hope_app/features/start%20_session/presentation/connect_glove_screen/connect_glove_view.dart';
 import 'package:hope_app/features/start%20_session/presentation/shared_widgets/shared_session_app_bar.dart';
@@ -35,10 +36,24 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
   void initState() {
     super.initState();
     selectedApproach = widget.isAssessmentMode ? null : widget.initialApproach;
-    selectedFormat = widget.initialFormat;
+    selectedFormat = widget.isAssessmentMode ? null : widget.initialFormat;
 
-    _currentPage = widget.initialPage;
+    _currentPage = _resolveInitialPage();
     _pageController = PageController(initialPage: _currentPage);
+  }
+
+  int _resolveInitialPage() {
+    if (widget.initialPage == 0) return 0;
+
+    if (selectedApproach == TrainingApproach.mobileOnly) {
+      return 1;
+    }
+
+    if (selectedApproach == TrainingApproach.smartGlove) {
+      return widget.initialPage.clamp(1, 2);
+    }
+
+    return 1;
   }
 
   @override
@@ -49,10 +64,6 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
 
   bool get _canContinue {
     if (_currentPage == 0) {
-      return selectedApproach != null;
-    }
-
-    if (widget.isAssessmentMode) {
       return selectedApproach != null;
     }
 
@@ -88,13 +99,6 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
       return;
     }
 
-    if (widget.isAssessmentMode && _currentPage == 0) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const AssessmentGameWebView()),
-      );
-      return;
-    }
-
     if (_currentPage == 0) {
       _pageController.animateToPage(
         1,
@@ -102,6 +106,20 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
         curve: Curves.easeInOut,
       );
       return;
+    }
+
+    if (widget.isAssessmentMode && selectedFormat != null) {
+      if (selectedFormat == TrainingFormatType.game) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const AssessmentGameWebView()),
+        );
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute<void>(
+            builder: (_) => const AssessmentPlanetFlowScreen(),
+          ),
+        );
+      }
     }
   }
 
@@ -115,9 +133,7 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
         onApproachSelected: (value) {
           setState(() {
             selectedApproach = value;
-            selectedFormat = widget.isAssessmentMode
-                ? TrainingFormatType.video
-                : selectedFormat;
+            selectedFormat = null;
           });
         },
       ),
@@ -143,15 +159,11 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
     pages.add(
       TrainingFormatView(
         selectedApproach: selectedApproach ?? TrainingApproach.mobileOnly,
-        selectedFormat: widget.isAssessmentMode
-            ? TrainingFormatType.video
-            : selectedFormat,
-        showPlayGame: !widget.isAssessmentMode,
+        selectedFormat: selectedFormat,
+        showPlayGame: true,
         onFormatSelected: (value) {
           setState(() {
-            selectedFormat = widget.isAssessmentMode
-                ? TrainingFormatType.video
-                : value;
+            selectedFormat = value;
           });
         },
       ),

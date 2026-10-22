@@ -576,5 +576,6 @@
   "progressMetricConsistencyTitle": "Consistency Rate",
   "progressMetricConsistencyTrend": "+5% this month",
   "progressMetricImprovementTitle": "Functional Improvement",
-  "progressMetricImprovementTrend": "vs. baseline assessment"
+  "progressMetricImprovementTrend": "vs. baseline assessment",
+  "assessmentPlayVideo": "Play Video"
 }

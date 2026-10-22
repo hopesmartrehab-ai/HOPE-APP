@@ -4,7 +4,8 @@ import 'package:hope_app/core/constants/locale_keys.dart';
 import 'package:hope_app/core/theme/styles/app_colors.dart';
 import 'package:hope_app/features/assessment/presentation/widgets/assessment_feature_card.dart';
 import 'package:hope_app/features/start%20_session/presentation/start_session_flow_screen.dart';
-import 'package:hope_app/features/start%20_session/presentation/start_session_types.dart';
+import 'package:hope_app/features/start%20_session/presentation/start_session_types.dart'
+    show TrainingApproach;
 
 class AssessmentWelcomeScreen extends StatelessWidget {
   const AssessmentWelcomeScreen({super.key});
@@ -103,7 +104,6 @@ class AssessmentWelcomeScreen extends StatelessWidget {
                         builder: (_) => const StartSessionFlowScreen(
                           isAssessmentMode: true,
                           initialApproach: TrainingApproach.smartGlove,
-                          initialFormat: TrainingFormatType.video,
                         ),
                       ),
                     );

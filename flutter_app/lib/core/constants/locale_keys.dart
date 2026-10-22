@@ -558,8 +558,7 @@ class LocaleKeys {
   static const String pathwayHybridFollowUp = 'pathwayHybridFollowUp';
   static const String pathwayHybridDesc = 'pathwayHybridDesc';
   static const String pathwayRehabCenterTitle = 'pathwayRehabCenterTitle';
-  static const String pathwayRehabCenterFollowUp =
-      'pathwayRehabCenterFollowUp';
+  static const String pathwayRehabCenterFollowUp = 'pathwayRehabCenterFollowUp';
   static const String pathwayRehabCenterDesc = 'pathwayRehabCenterDesc';
   static const String assessmentResultsLoading = 'assessmentResultsLoading';
   static const String assessmentResultsError = 'assessmentResultsError';
@@ -630,15 +629,13 @@ class LocaleKeys {
       'progressNextScheduledAssessment';
   static const String progressAssessmentScheduledDate =
       'progressAssessmentScheduledDate';
-  static const String progressAssessmentFollowup =
-      'progressAssessmentFollowup';
+  static const String progressAssessmentFollowup = 'progressAssessmentFollowup';
   static const String progressAssessmentComparison =
       'progressAssessmentComparison';
   static const String progressInitialAssessment = 'progressInitialAssessment';
   static const String progressCurrentProgress = 'progressCurrentProgress';
   static const String progressOverallScore = 'progressOverallScore';
-  static const String progressOverallImprovement =
-      'progressOverallImprovement';
+  static const String progressOverallImprovement = 'progressOverallImprovement';
   static const String progressProgramPeriod = 'progressProgramPeriod';
   static const String progressPerformanceArea = 'progressPerformanceArea';
   static const String progressBefore = 'progressBefore';
@@ -652,8 +649,7 @@ class LocaleKeys {
   static const String progressNow = 'progressNow';
   static const String progressTrainingConsistency =
       'progressTrainingConsistency';
-  static const String progressConsistencySummary =
-      'progressConsistencySummary';
+  static const String progressConsistencySummary = 'progressConsistencySummary';
   static const String progressKeyMetrics = 'progressKeyMetrics';
   static const String progressSessionGrip = 'progressSessionGrip';
   static const String progressSessionReach = 'progressSessionReach';
@@ -702,4 +698,5 @@ class LocaleKeys {
       'progressMetricImprovementTitle';
   static const String progressMetricImprovementTrend =
       'progressMetricImprovementTrend';
+  static const String assessmentPlayVideo = 'assessmentPlayVideo';
 }

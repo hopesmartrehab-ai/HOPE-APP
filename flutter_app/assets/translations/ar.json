@@ -578,5 +578,6 @@
   "progressMetricConsistencyTitle": "معدل الانتظام",
   "progressMetricConsistencyTrend": "+5% هذا الشهر",
   "progressMetricImprovementTitle": "التحسن الوظيفي",
-  "progressMetricImprovementTrend": "مقارنة بالتقييم الأساسي"
+  "progressMetricImprovementTrend": "مقارنة بالتقييم الأساسي",
+  "assessmentPlayVideo": "تشغيل الفيديو"
 }

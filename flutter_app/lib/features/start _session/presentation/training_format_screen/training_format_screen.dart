@@ -10,7 +10,7 @@ class TrainingFormatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StartSessionFlowScreen(
-      initialPage: 2,
+      initialPage: selectedApproach == TrainingApproach.mobileOnly ? 1 : 2,
       initialApproach: selectedApproach,
     );
   }
