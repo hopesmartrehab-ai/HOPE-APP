@@ -580,4 +580,126 @@ class LocaleKeys {
   static const String featurePrivateTitle = 'featurePrivateTitle';
   static const String featurePrivateSub = 'featurePrivateSub';
   static const String startAssessmentButton = 'startAssessmentButton';
+
+  static const String progressYourProgress = 'progressYourProgress';
+  static const String progressProgress = 'progressProgress';
+  static const String progressOverall = 'progressOverall';
+  static const String progressDayStreak = 'progressDayStreak';
+  static const String progressSessions = 'progressSessions';
+  static const String progressImprovement = 'progressImprovement';
+  static const String progressWeeklyActivity = 'progressWeeklyActivity';
+  static const String progressFunctionalProgress = 'progressFunctionalProgress';
+  static const String progressHistoryInsights = 'progressHistoryInsights';
+  static const String progressSessionHistory = 'progressSessionHistory';
+  static const String progressAssessmentHistory = 'progressAssessmentHistory';
+  static const String progressAllAssessmentsCompleted =
+      'progressAllAssessmentsCompleted';
+  static const String progressDetailedProgress = 'progressDetailedProgress';
+  static const String progressSessionsCompleted = 'progressSessionsCompleted';
+  static const String progressTrendsAnalytics = 'progressTrendsAnalytics';
+  static const String progressHoursTotal = 'progressHoursTotal';
+  static const String progressMonday = 'progressMonday';
+  static const String progressTuesday = 'progressTuesday';
+  static const String progressWednesday = 'progressWednesday';
+  static const String progressThursday = 'progressThursday';
+  static const String progressFriday = 'progressFriday';
+  static const String progressSaturday = 'progressSaturday';
+  static const String progressSunday = 'progressSunday';
+  static const String progressMobility = 'progressMobility';
+  static const String progressStrength = 'progressStrength';
+  static const String progressBalance = 'progressBalance';
+  static const String progressPainReduction = 'progressPainReduction';
+  static const String progressCompleted = 'progressCompleted';
+  static const String progressPartial = 'progressPartial';
+  static const String progressToday = 'progressToday';
+  static const String progressBackToHistory = 'progressBackToHistory';
+  static const String progressDuration = 'progressDuration';
+  static const String progressPerformance = 'progressPerformance';
+  static const String progressExerciseDetails = 'progressExerciseDetails';
+  static const String progressGood = 'progressGood';
+  static const String progressExcellent = 'progressExcellent';
+  static const String progressTherapistNote = 'progressTherapistNote';
+  static const String progressLatest = 'progressLatest';
+  static const String progressMinutes = 'progressMinutes';
+  static const String progressScore = 'progressScore';
+  static const String progressPotential = 'progressPotential';
+  static const String progressPath = 'progressPath';
+  static const String progressViewFullReport = 'progressViewFullReport';
+  static const String progressCompareAssessments = 'progressCompareAssessments';
+  static const String progressNextScheduledAssessment =
+      'progressNextScheduledAssessment';
+  static const String progressAssessmentScheduledDate =
+      'progressAssessmentScheduledDate';
+  static const String progressAssessmentFollowup =
+      'progressAssessmentFollowup';
+  static const String progressAssessmentComparison =
+      'progressAssessmentComparison';
+  static const String progressInitialAssessment = 'progressInitialAssessment';
+  static const String progressCurrentProgress = 'progressCurrentProgress';
+  static const String progressOverallScore = 'progressOverallScore';
+  static const String progressOverallImprovement =
+      'progressOverallImprovement';
+  static const String progressProgramPeriod = 'progressProgramPeriod';
+  static const String progressPerformanceArea = 'progressPerformanceArea';
+  static const String progressBefore = 'progressBefore';
+  static const String progressAfter = 'progressAfter';
+  static const String progressEncouragement = 'progressEncouragement';
+  static const String progressWeek = 'progressWeek';
+  static const String progressMonth = 'progressMonth';
+  static const String progressAllTime = 'progressAllTime';
+  static const String progressRecoveryScore = 'progressRecoveryScore';
+  static const String progressStart = 'progressStart';
+  static const String progressNow = 'progressNow';
+  static const String progressTrainingConsistency =
+      'progressTrainingConsistency';
+  static const String progressConsistencySummary =
+      'progressConsistencySummary';
+  static const String progressKeyMetrics = 'progressKeyMetrics';
+  static const String progressSessionGrip = 'progressSessionGrip';
+  static const String progressSessionReach = 'progressSessionReach';
+  static const String progressSessionFineMotor = 'progressSessionFineMotor';
+  static const String progressSessionGripStrength =
+      'progressSessionGripStrength';
+  static const String progressSessionCoordination =
+      'progressSessionCoordination';
+  static const String progressSessionWrist = 'progressSessionWrist';
+  static const String progressThreeExercises18 = 'progressThreeExercises18';
+  static const String progressFourExercises22 = 'progressFourExercises22';
+  static const String progressThreeExercises16 = 'progressThreeExercises16';
+  static const String progressThreeExercises20 = 'progressThreeExercises20';
+  static const String progressFourExercises25 = 'progressFourExercises25';
+  static const String progressAssessmentInitial = 'progressAssessmentInitial';
+  static const String progressLocationHopePlanet = 'progressLocationHopePlanet';
+  static const String progressPathOnline = 'progressPathOnline';
+  static const String progressAreaReachGrasp = 'progressAreaReachGrasp';
+  static const String progressAreaGripStrength = 'progressAreaGripStrength';
+  static const String progressAreaCoordination = 'progressAreaCoordination';
+  static const String progressAreaManipulation = 'progressAreaManipulation';
+  static const String progressAreaReleaseControl = 'progressAreaReleaseControl';
+  static const String progressExerciseWristRotation =
+      'progressExerciseWristRotation';
+  static const String progressExercisePowerGrip = 'progressExercisePowerGrip';
+  static const String progressExercisePinchRelease =
+      'progressExercisePinchRelease';
+  static const String progressDeviceMobile = 'progressDeviceMobile';
+  static const String progressDeviceSmartGlove = 'progressDeviceSmartGlove';
+  static const String progressDeviceVideo = 'progressDeviceVideo';
+  static const String progressTherapistNoteContent =
+      'progressTherapistNoteContent';
+  static const String progressMetricSessionsTitle =
+      'progressMetricSessionsTitle';
+  static const String progressMetricSessionsTrend =
+      'progressMetricSessionsTrend';
+  static const String progressMetricDurationTitle =
+      'progressMetricDurationTitle';
+  static const String progressMetricDurationTrend =
+      'progressMetricDurationTrend';
+  static const String progressMetricConsistencyTitle =
+      'progressMetricConsistencyTitle';
+  static const String progressMetricConsistencyTrend =
+      'progressMetricConsistencyTrend';
+  static const String progressMetricImprovementTitle =
+      'progressMetricImprovementTitle';
+  static const String progressMetricImprovementTrend =
+      'progressMetricImprovementTrend';
 }
