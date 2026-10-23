@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/locale_keys.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
-class PracticeLevelPage extends StatelessWidget {
-  const PracticeLevelPage({
+class TrainingLevelPage extends StatelessWidget {
+  const TrainingLevelPage({
     required this.level,
     required this.onComplete,
     super.key,
@@ -23,10 +23,7 @@ class PracticeLevelPage extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFDCE8F2),
-              Color(0xFFF2F6F9),
-            ],
+            colors: [Color(0xFFDCE8F2), Color(0xFFF2F6F9)],
           ),
         ),
         child: SafeArea(
@@ -80,7 +77,7 @@ class PracticeLevelPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF152A3D).withOpacity(0.15),
+                        color: const Color(0xFF152A3D).withValues(alpha: 0.15),
                         blurRadius: 24,
                         offset: const Offset(0, 12),
                       ),
@@ -93,7 +90,7 @@ class PracticeLevelPage extends StatelessWidget {
                         width: 56,
                         height: 56,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -114,7 +111,7 @@ class PracticeLevelPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withValues(alpha: 0.04),
                         blurRadius: 24,
                         offset: const Offset(0, 8),
                       ),
@@ -191,7 +188,9 @@ class PracticeLevelPage extends StatelessWidget {
                             elevation: 0,
                           ),
                           child: Text(
-                            LocaleKeys.completeLevel.tr(args: [level.toString()]),
+                            LocaleKeys.completeLevel.tr(
+                              args: [level.toString()],
+                            ),
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,

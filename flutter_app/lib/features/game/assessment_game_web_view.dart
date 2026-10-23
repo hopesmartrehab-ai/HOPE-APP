@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hope_app/features/assessment_result/presentation/assessment_report_screen.dart';
+import 'package:hope_app/features/training/presentation/screens/training_results_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 class AssessmentGameWebView extends StatefulWidget {
-  const AssessmentGameWebView({super.key});
+  const AssessmentGameWebView({this.isAssessmentMode = true, super.key});
+
+  final bool isAssessmentMode;
 
   @override
   State<AssessmentGameWebView> createState() => _AssessmentGameWebViewState();
@@ -166,9 +169,13 @@ class _AssessmentGameWebViewState extends State<AssessmentGameWebView> {
     await Future.delayed(const Duration(milliseconds: 800));
     if (!mounted) return;
 
+    final destination = widget.isAssessmentMode
+        ? const AssessmentReportPage()
+        : const TrainingResultsScreen.game();
+
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const AssessmentReportPage()),
+      MaterialPageRoute<void>(builder: (_) => destination),
     );
   }
 

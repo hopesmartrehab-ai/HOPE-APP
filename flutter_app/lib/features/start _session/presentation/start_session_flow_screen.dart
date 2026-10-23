@@ -7,6 +7,7 @@ import 'package:hope_app/features/start%20_session/presentation/shared_widgets/s
 import 'package:hope_app/features/start%20_session/presentation/start_session_types.dart';
 import 'package:hope_app/features/start%20_session/presentation/training_format_screen/training_format_view.dart';
 import 'package:hope_app/features/start%20_session/presentation/training_setup/training_setup_view.dart';
+import 'package:hope_app/features/training/presentation/screens/training_flow_screen.dart';
 
 class StartSessionFlowScreen extends StatefulWidget {
   const StartSessionFlowScreen({
@@ -111,7 +112,9 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
     if (widget.isAssessmentMode && selectedFormat != null) {
       if (selectedFormat == TrainingFormatType.game) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const AssessmentGameWebView()),
+          MaterialPageRoute<void>(
+            builder: (_) => const AssessmentGameWebView(isAssessmentMode: true),
+          ),
         );
       } else {
         Navigator.of(context).pushReplacement(
@@ -120,6 +123,22 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
           ),
         );
       }
+      return;
+    }
+
+    if (selectedFormat == TrainingFormatType.video) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(builder: (_) => const TrainingFlowScreen()),
+      );
+      return;
+    }
+
+    if (selectedFormat == TrainingFormatType.game) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(
+          builder: (_) => const AssessmentGameWebView(isAssessmentMode: false),
+        ),
+      );
     }
   }
 

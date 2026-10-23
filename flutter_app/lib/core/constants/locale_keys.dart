@@ -482,6 +482,17 @@ class LocaleKeys {
   static const String preparingInsightsDesc = 'preparingInsightsDesc';
   static const String analyzingProgressHeader = 'analyzingProgressHeader';
   static const String comparingWithBenchmarks = 'comparingWithBenchmarks';
+  static const String trainingResultsTitle = 'trainingResultsTitle';
+  static const String trainingResultsSubtitle = 'trainingResultsSubtitle';
+  static const String trainingCompletionGrade = 'trainingCompletionGrade';
+  static const String trainingLevelsCompleted = 'trainingLevelsCompleted';
+  static const String trainingCompletedActivities =
+      'trainingCompletedActivities';
+  static const String trainingCompleted = 'trainingCompleted';
+  static const String trainingFinish = 'trainingFinish';
+  static const String trainingGameCompletedTitle = 'trainingGameCompletedTitle';
+  static const String trainingGameCompletedSubtitle =
+      'trainingGameCompletedSubtitle';
 
   // ── Assessment Results Flow ──────────────────────────────────
   static const String assessmentReportHeader = 'assessmentReportHeader';

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/constants/locale_keys.dart';
+import 'package:hope_app/core/constants/locale_keys.dart';
 
 class AllLevelsCompletePage extends StatelessWidget {
   const AllLevelsCompletePage({required this.onContinue, super.key});
@@ -36,7 +36,9 @@ class AllLevelsCompletePage extends StatelessWidget {
                         color: const Color(0xFF59C583),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF59C583).withOpacity(0.3),
+                            color: const Color(
+                              0xFF59C583,
+                            ).withValues(alpha: 0.3),
                             blurRadius: 24,
                             offset: const Offset(0, 8),
                           ),
