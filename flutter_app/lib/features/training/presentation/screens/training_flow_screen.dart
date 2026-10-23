@@ -49,7 +49,14 @@ class _TrainingFlowScreenState extends State<TrainingFlowScreen> {
 
     if (_isComplete) {
       return AllLevelsCompletePage(
-        onContinue: () => setState(() => _showResults = true),
+        onContinue: () {
+          final onComplete = widget.onComplete;
+          if (onComplete != null) {
+            onComplete();
+          } else {
+            setState(() => _showResults = true);
+          }
+        },
       );
     }
 

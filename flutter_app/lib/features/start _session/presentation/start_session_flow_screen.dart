@@ -179,7 +179,7 @@ class _StartSessionFlowScreenState extends State<StartSessionFlowScreen> {
       TrainingFormatView(
         selectedApproach: selectedApproach ?? TrainingApproach.mobileOnly,
         selectedFormat: selectedFormat,
-        showPlayGame: true,
+        showPlayGame: selectedApproach != TrainingApproach.smartGlove,
         onFormatSelected: (value) {
           setState(() {
             selectedFormat = value;

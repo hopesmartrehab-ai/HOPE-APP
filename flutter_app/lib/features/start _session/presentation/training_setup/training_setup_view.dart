@@ -27,18 +27,12 @@ class TrainingSetupView extends StatelessWidget {
             const TrainingSetupHeader(),
             const SizedBox(height: 24),
 
-            Opacity(
-              opacity: 0.5,
-              child: IgnorePointer(
-                ignoring: true,
-                child: SelectionCard(
-                  title: LocaleKeys.useSmartGlove.tr(),
-                  description: LocaleKeys.useSmartGloveDesc.tr(),
-                  iconEmoji: '🧤',
-                  isSelected: false,
-                  onTap: () {},
-                ),
-              ),
+            SelectionCard(
+              title: LocaleKeys.useSmartGlove.tr(),
+              description: LocaleKeys.useSmartGloveDesc.tr(),
+              iconEmoji: '🧤',
+              isSelected: selectedApproach == TrainingApproach.smartGlove,
+              onTap: () => onApproachSelected(TrainingApproach.smartGlove),
             ),
             const SizedBox(height: 16),
 
